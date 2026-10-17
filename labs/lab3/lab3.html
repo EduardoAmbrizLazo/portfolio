@@ -131,16 +131,52 @@ window.Quarto = {
 </i> 
 <span class="menu-text">Home</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../Posts/post1.html"> <i class="bi bi-journal-text" role="img">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-projects" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-briefcase" role="img">
 </i> 
-<span class="menu-text">Posts</span></a>
+ <span class="menu-text">Projects</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-projects">    
+        <li>
+    <a class="dropdown-item" href="../../Projects/auv.html">
+ <span class="dropdown-text">AUV Project</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../about.html"> <i class="bi bi-person" role="img">
+        <li>
+    <a class="dropdown-item" href="../../Projects/hammer.html">
+ <span class="dropdown-text">Hammer Project</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Projects/multicycleprocessor.html">
+ <span class="dropdown-text">Multicycle Processor</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Projects/tortillamach.html">
+ <span class="dropdown-text">Tortilla Machine</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-art" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-brush" role="img">
 </i> 
-<span class="menu-text">About</span></a>
+ <span class="menu-text">Art</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-art">    
+        <li>
+    <a class="dropdown-item" href="../../Art/sketches.html">
+ <span class="dropdown-text">Sketches</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../../Art/digitalart.html">
+ <span class="dropdown-text">Digital Art</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Art/3Dmodeling.html">
+ <span class="dropdown-text">3D Modeling</span></a>
+  </li>  
+    </ul>
+  </li>
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-labs" role="link" data-bs-toggle="dropdown" aria-expanded="false">
       <i class="bi bi-rocket-takeoff" role="img">
@@ -149,24 +185,28 @@ window.Quarto = {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-labs">    
         <li>
-    <a class="dropdown-item" href="../../labs/lab1/index.html">
+    <a class="dropdown-item" href="../../Labs/lab1/index.html">
  <span class="dropdown-text">FPGA and MCU Setup and Testing</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../labs/lab2/lab2.html">
+    <a class="dropdown-item" href="../../Labs/lab2/lab2.html">
  <span class="dropdown-text">Multiplexed Seven Segment Display</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../labs/lab3/lab3.html">
+    <a class="dropdown-item" href="../../Labs/lab3/lab3.html">
  <span class="dropdown-text">Keypad Scanner</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../labs/lab4/lab4.html">
+    <a class="dropdown-item" href="../../Labs/lab4/lab4.html">
  <span class="dropdown-text">Digital Audio</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../labs/lab5/lab5.html">
+    <a class="dropdown-item" href="../../Labs/lab5/lab5.html">
  <span class="dropdown-text">Interrupts</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Labs/lab6/index.html">
+ <span class="dropdown-text">IoT, Web Server, and SPI</span></a>
   </li>  
     </ul>
   </li>
@@ -515,7 +555,7 @@ endmodule</code></pre>
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/EduardoAmbrizLazo\.github\.io\/e155-website\/");
+        var filterRegex = new RegExp("https:\/\/EduardoAmbrizLazo\.github\.io\/portfolio\/");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
