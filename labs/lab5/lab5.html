@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.37">
+<meta name="generator" content="quarto-1.10.19">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -14,10 +14,13 @@
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
 */
-code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -42,17 +45,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-d0ae9245876894da5ac7e18953ecc5cc.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-e11e00719057c7794e3e5cb159c51506.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-e11e00719057c7794e3e5cb159c51506.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-e11e00719057c7794e3e5cb159c51506.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
-<script src="../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
-<link href="../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
-<link href="../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-e2e65ff9fa0c80472c97194b2415a86f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -82,7 +78,6 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="../../styles.css">
 </head>
 
 <body class="nav-fixed quarto-light">
@@ -103,19 +98,24 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../index.html"> 
+    <a class="nav-link" href="../../index.html"> <i class="bi bi-house-door" role="img">
+</i> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../Posts/post1.html"> 
+    <a class="nav-link" href="../../Posts/post1.html"> <i class="bi bi-journal-text" role="img">
+</i> 
 <span class="menu-text">Posts</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../about.html"> 
-<span class="menu-text">Projects</span></a>
+    <a class="nav-link" href="../../about.html"> <i class="bi bi-person" role="img">
+</i> 
+<span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-labs" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-rocket-takeoff" role="img">
+</i> 
  <span class="menu-text">Labs</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-labs">    
@@ -124,23 +124,35 @@ ul.task-list li input[type="checkbox"] {
  <span class="dropdown-text">FPGA and MCU Setup and Testing</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../labs/lab2/index.html">
+    <a class="dropdown-item" href="../../labs/lab2/lab2.html">
  <span class="dropdown-text">Multiplexed Seven Segment Display</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../labs/lab3/index.html">
+    <a class="dropdown-item" href="../../labs/lab3/lab3.html">
  <span class="dropdown-text">Keypad Scanner</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../labs/lab4/index.html">
+    <a class="dropdown-item" href="../../labs/lab4/lab4.html">
  <span class="dropdown-text">Digital Audio</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../labs/lab5/index.html">
+    <a class="dropdown-item" href="../../labs/lab5/lab5.html">
  <span class="dropdown-text">Interrupts</span></a>
   </li>  
     </ul>
   </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://www.linkedin.com/in/eduardo-ambriz-lazo-207b2129b/"> <i class="bi bi-linkedin" role="img">
+</i> 
+<span class="menu-text">LinkedIn</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://github.com/EduardoAmbrizLazo"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text">GitHub</span></a>
+  </li>  
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -160,15 +172,6 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
   <li><a href="#design-and-testing-methodology" id="toc-design-and-testing-methodology" class="nav-link" data-scroll-target="#design-and-testing-methodology">Design and Testing Methodology</a></li>
   <li><a href="#example-calculations-and-code" id="toc-example-calculations-and-code" class="nav-link" data-scroll-target="#example-calculations-and-code">Example Calculations and Code</a></li>
-  <li><a href="#technical-documentation" id="toc-technical-documentation" class="nav-link" data-scroll-target="#technical-documentation">Technical Documentation:</a>
-  <ul class="collapse">
-  <li><a href="#schematic" id="toc-schematic" class="nav-link" data-scroll-target="#schematic">Schematic</a></li>
-  <li><a href="#flowchart" id="toc-flowchart" class="nav-link" data-scroll-target="#flowchart">Flowchart</a></li>
-  </ul></li>
-  <li><a href="#results-and-discussion" id="toc-results-and-discussion" class="nav-link" data-scroll-target="#results-and-discussion">Results and Discussion</a></li>
-  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
-  <li><a href="#ai-prototype-summary" id="toc-ai-prototype-summary" class="nav-link" data-scroll-target="#ai-prototype-summary">AI Prototype Summary</a></li>
-  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
   </ul>
 </nav>
     </div>
@@ -248,24 +251,13 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<pre><code>int main(void) {</code></pre>
-<p>setupGPIO(); setupTimer(); setupIQR();</p>
+<p>```c int main(void) { setupGPIO(); setupTimer(); setupIQR();</p>
 <p>CW = 0;</p>
 <p>volatile int prev = (digitalRead(ENCODER_PIN_A) ^ digitalRead(ENCODER_PIN_B)); //Gets initial readings</p>
 <p>while(1){ RPS = count / (cntsperrev*(SAMPL+1) / 1000); //Formula for RPS</p>
-<pre><code>if (abs(RPS) &gt; LOCK_THRES) {
-  islocked = 1;
-} else {
-  islocked = 0;
-}
-
-if(print){
-  printf("%f RPS\n", RPS); //printf for debug terminal
-  count = 0; //Reset the one second
-  print = 0; 
-        }  
-    }
-}</code></pre>
+<p>if (abs(RPS) &gt; LOCK_THRES) { islocked = 1; } else { islocked = 0; }</p>
+<p>if(print){ printf(“%f RPS”, RPS); //printf for debug terminal count = 0; //Reset the one second print = 0; }<br>
+} }</p>
 </div>
 </div>
 </div>
@@ -282,88 +274,22 @@ if(print){
 </div>
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<pre><code>//Eduardo Ambriz Lazo
-//10/7/2026
-#ifndef LAB5_H
-#define LAB5_H
-
-
-#include "STM32L432KC_GPIO.h"
-#include "STM32L432KC_RCC.h"
-#include "STM32L432KC_TIM.h"
-#include "STM32L432KC_FLASH.h"
-#include "STM32L432KC_USART.h"
-#include "STM32L432KC_SPI.h"
-
-#define ENCODER_PIN_A PA1
-#define ENCODER_PIN_B PA2 
-#define TIM TIM2 //TIM2 interrupt specified
-#define SAMPL 499 //For the calc, we add 1 to this to get 500 ms
-#define LOCK_THRES 0.5 //When to lock
-
-
-void setupTimer(void);
-void setupGPIO(void);
-void setupIQR(void);
-int _write(int file, char *ptr, int len);
-
-#endif</code></pre>
+<p>C //Eduardo Ambriz Lazo //10/7/2026 #ifndef LAB5_H #define LAB5_H</p>
+<p>#include “STM32L432KC_GPIO.h” #include “STM32L432KC_RCC.h” #include “STM32L432KC_TIM.h” #include “STM32L432KC_FLASH.h” #include “STM32L432KC_USART.h” #include “STM32L432KC_SPI.h”</p>
+<p>#define ENCODER_PIN_A PA1 #define ENCODER_PIN_B PA2 #define TIM TIM2 //TIM2 interrupt specified #define SAMPL 499 //For the calc, we add 1 to this to get 500 ms #define LOCK_THRES 0.5 //When to lock</p>
+<p>void setupTimer(void); void setupGPIO(void); void setupIQR(void); int _write(int file, char *ptr, int len);</p>
+<p>#endif</p>
 </div>
 </div>
 </div>
-</section>
-<section id="technical-documentation" class="level2">
-<h2 class="anchored" data-anchor-id="technical-documentation">Technical Documentation:</h2>
-<p>The source code for the project can be found in the associated <a href="https://github.com/EduardoAmbrizLazo/e155-labs/tree/main/fpga/lab2_ea/lab2_ea/source/impl_1">Github repository</a>.</p>
-<section id="schematic" class="level3">
-<h3 class="anchored" data-anchor-id="schematic">Schematic</h3>
-<div id="fig-schematic" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-schematic-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="images/lab5-schematic (2).png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;1: Figure: Schematic of the physical circuit including motor, appropiate pins, and voltage connections."><img src="images/lab5-schematic (2).png" class="img-fluid figure-img"></a>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-schematic-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Figure: Schematic of the physical circuit including motor, appropiate pins, and voltage connections.
-</figcaption>
-</figure>
-</div>
-<p><a href="#fig-schematic" class="quarto-xref">Figure&nbsp;1</a> shows the electrical layout of the design. Note the need for 2 encoder signals which obey the concept of quadrature encoders. Additionally, we must ensure common ground and appropriate V_DD for the motor depending on it’s PPR.</p>
-</section>
-<section id="flowchart" class="level3">
-<h3 class="anchored" data-anchor-id="flowchart">Flowchart</h3>
-<div id="fig-flowchart" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-flowchart-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="images/lab5-flow-chart.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;2: Figure: Flowchart of the Interrupt Process Logic including the different IRQ_Handlers and the Status."><img src="images/lab5-flow-chart.png" class="img-fluid figure-img"></a>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-flowchart-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2: Figure: Flowchart of the Interrupt Process Logic including the different IRQ_Handlers and the Status.
-</figcaption>
-</figure>
-</div>
-<p><a href="#fig-flowchart" class="quarto-xref">Figure&nbsp;2</a> shows the the main loop and each interrupt handler, and how they communicate.</p>
-</section>
-</section>
-<section id="results-and-discussion" class="level2">
-<h2 class="anchored" data-anchor-id="results-and-discussion">Results and Discussion</h2>
-<p>The overall design and construction was successful as confirmed via teh Debug Terminal and the successful upload of the solution to the MCU. I was able to accomplish all tasks outlined in the beginning of this lab report and even handle direction of the motor.</p>
-</section>
-<section id="conclusion" class="level2">
-<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
-<p>The design successfully programmed the speaker to play two tunes. I learned a lot about communicating with the MCU using a reference manual and datasheet and manipulating the values of registers to essentially get a MAX COUNT.</p>
-</section>
-<section id="ai-prototype-summary" class="level2">
-<h2 class="anchored" data-anchor-id="ai-prototype-summary">AI Prototype Summary</h2>
-<div id="fig-aisynthesis" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-aisynthesis-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="images/ai_mcu_lab5.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Figure&nbsp;3: Initial Resonse with Redirection"><img src="images/ai_mcu_lab5.png" class="img-fluid figure-img"></a>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-aisynthesis-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3: Initial Resonse with Redirection
-</figcaption>
-</figure>
-</div>
+<p>Technical Documentation: The source code for the project can be found in the associated Github repository.</p>
+<p>Schematic <img src="images/lab5-schematic (2).png" id="fig-schematic" class="img-fluid" alt="Figure: Schematic of the physical circuit including motor, appropiate pins, and voltage connections."></p>
+<p><strong>?@fig-schematic</strong> shows the electrical layout of the design. Note the need for 2 encoder signals which obey the concept of quadrature encoders. Additionally, we must ensure common ground and appropriate V_DD for the motor depending on it’s PPR.</p>
+<p>Flowchart {#fig-flowchart}</p>
+<p><strong>?@fig-flowchart</strong> shows the the main loop and each interrupt handler, and how they communicate.</p>
+<p>Results and Discussion The overall design and construction was successful as confirmed via teh Debug Terminal and the successful upload of the solution to the MCU. I was able to accomplish all tasks outlined in the beginning of this lab report and even handle direction of the motor.</p>
+<p>Conclusion The design successfully programmed the speaker to play two tunes. I learned a lot about communicating with the MCU using a reference manual and datasheet and manipulating the values of registers to essentially get a MAX COUNT.</p>
+<p>AI Prototype Summary {#fig-aisynthesis}</p>
 <div class="callout callout-style-default callout-note callout-titled" title="Initial Prompt">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -376,53 +302,21 @@ Figure&nbsp;3: Initial Resonse with Redirection
 </div>
 <div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<pre><code>TIM_HandleTypeDef htim2;
-
-void MX_TIM2_Init(void)
-{
-    TIM_Encoder_InitTypeDef sConfig = {0};
-    TIM_MasterConfigTypeDef sMasterConfig = {0};
-
-htim2.Instance = TIM2;
-htim2.Init.Prescaler = 0;
-htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
-htim2.Init.Period = 65535; // 16-bit or 32-bit (TIM2 is 32-bit on STM32L4)
-htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
-htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
-
-// Encoder mode configuration: counts on both TI1 and TI2 edges (X4 decoding)
-sConfig.EncoderMode = TIM_ENCODERMODE_TI12;
-sConfig.IC1Polarity = TIM_ICPOLARITY_RISING;
-sConfig.IC1Selection = TIM_ICSELECTION_DIRECT_TI;
-sConfig.IC1Prescaler = TIM_ICPSC_DIV1;
-sConfig.IC1Filter = 10; // Glitch filter (0-15)
-
-sConfig.IC2Polarity = TIM_ICPOLARITY_RISING;
-sConfig.IC2Selection = TIM_ICSELECTION_DIRECT_TI;
-sConfig.IC2Prescaler = TIM_ICPSC_DIV1;
-sConfig.IC2Filter = 10;
-
-if (HAL_TIM_Encoder_Init(&amp;htim2, &amp;sConfig) != HAL_OK)
-{
-    // Initialization Error
-    Error_Handler();
-}
-}
-// Start the hardware encoder counter
-HAL_TIM_Encoder_Start(&amp;htim2, TIM_CHANNEL_ALL);
-
-// Read position (Counter value updates automatically in hardware)
-uint32_t encoder_count = __HAL_TIM_GET_COUNTER(&amp;htim2);
-
-// Check rotation direction (0 = Counting Up / Forward, 1 = Counting Down / Reverse)
-uint8_t direction = __HAL_TIM_IS_TIM_COUNTING_DOWN(&amp;htim2);</code></pre>
+<p>C TIM_HandleTypeDef htim2;</p>
+<p>void MX_TIM2_Init(void) { TIM_Encoder_InitTypeDef sConfig = {0}; TIM_MasterConfigTypeDef sMasterConfig = {0};</p>
+<p>htim2.Instance = TIM2; htim2.Init.Prescaler = 0; htim2.Init.CounterMode = TIM_COUNTERMODE_UP; htim2.Init.Period = 65535; // 16-bit or 32-bit (TIM2 is 32-bit on STM32L4) htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1; htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;</p>
+<p>// Encoder mode configuration: counts on both TI1 and TI2 edges (X4 decoding) sConfig.EncoderMode = TIM_ENCODERMODE_TI12; sConfig.IC1Polarity = TIM_ICPOLARITY_RISING; sConfig.IC1Selection = TIM_ICSELECTION_DIRECT_TI; sConfig.IC1Prescaler = TIM_ICPSC_DIV1; sConfig.IC1Filter = 10; // Glitch filter (0-15)</p>
+<p>sConfig.IC2Polarity = TIM_ICPOLARITY_RISING; sConfig.IC2Selection = TIM_ICSELECTION_DIRECT_TI; sConfig.IC2Prescaler = TIM_ICPSC_DIV1; sConfig.IC2Filter = 10;</p>
+<p>if (HAL_TIM_Encoder_Init(&amp;htim2, &amp;sConfig) != HAL_OK) { // Initialization Error Error_Handler(); } } // Start the hardware encoder counter HAL_TIM_Encoder_Start(&amp;htim2, TIM_CHANNEL_ALL);</p>
+<p>// Read position (Counter value updates automatically in hardware) uint32_t encoder_count = __HAL_TIM_GET_COUNTER(&amp;htim2);</p>
+<p>// Check rotation direction (0 = Counting Up / Forward, 1 = Counting Down / Reverse) uint8_t direction = __HAL_TIM_IS_TIM_COUNTING_DOWN(&amp;htim2);</p>
 </div>
 </div>
 </div>
 <p>For clarity, the prompt was as follows:</p>
-<p><em>Write me interrupt handlers to interface with a quadrature encoder. I’m using the STM32L432KC, what pins should I connect the encoder to in order to allow it to easily trigger the interrupts?</em></p>
+<p>Write me interrupt handlers to interface with a quadrature encoder. I’m using the STM32L432KC, what pins should I connect the encoder to in order to allow it to easily trigger the interrupts?</p>
 <p>I decided to prompt Gemini via the Harvey Mudd license (as to not train the AI) and I was presented with the “Initial Prompt” block seen above. A step in this case would be defined sort of by polling and it checks direction by checking the timer and manipulating the way it operates. This isn pretty flawed for reasons we’ve already said but I can see the justification for pin management and simplicity by simply having the encoder, position and direction.</p>
-<p><a href="#fig-aisynthesis" class="quarto-xref">Figure&nbsp;3</a> shows a screenshot of the inital prompting though there was also redirection and an insistence to use interrupts to which the AI responded.</p>
+<p><strong>?@fig-aisynthesis</strong> shows a screenshot of the inital prompting though there was also redirection and an insistence to use interrupts to which the AI responded.</p>
 <div class="callout callout-style-default callout-note callout-titled" title="Reprompting">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -435,36 +329,16 @@ uint8_t direction = __HAL_TIM_IS_TIM_COUNTING_DOWN(&amp;htim2);</code></pre>
 </div>
 <div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<pre><code>void MX_GPIO_Init(void)
-{
-GPIO_InitTypeDef GPIO_InitStruct = {0};
-
-__HAL_RCC_GPIOA_CLK_ENABLE();
-
-// Configure PA0 (Channel A) as EXTI Interrupt on Rising &amp; Falling Edges
-GPIO_InitStruct.Pin = GPIO_PIN_0;
-GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING_FALLING;
-GPIO_InitStruct.Pull = GPIO_PULLUP; // Set to PULLUP if open-drain encoder
-HAL_GPIO_Init(GPIOA, &amp;GPIO_InitStruct);
-
-// Configure PA1 (Channel B) as regular Input
-GPIO_InitStruct.Pin = GPIO_PIN_1;
-GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-GPIO_InitStruct.Pull = GPIO_PULLUP;
-HAL_GPIO_Init(GPIOA, &amp;GPIO_InitStruct);
-
-// Enable NVIC Interrupt line for EXTI Line 0 (PA0)
-HAL_NVIC_SetPriority(EXTI0_IRQn, 2, 0);
-HAL_NVIC_EnableIRQ(EXTI0_IRQn);
-}</code></pre>
+<p>C void MX_GPIO_Init(void) { GPIO_InitTypeDef GPIO_InitStruct = {0};</p>
+<p>__HAL_RCC_GPIOA_CLK_ENABLE();</p>
+<p>// Configure PA0 (Channel A) as EXTI Interrupt on Rising &amp; Falling Edges GPIO_InitStruct.Pin = GPIO_PIN_0; GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING_FALLING; GPIO_InitStruct.Pull = GPIO_PULLUP; // Set to PULLUP if open-drain encoder HAL_GPIO_Init(GPIOA, &amp;GPIO_InitStruct);</p>
+<p>// Configure PA1 (Channel B) as regular Input GPIO_InitStruct.Pin = GPIO_PIN_1; GPIO_InitStruct.Mode = GPIO_MODE_INPUT; GPIO_InitStruct.Pull = GPIO_PULLUP; HAL_GPIO_Init(GPIOA, &amp;GPIO_InitStruct);</p>
+<p>// Enable NVIC Interrupt line for EXTI Line 0 (PA0) HAL_NVIC_SetPriority(EXTI0_IRQn, 2, 0); HAL_NVIC_EnableIRQ(EXTI0_IRQn); }</p>
 </div>
 </div>
 </div>
 <p>This is far more familiar but when running it’s clear it’s missing a lot of foundation. It doesn’t run and the use of NVIC is on the right track along with the IRQ Handlers, but there ARE flaws.</p>
-</section>
-<section id="resources" class="level2">
-<h2 class="anchored" data-anchor-id="resources">Resources</h2>
-<p>The source code for the project can be found in the associated <a href="https://github.com/EduardoAmbrizLazo/e155-labs/tree/main/fpga/lab2_ea/lab2_ea/source/impl_1">Github repository</a>.</p>
+<p>Resources The source code for the project can be found in the associated Github repository.</p>
 
 
 </section>
@@ -871,38 +745,6 @@ HAL_NVIC_EnableIRQ(EXTI0_IRQn);
   });
   </script>
 </div> <!-- /content -->
-<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
-(function() {
-  let previousOnload = window.onload;
-  window.onload = () => {
-    if (previousOnload) {
-      previousOnload();
-    }
-    lightboxQuarto.on('slide_before_load', (data) => {
-      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-      const href = trigger.getAttribute('href');
-      if (href !== null) {
-        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
-        if (imgEl !== null) {
-          const srcAttr = imgEl.getAttribute("src");
-          if (srcAttr && srcAttr.startsWith("data:")) {
-            slideConfig.href = srcAttr;
-          }
-        }
-      } 
-    });
-  
-    lightboxQuarto.on('slide_after_load', (data) => {
-      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(slideNode);
-      }
-    });
-  
-  };
-  
-})();
-          </script>
 
 
 

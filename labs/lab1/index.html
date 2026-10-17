@@ -2,22 +2,25 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.37">
+<meta name="generator" content="quarto-1.10.19">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Eduardo Ambriz Lazo">
 <meta name="dcterms.date" content="2026-09-09">
 
-<title>FPGA and MCU Setup and Testing – My Portfolio</title>
+<title>Lab 1: FPGA and MCU Setup and Testing – My Portfolio</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
 */
-code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -42,17 +45,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-d0ae9245876894da5ac7e18953ecc5cc.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-e11e00719057c7794e3e5cb159c51506.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-e11e00719057c7794e3e5cb159c51506.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-e11e00719057c7794e3e5cb159c51506.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
-<script src="../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
-<link href="../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
-<link href="../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-e2e65ff9fa0c80472c97194b2415a86f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -82,7 +78,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 const typesetMath = (el) => {
@@ -111,7 +107,6 @@ window.Quarto = {
 };
 </script>
 
-<link rel="stylesheet" href="../../styles.css">
 </head>
 
 <body class="nav-fixed quarto-light">
@@ -132,19 +127,24 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../index.html"> 
+    <a class="nav-link" href="../../index.html"> <i class="bi bi-house-door" role="img">
+</i> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../Posts/post1.html"> 
+    <a class="nav-link" href="../../Posts/post1.html"> <i class="bi bi-journal-text" role="img">
+</i> 
 <span class="menu-text">Posts</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../about.html"> 
-<span class="menu-text">Projects</span></a>
+    <a class="nav-link" href="../../about.html"> <i class="bi bi-person" role="img">
+</i> 
+<span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-labs" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-rocket-takeoff" role="img">
+</i> 
  <span class="menu-text">Labs</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-labs">    
@@ -153,23 +153,35 @@ window.Quarto = {
  <span class="dropdown-text">FPGA and MCU Setup and Testing</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../labs/lab2/index.html">
+    <a class="dropdown-item" href="../../labs/lab2/lab2.html">
  <span class="dropdown-text">Multiplexed Seven Segment Display</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../labs/lab3/index.html">
+    <a class="dropdown-item" href="../../labs/lab3/lab3.html">
  <span class="dropdown-text">Keypad Scanner</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../labs/lab4/index.html">
+    <a class="dropdown-item" href="../../labs/lab4/lab4.html">
  <span class="dropdown-text">Digital Audio</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../labs/lab5/index.html">
+    <a class="dropdown-item" href="../../labs/lab5/lab5.html">
  <span class="dropdown-text">Interrupts</span></a>
   </li>  
     </ul>
   </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://www.linkedin.com/in/eduardo-ambriz-lazo-207b2129b/"> <i class="bi bi-linkedin" role="img">
+</i> 
+<span class="menu-text">LinkedIn</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://github.com/EduardoAmbrizLazo"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text">GitHub</span></a>
+  </li>  
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -208,7 +220,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">FPGA and MCU Setup and Testing</h1>
+<h1 class="title">Lab 1: FPGA and MCU Setup and Testing</h1>
   <div class="quarto-categories">
     <div class="quarto-category">Lab Report</div>
   </div>
@@ -346,7 +358,7 @@ always_ff @(posedge int_osc)
 <div id="fig-block-diagram" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-block-diagram-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="images/block-diagram.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;1: Block diagram of the Verilog design."><img src="images/block-diagram.png" class="img-fluid figure-img"></a>
+<img src="images/block-diagram.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-block-diagram-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;1: Block diagram of the Verilog design.
@@ -360,7 +372,7 @@ Figure&nbsp;1: Block diagram of the Verilog design.
 <div id="fig-schematic" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-schematic-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="images/schematic.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;2: Schematic of the physical circuit."><img src="images/schematic.png" class="img-fluid figure-img"></a>
+<img src="images/schematic.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-schematic-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;2: Schematic of the physical circuit.
@@ -378,7 +390,7 @@ Figure&nbsp;2: Schematic of the physical circuit.
 <div id="fig-testbench1" class="quarto-float quarto-figure quarto-figure-center anchored" data-collapse="true">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-testbench1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="images/testbench1-screenshot.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Figure&nbsp;3: A screenshot of a QuestaSim simulation demonstrating the top-level module properly calling on submodules, the HSOSC int_osc toggling, and the proper LED gate logic."><img src="images/testbench1-screenshot.png" class="img-fluid figure-img"></a>
+<img src="images/testbench1-screenshot.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-testbench1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;3: A screenshot of a QuestaSim simulation demonstrating the top-level module properly calling on submodules, the HSOSC int_osc toggling, and the proper LED gate logic.
@@ -389,7 +401,7 @@ Figure&nbsp;3: A screenshot of a QuestaSim simulation demonstrating the top-leve
 <div id="fig-testbench2" class="quarto-float quarto-figure quarto-figure-center anchored" data-collapse="true">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-testbench2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="images/testbench2-screenshot.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Figure&nbsp;4: A screenshot of a QuestaSim simulation demonstrating the blinker submodule testing whether reset and enable works and verifying we get fpga_blink_out to properly trigger after the expected number of ns for the parameterized counter."><img src="images/testbench2-screenshot.png" class="img-fluid figure-img"></a>
+<img src="images/testbench2-screenshot.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-testbench2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;4: A screenshot of a QuestaSim simulation demonstrating the blinker submodule testing whether reset and enable works and verifying we get fpga_blink_out to properly trigger after the expected number of ns for the parameterized counter.
@@ -400,7 +412,7 @@ Figure&nbsp;4: A screenshot of a QuestaSim simulation demonstrating the blinker 
 <div id="fig-testbench3" class="quarto-float quarto-figure quarto-figure-center anchored" data-collapse="true">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-testbench3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="images/testbench3-screenshot.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Figure&nbsp;5: A screenshot of a QuestaSim simulation demonstrating the decoder submodule"><img src="images/testbench3-screenshot.png" class="img-fluid figure-img"></a>
+<img src="images/testbench3-screenshot.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-testbench3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;5: A screenshot of a QuestaSim simulation demonstrating the decoder submodule
@@ -419,7 +431,7 @@ Figure&nbsp;5: A screenshot of a QuestaSim simulation demonstrating the decoder 
 <div id="fig-aisynthesis" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-aisynthesis-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="images/aisynthesis-screenshot.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Figure&nbsp;6: A screenshot of a the synthesis of the logic the AI created."><img src="images/aisynthesis-screenshot.png" class="img-fluid figure-img"></a>
+<img src="images/aisynthesis-screenshot.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-aisynthesis-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;6: A screenshot of a the synthesis of the logic the AI created.
@@ -839,38 +851,6 @@ Figure&nbsp;6: A screenshot of a the synthesis of the logic the AI created.
   });
   </script>
 </div> <!-- /content -->
-<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
-(function() {
-  let previousOnload = window.onload;
-  window.onload = () => {
-    if (previousOnload) {
-      previousOnload();
-    }
-    lightboxQuarto.on('slide_before_load', (data) => {
-      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-      const href = trigger.getAttribute('href');
-      if (href !== null) {
-        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
-        if (imgEl !== null) {
-          const srcAttr = imgEl.getAttribute("src");
-          if (srcAttr && srcAttr.startsWith("data:")) {
-            slideConfig.href = srcAttr;
-          }
-        }
-      } 
-    });
-  
-    lightboxQuarto.on('slide_after_load', (data) => {
-      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(slideNode);
-      }
-    });
-  
-  };
-  
-})();
-          </script>
 
 
 

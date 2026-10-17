@@ -2,20 +2,25 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.37">
+<meta name="generator" content="quarto-1.10.19">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Eduardo Ambriz Lazo">
+<meta name="dcterms.date" content="2026-09-30">
 
-<title>lab4 – My Portfolio</title>
+<title>Digital Audio – My Portfolio</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
 */
-code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -40,14 +45,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-d0ae9245876894da5ac7e18953ecc5cc.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-e11e00719057c7794e3e5cb159c51506.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-e11e00719057c7794e3e5cb159c51506.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-e11e00719057c7794e3e5cb159c51506.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-e2e65ff9fa0c80472c97194b2415a86f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -76,8 +77,36 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
 
-<link rel="stylesheet" href="../../styles.css">
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
 </head>
 
 <body class="nav-fixed quarto-light">
@@ -98,34 +127,61 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../index.html"> 
+    <a class="nav-link" href="../../index.html"> <i class="bi bi-house-door" role="img">
+</i> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../Posts/post1.html"> 
+    <a class="nav-link" href="../../Posts/post1.html"> <i class="bi bi-journal-text" role="img">
+</i> 
 <span class="menu-text">Posts</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../about.html"> 
-<span class="menu-text">Projects</span></a>
+    <a class="nav-link" href="../../about.html"> <i class="bi bi-person" role="img">
+</i> 
+<span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-labs" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-rocket-takeoff" role="img">
+</i> 
  <span class="menu-text">Labs</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-labs">    
-        <li class="dropdown-header">Lab 1</li>
         <li>
     <a class="dropdown-item" href="../../labs/lab1/index.html">
  <span class="dropdown-text">FPGA and MCU Setup and Testing</span></a>
   </li>  
-        <li class="dropdown-header">Lab 2</li>
         <li>
-    <a class="dropdown-item" href="../../labs/lab2/index.html">
+    <a class="dropdown-item" href="../../labs/lab2/lab2.html">
  <span class="dropdown-text">Multiplexed Seven Segment Display</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../labs/lab3/lab3.html">
+ <span class="dropdown-text">Keypad Scanner</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../labs/lab4/lab4.html">
+ <span class="dropdown-text">Digital Audio</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../labs/lab5/lab5.html">
+ <span class="dropdown-text">Interrupts</span></a>
   </li>  
     </ul>
   </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://www.linkedin.com/in/eduardo-ambriz-lazo-207b2129b/"> <i class="bi bi-linkedin" role="img">
+</i> 
+<span class="menu-text">LinkedIn</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://github.com/EduardoAmbrizLazo"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text">GitHub</span></a>
+  </li>  
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -137,17 +193,156 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#design-and-testing-methodology" id="toc-design-and-testing-methodology" class="nav-link" data-scroll-target="#design-and-testing-methodology">Design and Testing Methodology</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Digital Audio</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">Lab Report</div>
+  </div>
+  </div>
 
 
 
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Eduardo Ambriz Lazo </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">September 30, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
 
 
+</header>
 
+
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>In this lab, we leveraged the MCU aboard the MicroP’s Dev Board, particularly the STM32L4xx model. Utilizing this, we’re able to control the timer logic to function like a counter in order to trigger an output at a certain frequency. This is done via the TIM2 register built into the MCU as well as initiating the GPIO B pins to output a signal that powers a speaker at the desired frequency. With all these puzzle pieces, we can have the speaker play an array of notes and make a tune.</p>
+<p><em>I spent approximately 14 hours in this lab all together including familiarizing myself with the idea and a whole lot of debugging</em></p>
+</section>
+<section id="design-and-testing-methodology" class="level2">
+<h2 class="anchored" data-anchor-id="design-and-testing-methodology">Design and Testing Methodology</h2>
+<p>Using SEGGER Embedded Studio, the logic of this lab was contained in a header file and a main file. The header file is essentially a library pointing to the addresses of the MCU so the main logic can leverage several registers. The ones of note for this lab are the RCC, TIM2, and GPIOB register.</p>
+<p>There are many timers onboard the MCU but TIM2 has 32 bits and is generally recommended so overflow doesn’t occur and we can create a constant (via PSC) to specify our frequency through altering the ARR and SRC.</p>
+<p>Naturally, we want a system that can relate pitch and duration to timer configurations and that can create 220 Hz and 1000 Hz pitches within 1% accuracy. A lot of calculations are involved in this analysis but logically:</p>
+<p>MAX DURATION</p>
+<p>For maximum delay/duration, the delay is the inverse of frequency (T = 1/f). Using our maximum frequency to get the maximum number, we do 1/(1.164 x 10^-5 Hz) which is 85,900 seconds or 23.86 hours.</p>
+<p>MIN DURATION</p>
+<p>For minumum the same principle applies but instead we do 1/(25kHz) which means the minimum delay would be about 40 microseconds.</p>
+<p>MINIMUM FREQUENCY</p>
+<p>The timer frequency is derived by f_out=(f_clk)/(2(PSC+1)(ARR+1)). The dividing by 2 is due to the nature of toggling. This is why the code uses 20MHz rather than 40MHz. Given that f_clk = 40 MHz and PSC=39, the denominator is 80(ARR+1) and we should set ARR to (2^32)-1.</p>
+<p>Therefore, f_min=(40MHz)/(80(2^32)) or 1.164 x 10^-5 Hz</p>
+<p>MAX FREQUENCY</p>
+<p>Referring to the code below, since PSC = 39, let’s say the code has already set the Auto-Reload Register (ARR). For the case in the maximum frequency, ARR should be equal to 1. Using the equation above:</p>
+<p>f_max=(40MHz)/(160)= 25 kHz</p>
+<p>VERIFY 1% FREQUENCY ACCURACY</p>
+<p>To be accurate, we must minimize error. What IS error in this application? Error is defined by the way ARR rounds so relative error Epsilon = 1/(2(ARR+1))</p>
+<p>To satisfy Epsilon &lt;= 0.01, this means that 1/(2(ARR+1)) &lt;= 0.01. Meaning ARR+1 &gt;= 50, meaning ARR &gt;= 49.</p>
+<p>In Resources below, I linked the formula for the Desmos calculations but to verify for 1000 Hz and 220 Hz:</p>
+<p>f = 1000 Hz</p>
+<p>ARR = 2000000/(40(1000)) - 1 = 49 and since 49 &gt;= 49, the 1000 Hz note is definitely within 1% accuracy.</p>
+<p>f = 220</p>
+<p>ARR = 2000000/(40(220)) - 1 = 226.273 and since 226.273 &gt;= 49, the 1000 Hz note is definitely within 1% accuracy.</p>
+<p>Additional frequencies and their ARR values are in the Desmos calculator.</p>
+<p>The reason that 220 and 1000 are not sufficient is because ARR is a constant and every frequency value evaluated against it would have a different remainder to account for. This means it can’t be cleanly divided and it’s possible a frequency could end up off and so error must be evaluated across every note between 220 Hz and 1000 Hz.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Main Logic">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Main Logic
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>```c // lab4_ea_main.c // Fur Elise, E155 Lab 4</p>
+<p>#include &lt;stdint.h&gt; #include “definitionlibrary.h”</p>
+<p>#define SPK 3 //Bonus is that PB3 is also used for LD3 so we blink to the tune</p>
+<p>// Pitch in Hz, duration in ms const int notes[][2] = { {Pretend there’s a series of notes and durations here, condensed for readability}};</p>
+<p>void delay(uint32_t ms) { TIM2_reg-&gt;ARR = 2000000/(1000*(40))-1; //default delay will be 1000 Hz TIM2_reg-&gt;CNT = 0; for (int i = 1; i &lt;= ms; i++) { while(!(TIM2_reg-&gt;SR &amp; 1)) {} TIM2_reg-&gt;SR &amp;= ~(1&lt;&lt;0); } }</p>
+<p>void play(int frq, int ms) { TIM2_reg-&gt;ARR = 2000000/(frq*(40))-1; TIM2_reg-&gt;CNT = 0; for (uint32_t i = 1; i &lt;= ms; i++) { while(!(TIM2_reg-&gt;SR &amp; 1)) {} TIM2_reg-&gt;SR &amp;= ~(1&lt;&lt;0); GPIOB_reg-&gt;ODR ^= (1&lt;&lt;SPK); //get TIM2_reg- as in it? lay lay(int ms) rest? void { }&gt;CR1 &amp;= ~0x01; //Disable Timer since that’s the CEN bit GPIOB_reg-&gt;ODR = ~(1 &lt;&lt; SPK); delay(ms); }</p>
+<p>int main(void) {</p>
+<pre><code>int i = 0;
+
+RCC_reg-&gt;AHB2ENR |= (1 &lt;&lt; 1); //Bit 1 is GPIOBEN, fits our GPIO B specs
+RCC_reg-&gt;APB1ENR1 |= (1 &lt;&lt; 0); //Bit 0 is TIM2EN
+
+GPIOB_reg-&gt;MODER &amp;= ~(3 &lt;&lt; (SPK * 2)); //Speaker general purpose output
+GPIOB_reg-&gt;MODER |= (1 &lt;&lt; (SPK * 2));
+
+TIM2_reg-&gt;PSC = 39;  //Prescaler divider const. for frequency calcs 
+TIM2_reg-&gt;CR1 |= 1; //CEN as specified before
+
+while(!(notes[i][0] == 0 &amp;&amp; notes[i][1] == 0)) {
+    int frq = notes[i][0]; //assigning freq to the first element
+    int del = notes[i][1]; //assigning delay duration to second element
+    if (frq == 0) {
+    //lay(del);
+    delay(del*2);
+}
+else {
+    uint32_t ms = frq*del/500;
+    play(frq, ms*0.80);
+    //TIM2_reg-&gt;CR1 |= (1 &lt;&lt; 0); //Enable CEN
+    delay(ms);
+}
+i++;
+GPIOB_reg-&gt;ODR = ~(1 &lt;&lt; SPK); //Toggling to create the square wave
+}</code></pre>
+<p>} :::For more context on the signals within each register (i.e.&nbsp;GPIOB_reg-&gt;ODR), the library I made below can illuminate that and the STM32L4 reference manual can provide more context.::: {.callout-note collapse=“true” title=“definitionlibrary.h”}C// definitionlibrary.h // Header for Digital Audio Lab functions</p>
+<p>#ifndef STM32L4_TIM2_H #define STM32L4_TIM2_H</p>
+<p>#include &lt;stdint.h&gt; // Include stdint header</p>
+<p>//Pg. 396 TIM2 stuff //Pg. 70 Memory Map and Register Offsets</p>
+<p>/////////////////////////////////////////////////////////////////////////////// // Definitions ///////////////////////////////////////////////////////////////////////////////</p>
+<p>// Timer register structs here typedef struct { volatile uint32_t CR1; // Power Control Register STOP/START volatile uint32_t OTYPER; // TIM2 Offset 0x04 volatile uint32_t OSPEEDR; // TIM2 Offset 0x08 volatile uint32_t DIER; // GPIO Offset 0x0C volatile uint32_t SR; // GPIO Offset 0x10 volatile uint32_t ODR; // GPIO Offset 0x14 volatile uint32_t BSRR; // GPIO Offset 0x18 volatile uint32_t LCKR; // GPIO Offset 0x1C volatile uint32_t AFRL; // GPIO Offset 0x20 volatile uint32_t CNT; // GPIO Offset 0x24 volatile uint32_t PSC; volatile uint32_t ARR; } TIM2; #define TIM2_reg ((TIM2 *) 0x40000000UL) #endif</p>
+<p>#ifndef STM32L4_GPIOB_H #define STM32L4_GPIOB_H</p>
+<p>#include &lt;stdint.h&gt; // Include stdint header</p>
+<p>// GPIOB register structs here typedef struct { volatile uint32_t MODER; // GPIO Offset 0x00 GPIO port mode register volatile uint32_t OTYPER; // GPIO Offset 0x04 volatile uint32_t OSPEEDR; // GPIO Offset 0x08 volatile uint32_t PURPDR; // GPIO Offset 0x0C volatile uint32_t IDR; // GPIO Offset 0x10 volatile uint32_t ODR; // GPIO Offset 0x14 volatile uint32_t BSRR; // GPIO Offset 0x18 volatile uint32_t LCKR; // GPIO Offset 0x1C volatile uint32_t AFRL; // GPIO Offset 0x20 volatile uint32_t AFRH; // GPIO Offset 0x24 } GPIOB; #define GPIOB_reg ((GPIOB *) 0x48000400UL)</p>
+<p>#endif</p>
+<p>#ifndef STM32L4_RCC_H #define STM32L4_RCC_H</p>
+<p>#include &lt;stdint.h&gt; // Include stdint header</p>
+<p>// Base addresses #define RCC_BASE (0x40021000UL) // base address of RCC</p>
+<p>// PLL #define PLLSRC_HSI 0 #define PLLSRC_HSE 1</p>
+<p>// Clock configuration #define SW_HSI 0 #define SW_HSE 1 #define SW_PLL 2 #define __IO volatile</p>
+<p>/** * <span class="citation" data-cites="brief">@brief</span> Reset and Clock Control */</p>
+<p>typedef struct { __IO uint32_t CR; /<em>!&lt; RCC clock control register, Address offset: 0x00 </em>/ __IO uint32_t ICSCR; /<em>!&lt; RCC internal clock sources calibration register, Address offset: 0x04 </em>/ __IO uint32_t CFGR; /<em>!&lt; RCC clock configuration register, Address offset: 0x08 </em>/ __IO uint32_t PLLCFGR; /<em>!&lt; RCC system PLL configuration register, Address offset: 0x0C </em>/ __IO uint32_t PLLSAI1CFGR; /<em>!&lt; RCC PLL SAI1 configuration register, Address offset: 0x10 </em>/ uint32_t RESERVED; /<em>!&lt; Reserved, Address offset: 0x14 </em>/ __IO uint32_t CIER; /<em>!&lt; RCC clock interrupt enable register, Address offset: 0x18 </em>/ __IO uint32_t CIFR; /<em>!&lt; RCC clock interrupt flag register, Address offset: 0x1C </em>/ __IO uint32_t CICR; /<em>!&lt; RCC clock interrupt clear register, Address offset: 0x20 </em>/ uint32_t RESERVED0; /<em>!&lt; Reserved, Address offset: 0x24 </em>/ __IO uint32_t AHB1RSTR; /<em>!&lt; RCC AHB1 peripheral reset register, Address offset: 0x28 </em>/ __IO uint32_t AHB2RSTR; /<em>!&lt; RCC AHB2 peripheral reset register, Address offset: 0x2C </em>/ __IO uint32_t AHB3RSTR; /<em>!&lt; RCC AHB3 peripheral reset register, Address offset: 0x30 </em>/ uint32_t RESERVED1; /<em>!&lt; Reserved, Address offset: 0x34 </em>/ __IO uint32_t APB1RSTR1; /<em>!&lt; RCC APB1 peripheral reset register 1, Address offset: 0x38 </em>/ __IO uint32_t APB1RSTR2; /<em>!&lt; RCC APB1 peripheral reset register 2, Address offset: 0x3C </em>/ __IO uint32_t APB2RSTR; /<em>!&lt; RCC APB2 peripheral reset register, Address offset: 0x40 </em>/ uint32_t RESERVED2; /<em>!&lt; Reserved, Address offset: 0x44 </em>/ __IO uint32_t AHB1ENR; /<em>!&lt; RCC AHB1 peripheral clocks enable register, Address offset: 0x48 </em>/ __IO uint32_t AHB2ENR; /<em>!&lt; RCC AHB2 peripheral clocks enable register, Address offset: 0x4C </em>/<br>
+__IO uint32_t AHB3ENR; /<em>!&lt; RCC AHB3 peripheral clocks enable register, Address offset: 0x50 </em>/ uint32_t RESERVED3; /<em>!&lt; Reserved, Address offset: 0x54 </em>/ __IO uint32_t APB1ENR1; /<em>!&lt; RCC APB1 peripheral clocks enable register 1, Address offset: 0x58 </em>/ __IO uint32_t APB1ENR2; /<em>!&lt; RCC APB1 peripheral clocks enable register 2, Address offset: 0x5C </em>/ __IO uint32_t APB2ENR; /<em>!&lt; RCC APB2 peripheral clocks enable register, Address offset: 0x60 </em>/ uint32_t RESERVED4; /<em>!&lt; Reserved, Address offset: 0x64 </em>/ __IO uint32_t AHB1SMENR; /<em>!&lt; RCC AHB1 peripheral clocks enable in sleep and stop modes register, Address offset: 0x68 </em>/ __IO uint32_t AHB2SMENR; /<em>!&lt; RCC AHB2 peripheral clocks enable in sleep and stop modes register, Address offset: 0x6C </em>/ __IO uint32_t AHB3SMENR; /<em>!&lt; RCC AHB3 peripheral clocks enable in sleep and stop modes register, Address offset: 0x70 </em>/ uint32_t RESERVED5; /<em>!&lt; Reserved, Address offset: 0x74 </em>/ __IO uint32_t APB1SMENR1; /<em>!&lt; RCC APB1 peripheral clocks enable in sleep mode and stop modes register 1, Address offset: 0x78 </em>/ __IO uint32_t APB1SMENR2; /<em>!&lt; RCC APB1 peripheral clocks enable in sleep mode and stop modes register 2, Address offset: 0x7C </em>/ __IO uint32_t APB2SMENR; /<em>!&lt; RCC APB2 peripheral clocks enable in sleep mode and stop modes register, Address offset: 0x80 </em>/ uint32_t RESERVED6; /<em>!&lt; Reserved, Address offset: 0x84 </em>/ __IO uint32_t CCIPR; /<em>!&lt; RCC peripherals independent clock configuration register, Address offset: 0x88 </em>/ uint32_t RESERVED7; /<em>!&lt; Reserved, Address offset: 0x8C </em>/ __IO uint32_t BDCR; /<em>!&lt; RCC backup domain control register, Address offset: 0x90 </em>/ __IO uint32_t CSR; /<em>!&lt; RCC clock control &amp; status register, Address offset: 0x94 </em>/ __IO uint32_t CRRCR; /<em>!&lt; RCC clock recovery RC register, Address offset: 0x98 </em>/ } RCC_TypeDef;</p>
+<p>#define RCC_reg ((RCC_TypeDef *) RCC_BASE)</p>
+<p>#endif :::Technical Documentation:The source code for the project can be found in the associated Github repository.Schematic{#fig-schematic}<strong>?@fig-schematic</strong> shows the electical layout of the design. Since our output can’t necessarily drive a speaker, an audio amplifier is needed for the speaker to properly read the GPIO output. Additionally, a potentiometer serves as volume control.Results and DiscussionThe overall design and construction was successful as confirmed via physical circuitry and the successful upload of the solution to the MCU. I was able to accomplish all tasks outlined in the beginning of this lab report and utilize some interesting logic that I didn’t see other peers using.ConclusionThe design successfully programmed the speaker to play two tunes. I learned a lot about communicating with the MCU using a reference manual and datasheet and manipulating the values of registers to essentially get a MAX COUNT.AI Prototype Summary{#fig-aisynthesis}::: {.callout-note collapse=“true” title=“Initial Prompt”}Timers to Use (220 Hz to 1 kHz)The STM32L432KC includes several general-purpose and advanced timers suitable for signal and PWM generation:TIM2 (32-bit): High-precision general-purpose timer. Its 32-bit width provides a massive counting range, making low frequencies easily reachable without risk of counter overflow.TIM1 (16-bit): Advanced-control timer. Fully capable, but includes extra complex features (break inputs, dead-time) that are unnecessary for basic audio/PWM signals.TIM15 &amp; TIM16 (16-bit): General-purpose 16-bit timers. Suitable for basic signal output, though care must be taken to ensure the 16-bit limit (<span class="math inline">\(65,535\)</span>) isn’t exceeded when selecting prescaler values.Best Choice &amp; Easy GPIO Pin MappingTIM2 Channel 1 mapping to PA0 (Pin A0 on the NUCLEO-L432KC board) is the best choice.Why: TIM2 is a 32-bit timer, giving you maximum resolution for calculating duty cycles and frequencies.Pin Connection: PA0 supports AF1 (Alternate Function 1) for TIM2_CH1. It breaks out cleanly on the outer headers of the Nucleo-32 board.Relevant FormulasOutput Frequency (<span class="math inline">\(f_{\text{PWM}}\)</span>)<span class="math display">\[f_{\text{PWM}} = \frac{f_{\text{TIMCLK}}}{(\text{PSC} + 1) \times (\text{ARR} + 1)}\]</span><span class="math inline">\(f_{\text{TIMCLK}}\)</span>: Timer input clock frequency (e.g., <span class="math inline">\(80\text{ MHz}\)</span> standard system clock).<span class="math inline">\(\text{PSC}\)</span>: Prescaler register value (<span class="math inline">\(0\text{ to }65,535\)</span>).<span class="math inline">\(\text{ARR}\)</span>: Auto-Reload Register value (defines the period).Duty Cycle (%)<span class="math display">\[\text{Duty Cycle} = \frac{\text{CCR1}}{\text{ARR} + 1} \times 100\%\]</span><span class="math inline">\(\text{CCR1}\)</span>: Capture/Compare Register value (controls when the pin toggles).Calculation Example (<span class="math inline">\(f_{\text{TIMCLK}} = 80\text{ MHz}\)</span>)To maintain a high counter resolution, pick a fixed Prescaler (<span class="math inline">\(\text{PSC}\)</span>) value:Set <span class="math inline">\(\text{PSC} = 79\)</span> (Divides the clock down to <span class="math inline">\(1\text{ MHz}\)</span> or <span class="math inline">\(1\mu\text{s}\)</span> per tick).For <span class="math inline">\(1000\text{ Hz}\)</span> Output:<span class="math display">\[\text{ARR} = \frac{80,000,000}{(79 + 1) \times 1000} - 1 = \frac{1,000,000}{1000} - 1 = 999\]</span>For <span class="math inline">\(220\text{ Hz}\)</span> Output:<span class="math display">\[\text{ARR} = \frac{1,000,000}{220} - 1 \approx 4544\]</span>Required Registers &amp; Configuration StepsTo output a hardware PWM signal on pin PA0 without CPU overhead, configure the following registers:Clock Enable RegistersRCC-&gt;AHB2ENR: Set bit GPIOAEN to enable the GPIOA clock.RCC-&gt;APB1ENR1: Set bit TIM2EN to enable the TIM2 peripheral clock.GPIO Pin Configuration (GPIOA)GPIOA-&gt;MODER: Set MODER0 to 10 (Alternate Function Mode).GPIOA-&gt;AFR[0]: Set AFSEL0 to 0001 (AF1) to select TIM2_CH1.Timer Configuration (TIM2)TIM2-&gt;PSC: Set to 79 (1 MHz counter clock).TIM2-&gt;ARR: Set to desired frequency target (e.g., 999 for 1 kHz, 4544 for 220 Hz).TIM2-&gt;CCR1: Set to half of ARR for a 50% square wave (e.g., 500 for 1 kHz).TIM2-&gt;CCMR1:Set OC1M bits to 0110 (PWM Mode 1: Active while CNT &lt; CCR1).Set OC1PE bit to 1 (Enable Preload register).TIM2-&gt;CCER: Set CC1E bit to 1 to enable output on Channel 1.TIM2-&gt;CR1: Set CEN bit to 1 to enable the counter.:::For clarity, the prompt was as follows:What timers should I use on the STM32L432KC to generate frequencies ranging from 220Hz to 1kHz? What’s the best choice of timer if I want to easily connect it to a GPIO pin? What formulae are relevant, and what registers need to be set to configure them properly?I decided to prompt Gemini via the Harvey Mudd license (as to not train the AI) and I was presented with the “Initial Prompt” block seen above. Notably, it is comprehensive and covers a lot about timer selection and some of the information I cam across reading the manual. The AI does conclude that TIM2 is ideal for practically the same reason I described about it being 32-bit. However, it instead opts for pin A0 because it supports Alternate Function 1. I instead went the route of using GPIO B and just declaring it as a general purpose output but I can see how PA0 also makes sense and maybe even be more effective since it’s not paired with an LED and AF1 seems to be well equipped for this purpose. It also uses the same logic to enable the clock registers but has to use GPIOA-&gt;MODER and declare that as Alternate Function mode. When giving it the files, it functioned more as a table of contents with a summary rather than pointing me to specific addresses and telling me what to do about those sections. I can see why this may be helpful though.</p>
+<p><strong>?@fig-aisynthesis</strong> shows a screenshot of the second prompting and it seems pretty thorough as an overview if someone wanted to figure out where to go.ResourcesThe source code for the project can be found in the associated Github repository.</p>
+
+
+</div>
+</div>
+</div>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -223,7 +418,7 @@ ul.task-list li input[type="checkbox"] {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
+        var filterRegex = new RegExp("https:\/\/EduardoAmbrizLazo\.github\.io\/e155-website\/");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

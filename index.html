@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.37">
+<meta name="generator" content="quarto-1.10.19">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -12,10 +12,13 @@
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
 */
-code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -39,14 +42,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-d0ae9245876894da5ac7e18953ecc5cc.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-e11e00719057c7794e3e5cb159c51506.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-e11e00719057c7794e3e5cb159c51506.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-e11e00719057c7794e3e5cb159c51506.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-e2e65ff9fa0c80472c97194b2415a86f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -76,7 +75,6 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="styles.css">
 </head>
 
 <body class="nav-fixed fullcontent quarto-light">
@@ -97,19 +95,24 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link active" href="./index.html" aria-current="page"> <i class="bi bi-house-door" role="img">
+</i> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./Posts/post1.html"> 
+    <a class="nav-link" href="./Posts/post1.html"> <i class="bi bi-journal-text" role="img">
+</i> 
 <span class="menu-text">Posts</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
-<span class="menu-text">Projects</span></a>
+    <a class="nav-link" href="./about.html"> <i class="bi bi-person" role="img">
+</i> 
+<span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-labs" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-rocket-takeoff" role="img">
+</i> 
  <span class="menu-text">Labs</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-labs">    
@@ -118,23 +121,35 @@ ul.task-list li input[type="checkbox"] {
  <span class="dropdown-text">FPGA and MCU Setup and Testing</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./labs/lab2/index.html">
+    <a class="dropdown-item" href="./labs/lab2/lab2.html">
  <span class="dropdown-text">Multiplexed Seven Segment Display</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./labs/lab3/index.html">
+    <a class="dropdown-item" href="./labs/lab3/lab3.html">
  <span class="dropdown-text">Keypad Scanner</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./labs/lab4/index.html">
+    <a class="dropdown-item" href="./labs/lab4/lab4.html">
  <span class="dropdown-text">Digital Audio</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./labs/lab5/index.html">
+    <a class="dropdown-item" href="./labs/lab5/lab5.html">
  <span class="dropdown-text">Interrupts</span></a>
   </li>  
     </ul>
   </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://www.linkedin.com/in/eduardo-ambriz-lazo-207b2129b/"> <i class="bi bi-linkedin" role="img">
+</i> 
+<span class="menu-text">LinkedIn</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://github.com/EduardoAmbrizLazo"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text">GitHub</span></a>
+  </li>  
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -158,7 +173,12 @@ ul.task-list li input[type="checkbox"] {
 <div class="quarto-title-meta">
   </div>
 </header><main class="content" id="quarto-document-content">
-<p>Welcome to my Engineering Portfolio! I’m a senior Engineering major at <a href="https://www.hmc.edu/">Harvey Mudd</a> with an emphasis on mechatronics, mechanical design, and a heavy interest in biomimetics. I’ve been a clinic engineer at <a href="https://www.airmyne.com/">AirMyne</a> where I did research regarding interfacial structure design to facilitate the absorption rate of CO2 in the atmosphere. I’m currently doing fluid dynamics research regarding fin motion at the <a href="https://sites.google.com/g.hmc.edu/flow-imaging-lab/home">Harvey Mudd FILM Lab</a> and a mechatronics engineer under <a href="https://www.blueorigin.com/">Blue Origin</a>. In my free time, I could be working on a variety of personal mechanical/microcontroller projects, creating art, playing videogames, or rock climbing. Stay curious!</p>
+<p>Welcome to my Engineering Portfolio! I’m a senior Engineering major at Harvey Mudd with an emphasis on mechatronics, mechanical design, and a heavy interest in biomimetics. I’ve been a clinic engineer at AirMyne where I did research regarding interfacial structure design to facilitate the absorption rate of CO2 in the atmosphere. I’m currently doing fluid dynamics research regarding fin motion at the Harvey Mudd FILM Lab and a mechatronics engineer under Blue Origin. In my free time, I could be working on a variety of personal mechanical/microcontroller projects, creating art, playing videogames, or rock climbing. Stay curious!</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/gears.gif" class="img-fluid quarto-figure quarto-figure-center figure-img" width="600"></p>
+</figure>
+</div>
 
 
 </main> 
