@@ -1,0 +1,88 @@
+/*-- scss:defaults --*/
+
+// 1. Theme & Brand Colors
+$primary: #1d3557;             // Navbar and accent color
+$body-bg: #f1e6c9;             // Cream background (solar-style)
+$body-color: #2b3e50;          // Main text color
+$link-color: #2a6f97;          // Hyperlink color
+
+// 2. Google Fonts Imports
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@700;800&display=swap');
+
+// 3. Global Typography
+$font-family-sans-serif: 'Inter', sans-serif;
+$headings-font-family: 'Montserrat', sans-serif;
+$headings-font-weight: 800;
+
+// 4. Header Sizing & Spacing
+$h1-font-size: 3.2rem;
+$h2-font-size: 2.2rem;
+$h3-font-size: 1.6rem;
+
+
+/*-- scss:rules --*/
+
+// Make the main page title stand out
+.title {
+  font-family: $headings-font-family;
+  font-size: $h1-font-size !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.02em;
+}
+
+// Add a subtle accent line under Section Headings (## Heading)
+h2, .h2 {
+  border-bottom: 2px solid $primary;
+  padding-bottom: 6px;
+  margin-top: 1.8rem;
+}
+
+// Add depth/shadow to the navigation bar
+.navbar {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/*-- scss:rules --*/
+
+// Set the body as the positioning reference point
+body {
+  position: relative;
+  min-height: 100vh;
+}
+
+@media (min-width: 1200px) {
+  /* --- LEFT MARGIN --- */
+  body::before {
+    content: "";
+    position: absolute;          /* Scrolls naturally with the page content */
+    top: 0;
+    left: 0;
+    width: 180px;                /* Width reserved for the left margin design */
+    height: 100%;                /* Stretches to the full scrollable document length */
+    background-image: url('images/vine.png'); /* Path to your floral PNG */
+    background-repeat: repeat-y; /* Tiles vertically to the bottom of the page */
+    background-size: contain;
+    background-position: top left;
+    opacity: 0.25;               /* Keeps the design subtle */
+    pointer-events: none;        /* Prevents blocking link clicks or text selection */
+    z-index: 0;
+  }
+
+  /* --- RIGHT MARGIN (MIRRORED) --- */
+  body::after {
+    content: "";
+    position: absolute;          /* Scrolls naturally with the page content */
+    top: 0;
+    right: 0;
+    width: 180px;                /* Width reserved for the right margin design */
+    height: 100%;                /* Stretches to the full scrollable document length */
+    background-image: url('images/vine.png'); /* Same image path */
+    background-repeat: repeat-y; /* Tiles vertically to the bottom of the page */
+    background-size: contain;
+    background-position: top right;
+    transform: scaleX(-1);       /* Flips the graphic horizontally so it mirrors the left side */
+    opacity: 0.25;
+    pointer-events: none;
+    z-index: 0;
+  }
+}

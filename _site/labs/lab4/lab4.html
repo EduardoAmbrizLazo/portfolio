@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.19">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Eduardo Ambriz Lazo">
+<meta name="dcterms.date" content="2026-09-30">
+
+<title>Digital Audio – My Portfolio</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-b626d73c4c936ccc3cb08be7d45d1df6.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-172ba59bd5e0b52282274ba0c0cc16fc.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-8b348f4b4b74a528bf910da1e8c5139e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-172ba59bd5e0b52282274ba0c0cc16fc.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">My Portfolio</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../Posts/post1.html"> 
+<span class="menu-text">Posts</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">Projects</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-labs" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Labs</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-labs">    
+        <li>
+    <a class="dropdown-item" href="../../labs/lab1/index.html">
+ <span class="dropdown-text">FPGA and MCU Setup and Testing</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../labs/lab2/lab2.html">
+ <span class="dropdown-text">Multiplexed Seven Segment Display</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../labs/lab3/lab3.html">
+ <span class="dropdown-text">Keypad Scanner</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../labs/lab4/lab4.html">
+ <span class="dropdown-text">Digital Audio</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../labs/lab5/lab5.html">
+ <span class="dropdown-text">Interrupts</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#design-and-testing-methodology" id="toc-design-and-testing-methodology" class="nav-link" data-scroll-target="#design-and-testing-methodology">Design and Testing Methodology</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Digital Audio</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">Lab Report</div>
+  </div>
+  </div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Eduardo Ambriz Lazo </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">September 30, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>In this lab, we leveraged the MCU aboard the MicroP’s Dev Board, particularly the STM32L4xx model. Utilizing this, we’re able to control the timer logic to function like a counter in order to trigger an output at a certain frequency. This is done via the TIM2 register built into the MCU as well as initiating the GPIO B pins to output a signal that powers a speaker at the desired frequency. With all these puzzle pieces, we can have the speaker play an array of notes and make a tune.</p>
+<p><em>I spent approximately 14 hours in this lab all together including familiarizing myself with the idea and a whole lot of debugging</em></p>
+</section>
+<section id="design-and-testing-methodology" class="level2">
+<h2 class="anchored" data-anchor-id="design-and-testing-methodology">Design and Testing Methodology</h2>
+<p>Using SEGGER Embedded Studio, the logic of this lab was contained in a header file and a main file. The header file is essentially a library pointing to the addresses of the MCU so the main logic can leverage several registers. The ones of note for this lab are the RCC, TIM2, and GPIOB register.</p>
+<p>There are many timers onboard the MCU but TIM2 has 32 bits and is generally recommended so overflow doesn’t occur and we can create a constant (via PSC) to specify our frequency through altering the ARR and SRC.</p>
+<p>Naturally, we want a system that can relate pitch and duration to timer configurations and that can create 220 Hz and 1000 Hz pitches within 1% accuracy. A lot of calculations are involved in this analysis but logically:</p>
+<p>MAX DURATION</p>
+<p>For maximum delay/duration, the delay is the inverse of frequency (T = 1/f). Using our maximum frequency to get the maximum number, we do 1/(1.164 x 10^-5 Hz) which is 85,900 seconds or 23.86 hours.</p>
+<p>MIN DURATION</p>
+<p>For minumum the same principle applies but instead we do 1/(25kHz) which means the minimum delay would be about 40 microseconds.</p>
+<p>MINIMUM FREQUENCY</p>
+<p>The timer frequency is derived by f_out=(f_clk)/(2(PSC+1)(ARR+1)). The dividing by 2 is due to the nature of toggling. This is why the code uses 20MHz rather than 40MHz. Given that f_clk = 40 MHz and PSC=39, the denominator is 80(ARR+1) and we should set ARR to (2^32)-1.</p>
+<p>Therefore, f_min=(40MHz)/(80(2^32)) or 1.164 x 10^-5 Hz</p>
+<p>MAX FREQUENCY</p>
+<p>Referring to the code below, since PSC = 39, let’s say the code has already set the Auto-Reload Register (ARR). For the case in the maximum frequency, ARR should be equal to 1. Using the equation above:</p>
+<p>f_max=(40MHz)/(160)= 25 kHz</p>
+<p>VERIFY 1% FREQUENCY ACCURACY</p>
+<p>To be accurate, we must minimize error. What IS error in this application? Error is defined by the way ARR rounds so relative error Epsilon = 1/(2(ARR+1))</p>
+<p>To satisfy Epsilon &lt;= 0.01, this means that 1/(2(ARR+1)) &lt;= 0.01. Meaning ARR+1 &gt;= 50, meaning ARR &gt;= 49.</p>
+<p>In Resources below, I linked the formula for the Desmos calculations but to verify for 1000 Hz and 220 Hz:</p>
+<p>f = 1000 Hz</p>
+<p>ARR = 2000000/(40(1000)) - 1 = 49 and since 49 &gt;= 49, the 1000 Hz note is definitely within 1% accuracy.</p>
+<p>f = 220</p>
+<p>ARR = 2000000/(40(220)) - 1 = 226.273 and since 226.273 &gt;= 49, the 1000 Hz note is definitely within 1% accuracy.</p>
+<p>Additional frequencies and their ARR values are in the Desmos calculator.</p>
+<p>The reason that 220 and 1000 are not sufficient is because ARR is a constant and every frequency value evaluated against it would have a different remainder to account for. This means it can’t be cleanly divided and it’s possible a frequency could end up off and so error must be evaluated across every note between 220 Hz and 1000 Hz.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Main Logic">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Main Logic
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>```c // lab4_ea_main.c // Fur Elise, E155 Lab 4</p>
+<p>#include &lt;stdint.h&gt; #include “definitionlibrary.h”</p>
+<p>#define SPK 3 //Bonus is that PB3 is also used for LD3 so we blink to the tune</p>
+<p>// Pitch in Hz, duration in ms const int notes[][2] = { {Pretend there’s a series of notes and durations here, condensed for readability}};</p>
+<p>void delay(uint32_t ms) { TIM2_reg-&gt;ARR = 2000000/(1000*(40))-1; //default delay will be 1000 Hz TIM2_reg-&gt;CNT = 0; for (int i = 1; i &lt;= ms; i++) { while(!(TIM2_reg-&gt;SR &amp; 1)) {} TIM2_reg-&gt;SR &amp;= ~(1&lt;&lt;0); } }</p>
+<p>void play(int frq, int ms) { TIM2_reg-&gt;ARR = 2000000/(frq*(40))-1; TIM2_reg-&gt;CNT = 0; for (uint32_t i = 1; i &lt;= ms; i++) { while(!(TIM2_reg-&gt;SR &amp; 1)) {} TIM2_reg-&gt;SR &amp;= ~(1&lt;&lt;0); GPIOB_reg-&gt;ODR ^= (1&lt;&lt;SPK); //get TIM2_reg- as in it? lay lay(int ms) rest? void { }&gt;CR1 &amp;= ~0x01; //Disable Timer since that’s the CEN bit GPIOB_reg-&gt;ODR = ~(1 &lt;&lt; SPK); delay(ms); }</p>
+<p>int main(void) {</p>
+<pre><code>int i = 0;
+
+RCC_reg-&gt;AHB2ENR |= (1 &lt;&lt; 1); //Bit 1 is GPIOBEN, fits our GPIO B specs
+RCC_reg-&gt;APB1ENR1 |= (1 &lt;&lt; 0); //Bit 0 is TIM2EN
+
+GPIOB_reg-&gt;MODER &amp;= ~(3 &lt;&lt; (SPK * 2)); //Speaker general purpose output
+GPIOB_reg-&gt;MODER |= (1 &lt;&lt; (SPK * 2));
+
+TIM2_reg-&gt;PSC = 39;  //Prescaler divider const. for frequency calcs 
+TIM2_reg-&gt;CR1 |= 1; //CEN as specified before
+
+while(!(notes[i][0] == 0 &amp;&amp; notes[i][1] == 0)) {
+    int frq = notes[i][0]; //assigning freq to the first element
+    int del = notes[i][1]; //assigning delay duration to second element
+    if (frq == 0) {
+    //lay(del);
+    delay(del*2);
+}
+else {
+    uint32_t ms = frq*del/500;
+    play(frq, ms*0.80);
+    //TIM2_reg-&gt;CR1 |= (1 &lt;&lt; 0); //Enable CEN
+    delay(ms);
+}
+i++;
+GPIOB_reg-&gt;ODR = ~(1 &lt;&lt; SPK); //Toggling to create the square wave
+}</code></pre>
+<p>} :::For more context on the signals within each register (i.e.&nbsp;GPIOB_reg-&gt;ODR), the library I made below can illuminate that and the STM32L4 reference manual can provide more context.::: {.callout-note collapse=“true” title=“definitionlibrary.h”}C// definitionlibrary.h // Header for Digital Audio Lab functions</p>
+<p>#ifndef STM32L4_TIM2_H #define STM32L4_TIM2_H</p>
+<p>#include &lt;stdint.h&gt; // Include stdint header</p>
+<p>//Pg. 396 TIM2 stuff //Pg. 70 Memory Map and Register Offsets</p>
+<p>/////////////////////////////////////////////////////////////////////////////// // Definitions ///////////////////////////////////////////////////////////////////////////////</p>
+<p>// Timer register structs here typedef struct { volatile uint32_t CR1; // Power Control Register STOP/START volatile uint32_t OTYPER; // TIM2 Offset 0x04 volatile uint32_t OSPEEDR; // TIM2 Offset 0x08 volatile uint32_t DIER; // GPIO Offset 0x0C volatile uint32_t SR; // GPIO Offset 0x10 volatile uint32_t ODR; // GPIO Offset 0x14 volatile uint32_t BSRR; // GPIO Offset 0x18 volatile uint32_t LCKR; // GPIO Offset 0x1C volatile uint32_t AFRL; // GPIO Offset 0x20 volatile uint32_t CNT; // GPIO Offset 0x24 volatile uint32_t PSC; volatile uint32_t ARR; } TIM2; #define TIM2_reg ((TIM2 *) 0x40000000UL) #endif</p>
+<p>#ifndef STM32L4_GPIOB_H #define STM32L4_GPIOB_H</p>
+<p>#include &lt;stdint.h&gt; // Include stdint header</p>
+<p>// GPIOB register structs here typedef struct { volatile uint32_t MODER; // GPIO Offset 0x00 GPIO port mode register volatile uint32_t OTYPER; // GPIO Offset 0x04 volatile uint32_t OSPEEDR; // GPIO Offset 0x08 volatile uint32_t PURPDR; // GPIO Offset 0x0C volatile uint32_t IDR; // GPIO Offset 0x10 volatile uint32_t ODR; // GPIO Offset 0x14 volatile uint32_t BSRR; // GPIO Offset 0x18 volatile uint32_t LCKR; // GPIO Offset 0x1C volatile uint32_t AFRL; // GPIO Offset 0x20 volatile uint32_t AFRH; // GPIO Offset 0x24 } GPIOB; #define GPIOB_reg ((GPIOB *) 0x48000400UL)</p>
+<p>#endif</p>
+<p>#ifndef STM32L4_RCC_H #define STM32L4_RCC_H</p>
+<p>#include &lt;stdint.h&gt; // Include stdint header</p>
+<p>// Base addresses #define RCC_BASE (0x40021000UL) // base address of RCC</p>
+<p>// PLL #define PLLSRC_HSI 0 #define PLLSRC_HSE 1</p>
+<p>// Clock configuration #define SW_HSI 0 #define SW_HSE 1 #define SW_PLL 2 #define __IO volatile</p>
+<p>/** * <span class="citation" data-cites="brief">@brief</span> Reset and Clock Control */</p>
+<p>typedef struct { __IO uint32_t CR; /<em>!&lt; RCC clock control register, Address offset: 0x00 </em>/ __IO uint32_t ICSCR; /<em>!&lt; RCC internal clock sources calibration register, Address offset: 0x04 </em>/ __IO uint32_t CFGR; /<em>!&lt; RCC clock configuration register, Address offset: 0x08 </em>/ __IO uint32_t PLLCFGR; /<em>!&lt; RCC system PLL configuration register, Address offset: 0x0C </em>/ __IO uint32_t PLLSAI1CFGR; /<em>!&lt; RCC PLL SAI1 configuration register, Address offset: 0x10 </em>/ uint32_t RESERVED; /<em>!&lt; Reserved, Address offset: 0x14 </em>/ __IO uint32_t CIER; /<em>!&lt; RCC clock interrupt enable register, Address offset: 0x18 </em>/ __IO uint32_t CIFR; /<em>!&lt; RCC clock interrupt flag register, Address offset: 0x1C </em>/ __IO uint32_t CICR; /<em>!&lt; RCC clock interrupt clear register, Address offset: 0x20 </em>/ uint32_t RESERVED0; /<em>!&lt; Reserved, Address offset: 0x24 </em>/ __IO uint32_t AHB1RSTR; /<em>!&lt; RCC AHB1 peripheral reset register, Address offset: 0x28 </em>/ __IO uint32_t AHB2RSTR; /<em>!&lt; RCC AHB2 peripheral reset register, Address offset: 0x2C </em>/ __IO uint32_t AHB3RSTR; /<em>!&lt; RCC AHB3 peripheral reset register, Address offset: 0x30 </em>/ uint32_t RESERVED1; /<em>!&lt; Reserved, Address offset: 0x34 </em>/ __IO uint32_t APB1RSTR1; /<em>!&lt; RCC APB1 peripheral reset register 1, Address offset: 0x38 </em>/ __IO uint32_t APB1RSTR2; /<em>!&lt; RCC APB1 peripheral reset register 2, Address offset: 0x3C </em>/ __IO uint32_t APB2RSTR; /<em>!&lt; RCC APB2 peripheral reset register, Address offset: 0x40 </em>/ uint32_t RESERVED2; /<em>!&lt; Reserved, Address offset: 0x44 </em>/ __IO uint32_t AHB1ENR; /<em>!&lt; RCC AHB1 peripheral clocks enable register, Address offset: 0x48 </em>/ __IO uint32_t AHB2ENR; /<em>!&lt; RCC AHB2 peripheral clocks enable register, Address offset: 0x4C </em>/<br>
+__IO uint32_t AHB3ENR; /<em>!&lt; RCC AHB3 peripheral clocks enable register, Address offset: 0x50 </em>/ uint32_t RESERVED3; /<em>!&lt; Reserved, Address offset: 0x54 </em>/ __IO uint32_t APB1ENR1; /<em>!&lt; RCC APB1 peripheral clocks enable register 1, Address offset: 0x58 </em>/ __IO uint32_t APB1ENR2; /<em>!&lt; RCC APB1 peripheral clocks enable register 2, Address offset: 0x5C </em>/ __IO uint32_t APB2ENR; /<em>!&lt; RCC APB2 peripheral clocks enable register, Address offset: 0x60 </em>/ uint32_t RESERVED4; /<em>!&lt; Reserved, Address offset: 0x64 </em>/ __IO uint32_t AHB1SMENR; /<em>!&lt; RCC AHB1 peripheral clocks enable in sleep and stop modes register, Address offset: 0x68 </em>/ __IO uint32_t AHB2SMENR; /<em>!&lt; RCC AHB2 peripheral clocks enable in sleep and stop modes register, Address offset: 0x6C </em>/ __IO uint32_t AHB3SMENR; /<em>!&lt; RCC AHB3 peripheral clocks enable in sleep and stop modes register, Address offset: 0x70 </em>/ uint32_t RESERVED5; /<em>!&lt; Reserved, Address offset: 0x74 </em>/ __IO uint32_t APB1SMENR1; /<em>!&lt; RCC APB1 peripheral clocks enable in sleep mode and stop modes register 1, Address offset: 0x78 </em>/ __IO uint32_t APB1SMENR2; /<em>!&lt; RCC APB1 peripheral clocks enable in sleep mode and stop modes register 2, Address offset: 0x7C </em>/ __IO uint32_t APB2SMENR; /<em>!&lt; RCC APB2 peripheral clocks enable in sleep mode and stop modes register, Address offset: 0x80 </em>/ uint32_t RESERVED6; /<em>!&lt; Reserved, Address offset: 0x84 </em>/ __IO uint32_t CCIPR; /<em>!&lt; RCC peripherals independent clock configuration register, Address offset: 0x88 </em>/ uint32_t RESERVED7; /<em>!&lt; Reserved, Address offset: 0x8C </em>/ __IO uint32_t BDCR; /<em>!&lt; RCC backup domain control register, Address offset: 0x90 </em>/ __IO uint32_t CSR; /<em>!&lt; RCC clock control &amp; status register, Address offset: 0x94 </em>/ __IO uint32_t CRRCR; /<em>!&lt; RCC clock recovery RC register, Address offset: 0x98 </em>/ } RCC_TypeDef;</p>
+<p>#define RCC_reg ((RCC_TypeDef *) RCC_BASE)</p>
+<p>#endif :::Technical Documentation:The source code for the project can be found in the associated Github repository.Schematic{#fig-schematic}<strong>?@fig-schematic</strong> shows the electical layout of the design. Since our output can’t necessarily drive a speaker, an audio amplifier is needed for the speaker to properly read the GPIO output. Additionally, a potentiometer serves as volume control.Results and DiscussionThe overall design and construction was successful as confirmed via physical circuitry and the successful upload of the solution to the MCU. I was able to accomplish all tasks outlined in the beginning of this lab report and utilize some interesting logic that I didn’t see other peers using.ConclusionThe design successfully programmed the speaker to play two tunes. I learned a lot about communicating with the MCU using a reference manual and datasheet and manipulating the values of registers to essentially get a MAX COUNT.AI Prototype Summary{#fig-aisynthesis}::: {.callout-note collapse=“true” title=“Initial Prompt”}Timers to Use (220 Hz to 1 kHz)The STM32L432KC includes several general-purpose and advanced timers suitable for signal and PWM generation:TIM2 (32-bit): High-precision general-purpose timer. Its 32-bit width provides a massive counting range, making low frequencies easily reachable without risk of counter overflow.TIM1 (16-bit): Advanced-control timer. Fully capable, but includes extra complex features (break inputs, dead-time) that are unnecessary for basic audio/PWM signals.TIM15 &amp; TIM16 (16-bit): General-purpose 16-bit timers. Suitable for basic signal output, though care must be taken to ensure the 16-bit limit (<span class="math inline">\(65,535\)</span>) isn’t exceeded when selecting prescaler values.Best Choice &amp; Easy GPIO Pin MappingTIM2 Channel 1 mapping to PA0 (Pin A0 on the NUCLEO-L432KC board) is the best choice.Why: TIM2 is a 32-bit timer, giving you maximum resolution for calculating duty cycles and frequencies.Pin Connection: PA0 supports AF1 (Alternate Function 1) for TIM2_CH1. It breaks out cleanly on the outer headers of the Nucleo-32 board.Relevant FormulasOutput Frequency (<span class="math inline">\(f_{\text{PWM}}\)</span>)<span class="math display">\[f_{\text{PWM}} = \frac{f_{\text{TIMCLK}}}{(\text{PSC} + 1) \times (\text{ARR} + 1)}\]</span><span class="math inline">\(f_{\text{TIMCLK}}\)</span>: Timer input clock frequency (e.g., <span class="math inline">\(80\text{ MHz}\)</span> standard system clock).<span class="math inline">\(\text{PSC}\)</span>: Prescaler register value (<span class="math inline">\(0\text{ to }65,535\)</span>).<span class="math inline">\(\text{ARR}\)</span>: Auto-Reload Register value (defines the period).Duty Cycle (%)<span class="math display">\[\text{Duty Cycle} = \frac{\text{CCR1}}{\text{ARR} + 1} \times 100\%\]</span><span class="math inline">\(\text{CCR1}\)</span>: Capture/Compare Register value (controls when the pin toggles).Calculation Example (<span class="math inline">\(f_{\text{TIMCLK}} = 80\text{ MHz}\)</span>)To maintain a high counter resolution, pick a fixed Prescaler (<span class="math inline">\(\text{PSC}\)</span>) value:Set <span class="math inline">\(\text{PSC} = 79\)</span> (Divides the clock down to <span class="math inline">\(1\text{ MHz}\)</span> or <span class="math inline">\(1\mu\text{s}\)</span> per tick).For <span class="math inline">\(1000\text{ Hz}\)</span> Output:<span class="math display">\[\text{ARR} = \frac{80,000,000}{(79 + 1) \times 1000} - 1 = \frac{1,000,000}{1000} - 1 = 999\]</span>For <span class="math inline">\(220\text{ Hz}\)</span> Output:<span class="math display">\[\text{ARR} = \frac{1,000,000}{220} - 1 \approx 4544\]</span>Required Registers &amp; Configuration StepsTo output a hardware PWM signal on pin PA0 without CPU overhead, configure the following registers:Clock Enable RegistersRCC-&gt;AHB2ENR: Set bit GPIOAEN to enable the GPIOA clock.RCC-&gt;APB1ENR1: Set bit TIM2EN to enable the TIM2 peripheral clock.GPIO Pin Configuration (GPIOA)GPIOA-&gt;MODER: Set MODER0 to 10 (Alternate Function Mode).GPIOA-&gt;AFR[0]: Set AFSEL0 to 0001 (AF1) to select TIM2_CH1.Timer Configuration (TIM2)TIM2-&gt;PSC: Set to 79 (1 MHz counter clock).TIM2-&gt;ARR: Set to desired frequency target (e.g., 999 for 1 kHz, 4544 for 220 Hz).TIM2-&gt;CCR1: Set to half of ARR for a 50% square wave (e.g., 500 for 1 kHz).TIM2-&gt;CCMR1:Set OC1M bits to 0110 (PWM Mode 1: Active while CNT &lt; CCR1).Set OC1PE bit to 1 (Enable Preload register).TIM2-&gt;CCER: Set CC1E bit to 1 to enable output on Channel 1.TIM2-&gt;CR1: Set CEN bit to 1 to enable the counter.:::For clarity, the prompt was as follows:What timers should I use on the STM32L432KC to generate frequencies ranging from 220Hz to 1kHz? What’s the best choice of timer if I want to easily connect it to a GPIO pin? What formulae are relevant, and what registers need to be set to configure them properly?I decided to prompt Gemini via the Harvey Mudd license (as to not train the AI) and I was presented with the “Initial Prompt” block seen above. Notably, it is comprehensive and covers a lot about timer selection and some of the information I cam across reading the manual. The AI does conclude that TIM2 is ideal for practically the same reason I described about it being 32-bit. However, it instead opts for pin A0 because it supports Alternate Function 1. I instead went the route of using GPIO B and just declaring it as a general purpose output but I can see how PA0 also makes sense and maybe even be more effective since it’s not paired with an LED and AF1 seems to be well equipped for this purpose. It also uses the same logic to enable the clock registers but has to use GPIOA-&gt;MODER and declare that as Alternate Function mode. When giving it the files, it functioned more as a table of contents with a summary rather than pointing me to specific addresses and telling me what to do about those sections. I can see why this may be helpful though.@fig-aisynthesis shows a screenshot of the second prompting and it seems pretty thorough as an overview if someone wanted to figure out where to go.ResourcesThe source code for the project can be found in the associated Github repository.</p>
+
+
+</div>
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

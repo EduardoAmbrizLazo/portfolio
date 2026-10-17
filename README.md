@@ -1,0 +1,1 @@
+This repository includes code to verify the proper assembly of the E155 board and the operation of the MCU and FPGA.

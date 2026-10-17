@@ -1,0 +1,11 @@
+---
+title: "Posts"
+description: "Welcome to my Quarto portfolio."
+author: "Eduardo Ambriz Lazo"
+date: "9/9/2026"
+categories:
+    - reflection
+draft: false
+---
+
+During this class I hope to hone my skills in FPGAs, MCUs, digital electronics, and overall computer logic so I can improve on sensor communication. Leveraging this, I hope to apply this to larger projects or systems that can help in my career or curious endeavours.

@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.19">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Eduardo Ambriz Lazo">
+<meta name="dcterms.date" content="2026-10-07">
+
+<title>Interrupts – My Portfolio</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../images/knight.jpg" rel="icon" type="image/jpeg">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-e2e65ff9fa0c80472c97194b2415a86f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">My Portfolio</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> <i class="bi bi-house-door" role="img">
+</i> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../Posts/post1.html"> <i class="bi bi-journal-text" role="img">
+</i> 
+<span class="menu-text">Posts</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> <i class="bi bi-person" role="img">
+</i> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-labs" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-rocket-takeoff" role="img">
+</i> 
+ <span class="menu-text">Labs</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-labs">    
+        <li>
+    <a class="dropdown-item" href="../../labs/lab1/index.html">
+ <span class="dropdown-text">FPGA and MCU Setup and Testing</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../labs/lab2/lab2.html">
+ <span class="dropdown-text">Multiplexed Seven Segment Display</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../labs/lab3/lab3.html">
+ <span class="dropdown-text">Keypad Scanner</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../labs/lab4/lab4.html">
+ <span class="dropdown-text">Digital Audio</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../labs/lab5/lab5.html">
+ <span class="dropdown-text">Interrupts</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://www.linkedin.com/in/eduardo-ambriz-lazo-207b2129b/"> <i class="bi bi-linkedin" role="img">
+</i> 
+<span class="menu-text">LinkedIn</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://github.com/EduardoAmbrizLazo"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text">GitHub</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#design-and-testing-methodology" id="toc-design-and-testing-methodology" class="nav-link" data-scroll-target="#design-and-testing-methodology">Design and Testing Methodology</a></li>
+  <li><a href="#example-calculations-and-code" id="toc-example-calculations-and-code" class="nav-link" data-scroll-target="#example-calculations-and-code">Example Calculations and Code</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Interrupts</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">Lab Report</div>
+  </div>
+  </div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Eduardo Ambriz Lazo </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 7, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>In this lab, we once again leveraged the MCU aboard the MicroP’s Dev Board, particularly the STM32L4xx model. The idea was to use interrupts as we make an encoder to tackle measuring the rev/s (and in extension RPM) for a motor going in either direction or having a specified RPM 25GA-370 motor. Interrupts allows us to assess if the encoder functions properly and if the motor skips any pulses because the print logic and direction logic (CW or CCW), illuminates that. With all THESE puzzle pieces, we are able to encode a motor and assess the use of interrupts against other strategies like polling. Additionally, interrupts were actually successful and we know we didn’t skip any pulses because readings would naturally end up randomly switching in direction when no hardware was changed. This was a problem before but quickly patched.</p>
+<p><em>I spent approximately 18 hours in this lab all together including familiarizing myself with the idea and a whole lot of debugging</em></p>
+</section>
+<section id="design-and-testing-methodology" class="level2">
+<h2 class="anchored" data-anchor-id="design-and-testing-methodology">Design and Testing Methodology</h2>
+<p>Using SEGGER Embedded Studio, the logic of this lab was contained in a header file and a main file.</p>
+<p>There are many timers onboard the MCU but TIM2 has 32 bits and is generally recommended so overflow doesn’t occur and we can leverage it’s interrupt as long as pins PA1 and PA2 which also feature IRQHandlers. These are also great because the MCU datasheet states in section 4 Table 14 that these have an I/O Structure of FT_a which is 5V tolerant.</p>
+<p>First, data being read out regarding the bits of calculation and the RPS require 1 kHz refresh in the terminal and computing as specified. Since TIM2 was selected, this is 1 ms and with an IRQHandler we can make it so when ARR (aka SAMPL, aka sampling frequency) reaches 999 (and we add 1 in the calculations) it enables an interrupt. This corresponds with 1 second which is what we want. It should even be compatible with the EXTI IRQ Handlers.</p>
+<p>The code also notes PPR and is editable to be configured with a motor operating at 150 RPM (408 PPR) though this can be changed. Accounting for the 2 interrupts and the rising and falling edge we don’t just double this. This was an issue but fixed and is now an estimated 1632 counts per revolution.</p>
+<p>With all this in mind, to calculate RPS, the formula is RPS = count / (cntsperrev*(SAMPL+1) / 1000). We take into account the timer duration (for that PS of RPS) as well as the expected counts per revolution and count which corresponds to observed pulses in both pins (and rising/falling edges).</p>
+<p>To explain better, we can plug in some expected values: Let’s say we put in 10V</p>
+<p>Now, an important question to ask is why the need for interrupts. Why would interrupts be better than polling or timers?</p>
+<p>Implementing polling would theoretically be far easier than interrupts where we simply read the encoder values as prev, do the calculation and we can do a check to do a calculation every time. Pooling IS simple to integrate but it is set up by counting how many times it reads a value in that 1 second interval. By only relying on digitalRead and timers, we read a value and there is a delay/wait time when a pulse is read. If we’re lucky, it’s fine, but there is a high risk to skip a pulse and be off loop resulting in wildly wrong values or changed in direction where there shouldn’t be. Even if we have a high sampling frequency and low computation, there will still be enough inconsistency for the risk of skipping a pulse to be nonzero.</p>
+<p>This also brings up concerns with sampling as a whole with pooling and how some RPS or such can’r be recorded if sampling frequency is not twice or more as the RPS.</p>
+<p>Interrupts, theoretically, resolve this because it is not doing the computation all the time and waiting. We only run the computational code when we read soemthing worth processing to trigger an interrupt and thus, processing is more fluid.</p>
+<p>In other words, polling has you trapped in a “Data?” while(1) loop which consumes 100% of the CPU’s processing power just for checking. It depends on that loop length for execution and moving on, and it is beholden to the Nyquist Shannon Sampling Theorem.</p>
+<p>When implemented, we see the theoretical limitations. For polling, even if we use 80 MHz clock (max for the MCU), our cycles are 12.5 ns and in that time, we have to read the IDR, mask the bit, compare, and then go back in basic assembly. Even with severe optimization, it’s 80 MHz divided by let’s say 5 cycles to do this all. That 16 million polls. In reality, with the printf() and register saving that number goes considerably down. We get an approximate (from experimentation) of 30-50 kHz which is not great.</p>
+<p>The limit for an interrupt is latency and the ISR because the NVIC can handle multiple interrupts and neither affects each other. Latency isn’t a concerning issue but the ISR execution time is how much time is spent in the IRQ handlers. If it takes 100 clock cycles (based on code below, that’s more than reasonable) the our limit is 80 MHz/(12+100) or 714 kHz. That is FAR better even in the worst case scenario.</p>
+</section>
+<section id="example-calculations-and-code" class="level2">
+<h2 class="anchored" data-anchor-id="example-calculations-and-code">Example Calculations and Code</h2>
+<p>One of the simplest calculations we can do is assuming that 408 resulting in a value for count of 1632. Thi is because there are two interrupts and a rising and falling edge so we multiply by 4. If we get this the formula ends up as: count/(1632(1000)/1000) where count is 1632 so we get 1 RPS.</p>
+<p>On the other hand, let’s say we get a 12V input. In the terminal, we see a real value of around 2.5-2.7. Since the 150 RPM motor is rated for 12V, we expect a value of 150RPM/60 or 2.5 RPS. This is EXACTLY in that margin.</p>
+<p>Without these “set in stone” RPS values, we can be a bit more interesting. When trying for 10V we get the following. Since PPR is still 408, we still get that 1632 from the interrupts and such. For 2 rev/s at 10V, there is 3845 pulses for count. Doing the math, count/(1632(1000)/1000) = 2.356. Recalculating this from a motor perspective, using teh rating we expect (10/12)150 RPM = 125 RPM. Divided by 60, this is 2.083. Either way, we expect about that range which was observed experimentally.</p>
+<p>Finally, to assess 5V we would expect a pulse count of RPS x PPR x SAMPL and that ends up being 1908. Calculating that from the code, we get 1908/1632 or 1.169. That matches our experimental value immensely closely.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Main Loop">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Main Loop
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>```c int main(void) { setupGPIO(); setupTimer(); setupIQR();</p>
+<p>CW = 0;</p>
+<p>volatile int prev = (digitalRead(ENCODER_PIN_A) ^ digitalRead(ENCODER_PIN_B)); //Gets initial readings</p>
+<p>while(1){ RPS = count / (cntsperrev*(SAMPL+1) / 1000); //Formula for RPS</p>
+<p>if (abs(RPS) &gt; LOCK_THRES) { islocked = 1; } else { islocked = 0; }</p>
+<p>if(print){ printf(“%f RPS”, RPS); //printf for debug terminal count = 0; //Reset the one second print = 0; }<br>
+} }</p>
+</div>
+</div>
+</div>
+<p>For more context on the signals within each register (i.e.&nbsp;GPIOB_reg-&gt;ODR), the library I made below can illuminate that and the STM32L4 reference manual can provide more context.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Header File">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Header File
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>C //Eduardo Ambriz Lazo //10/7/2026 #ifndef LAB5_H #define LAB5_H</p>
+<p>#include “STM32L432KC_GPIO.h” #include “STM32L432KC_RCC.h” #include “STM32L432KC_TIM.h” #include “STM32L432KC_FLASH.h” #include “STM32L432KC_USART.h” #include “STM32L432KC_SPI.h”</p>
+<p>#define ENCODER_PIN_A PA1 #define ENCODER_PIN_B PA2 #define TIM TIM2 //TIM2 interrupt specified #define SAMPL 499 //For the calc, we add 1 to this to get 500 ms #define LOCK_THRES 0.5 //When to lock</p>
+<p>void setupTimer(void); void setupGPIO(void); void setupIQR(void); int _write(int file, char *ptr, int len);</p>
+<p>#endif</p>
+</div>
+</div>
+</div>
+<p>Technical Documentation: The source code for the project can be found in the associated Github repository.</p>
+<p>Schematic <img src="images/lab5-schematic (2).png" id="fig-schematic" class="img-fluid" alt="Figure: Schematic of the physical circuit including motor, appropiate pins, and voltage connections."></p>
+<p><strong>?@fig-schematic</strong> shows the electrical layout of the design. Note the need for 2 encoder signals which obey the concept of quadrature encoders. Additionally, we must ensure common ground and appropriate V_DD for the motor depending on it’s PPR.</p>
+<p>Flowchart {#fig-flowchart}</p>
+<p><strong>?@fig-flowchart</strong> shows the the main loop and each interrupt handler, and how they communicate.</p>
+<p>Results and Discussion The overall design and construction was successful as confirmed via teh Debug Terminal and the successful upload of the solution to the MCU. I was able to accomplish all tasks outlined in the beginning of this lab report and even handle direction of the motor.</p>
+<p>Conclusion The design successfully programmed the speaker to play two tunes. I learned a lot about communicating with the MCU using a reference manual and datasheet and manipulating the values of registers to essentially get a MAX COUNT.</p>
+<p>AI Prototype Summary {#fig-aisynthesis}</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Initial Prompt">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Initial Prompt
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>C TIM_HandleTypeDef htim2;</p>
+<p>void MX_TIM2_Init(void) { TIM_Encoder_InitTypeDef sConfig = {0}; TIM_MasterConfigTypeDef sMasterConfig = {0};</p>
+<p>htim2.Instance = TIM2; htim2.Init.Prescaler = 0; htim2.Init.CounterMode = TIM_COUNTERMODE_UP; htim2.Init.Period = 65535; // 16-bit or 32-bit (TIM2 is 32-bit on STM32L4) htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1; htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;</p>
+<p>// Encoder mode configuration: counts on both TI1 and TI2 edges (X4 decoding) sConfig.EncoderMode = TIM_ENCODERMODE_TI12; sConfig.IC1Polarity = TIM_ICPOLARITY_RISING; sConfig.IC1Selection = TIM_ICSELECTION_DIRECT_TI; sConfig.IC1Prescaler = TIM_ICPSC_DIV1; sConfig.IC1Filter = 10; // Glitch filter (0-15)</p>
+<p>sConfig.IC2Polarity = TIM_ICPOLARITY_RISING; sConfig.IC2Selection = TIM_ICSELECTION_DIRECT_TI; sConfig.IC2Prescaler = TIM_ICPSC_DIV1; sConfig.IC2Filter = 10;</p>
+<p>if (HAL_TIM_Encoder_Init(&amp;htim2, &amp;sConfig) != HAL_OK) { // Initialization Error Error_Handler(); } } // Start the hardware encoder counter HAL_TIM_Encoder_Start(&amp;htim2, TIM_CHANNEL_ALL);</p>
+<p>// Read position (Counter value updates automatically in hardware) uint32_t encoder_count = __HAL_TIM_GET_COUNTER(&amp;htim2);</p>
+<p>// Check rotation direction (0 = Counting Up / Forward, 1 = Counting Down / Reverse) uint8_t direction = __HAL_TIM_IS_TIM_COUNTING_DOWN(&amp;htim2);</p>
+</div>
+</div>
+</div>
+<p>For clarity, the prompt was as follows:</p>
+<p>Write me interrupt handlers to interface with a quadrature encoder. I’m using the STM32L432KC, what pins should I connect the encoder to in order to allow it to easily trigger the interrupts?</p>
+<p>I decided to prompt Gemini via the Harvey Mudd license (as to not train the AI) and I was presented with the “Initial Prompt” block seen above. A step in this case would be defined sort of by polling and it checks direction by checking the timer and manipulating the way it operates. This isn pretty flawed for reasons we’ve already said but I can see the justification for pin management and simplicity by simply having the encoder, position and direction.</p>
+<p><strong>?@fig-aisynthesis</strong> shows a screenshot of the inital prompting though there was also redirection and an insistence to use interrupts to which the AI responded.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Reprompting">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Reprompting
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>C void MX_GPIO_Init(void) { GPIO_InitTypeDef GPIO_InitStruct = {0};</p>
+<p>__HAL_RCC_GPIOA_CLK_ENABLE();</p>
+<p>// Configure PA0 (Channel A) as EXTI Interrupt on Rising &amp; Falling Edges GPIO_InitStruct.Pin = GPIO_PIN_0; GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING_FALLING; GPIO_InitStruct.Pull = GPIO_PULLUP; // Set to PULLUP if open-drain encoder HAL_GPIO_Init(GPIOA, &amp;GPIO_InitStruct);</p>
+<p>// Configure PA1 (Channel B) as regular Input GPIO_InitStruct.Pin = GPIO_PIN_1; GPIO_InitStruct.Mode = GPIO_MODE_INPUT; GPIO_InitStruct.Pull = GPIO_PULLUP; HAL_GPIO_Init(GPIOA, &amp;GPIO_InitStruct);</p>
+<p>// Enable NVIC Interrupt line for EXTI Line 0 (PA0) HAL_NVIC_SetPriority(EXTI0_IRQn, 2, 0); HAL_NVIC_EnableIRQ(EXTI0_IRQn); }</p>
+</div>
+</div>
+</div>
+<p>This is far more familiar but when running it’s clear it’s missing a lot of foundation. It doesn’t run and the use of NVIC is on the right track along with the IRQ Handlers, but there ARE flaws.</p>
+<p>Resources The source code for the project can be found in the associated Github repository.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

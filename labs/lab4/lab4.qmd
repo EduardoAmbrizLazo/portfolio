@@ -1,0 +1,259 @@
+---
+title: "Digital Audio"
+author: "Eduardo Ambriz Lazo"
+date: "2026-09-30"
+categories: [Lab Report]
+format:
+  html:
+    toc: true
+---
+
+## Introduction
+
+In this lab, we leveraged the MCU aboard the MicroP's Dev Board, particularly the STM32L4xx model. Utilizing this, we're able to control the timer logic to function like a counter in order to trigger an output at a certain frequency. This is done via the TIM2 register built into the MCU as well as initiating the GPIO B pins to output a signal that powers a speaker at the desired frequency. With all these puzzle pieces, we can have the speaker play an array of notes and make a tune.
+
+*I spent approximately 14 hours in this lab all together including familiarizing myself with the idea and a whole lot of debugging*
+
+## Design and Testing Methodology
+
+Using SEGGER Embedded Studio, the logic of this lab was contained in a header file and a main file. The header file is essentially a library pointing to the addresses of the MCU so the main logic can leverage several registers. The ones of note for this lab are the RCC, TIM2, and GPIOB register.
+
+There are many timers onboard the MCU but TIM2 has 32 bits and is generally recommended so overflow doesn't occur and we can create a constant (via PSC) to specify our frequency through altering the ARR and SRC.
+
+Naturally, we want a system that can relate pitch and duration to timer configurations and that can create 220 Hz and 1000 Hz pitches within 1% accuracy. A lot of calculations are involved in this analysis but logically:
+
+MAX DURATION
+
+For maximum delay/duration, the delay is the inverse of frequency (T = 1/f). Using our maximum frequency to get the maximum number, we do 1/(1.164 x 10^-5 Hz) which is 85,900 seconds or 23.86 hours.
+
+MIN DURATION
+
+For minumum the same principle applies but instead we do 1/(25kHz) which means the minimum delay would be about 40 microseconds.
+
+MINIMUM FREQUENCY
+
+The timer frequency is derived by f_out=(f_clk)/(2(PSC+1)(ARR+1)). The dividing by 2 is due to the nature of toggling. This is why the code uses 20MHz rather than 40MHz. Given that f_clk = 40 MHz and PSC=39, the denominator is 80(ARR+1) and we should set ARR to (2^32)-1.
+
+Therefore, f_min=(40MHz)/(80(2^32)) or 1.164 x 10^-5 Hz
+
+MAX FREQUENCY
+
+Referring to the code below, since PSC = 39, let's say the code has already set the Auto-Reload Register (ARR). For the case in the maximum frequency, ARR should be equal to 1. Using the equation above:
+
+f_max=(40MHz)/(160)= 25 kHz
+
+VERIFY 1% FREQUENCY ACCURACY
+
+To be accurate, we must minimize error. What IS error in this application? Error is defined by the way ARR rounds so relative error Epsilon = 1/(2(ARR+1))
+
+To satisfy Epsilon <= 0.01, this means that 1/(2(ARR+1)) <= 0.01. Meaning ARR+1 >= 50, meaning ARR >= 49.
+
+In Resources below, I linked the formula for the Desmos calculations but to verify for 1000 Hz and 220 Hz:
+
+f = 1000 Hz
+
+ARR = 2000000/(40(1000)) - 1 = 49 and since 49 >= 49, the 1000 Hz note is definitely within 1% accuracy.
+
+f = 220
+
+ARR = 2000000/(40(220)) - 1 = 226.273 and since 226.273 >= 49, the 1000 Hz note is definitely within 1% accuracy.
+
+Additional frequencies and their ARR values are in the Desmos calculator.
+
+The reason that 220 and 1000 are not sufficient is because ARR is a constant and every frequency value evaluated against it would have a different remainder to account for. This means it can't be cleanly divided and it's possible a frequency could end up off and so error must be evaluated across every note between 220 Hz and 1000 Hz.
+
+::: {.callout-note collapse="true" title="Main Logic"}
+```c
+// lab4_ea_main.c
+// Fur Elise, E155 Lab 4
+
+#include <stdint.h>
+#include "definitionlibrary.h"
+
+#define SPK 3 //Bonus is that PB3 is also used for LD3 so we blink to the tune
+
+// Pitch in Hz, duration in ms
+const int notes[][2] = {
+{Pretend there's a series of notes and durations here, condensed for readability}};
+
+
+
+void delay(uint32_t ms) {
+    TIM2_reg->ARR = 2000000/(1000*(40))-1; //default delay will be 1000 Hz
+    TIM2_reg->CNT = 0;
+    for (int i = 1; i <= ms; i++) {
+     while(!(TIM2_reg->SR & 1)) {}
+    TIM2_reg->SR &= ~(1<<0);
+    }
+}
+
+void play(int frq, int ms) {
+    TIM2_reg->ARR = 2000000/(frq*(40))-1;
+    TIM2_reg->CNT = 0;
+        for (uint32_t i = 1; i <= ms; i++) {
+        while(!(TIM2_reg->SR & 1)) {}
+        TIM2_reg->SR &= ~(1<<0);
+        GPIOB_reg->ODR ^= (1<<SPK); //get TIM2_reg- as in it? lay lay(int ms) rest? void { }>CR1 &= ~0x01; //Disable Timer since that's the CEN bit
+    GPIOB_reg->ODR = ~(1 << SPK);
+    delay(ms);
+}
+
+
+int main(void) {
+
+    int i = 0;
+
+    RCC_reg->AHB2ENR |= (1 << 1); //Bit 1 is GPIOBEN, fits our GPIO B specs
+    RCC_reg->APB1ENR1 |= (1 << 0); //Bit 0 is TIM2EN
+
+    GPIOB_reg->MODER &= ~(3 << (SPK * 2)); //Speaker general purpose output
+    GPIOB_reg->MODER |= (1 << (SPK * 2));
+
+    TIM2_reg->PSC = 39;  //Prescaler divider const. for frequency calcs 
+    TIM2_reg->CR1 |= 1; //CEN as specified before
+
+    while(!(notes[i][0] == 0 && notes[i][1] == 0)) {
+        int frq = notes[i][0]; //assigning freq to the first element
+        int del = notes[i][1]; //assigning delay duration to second element
+        if (frq == 0) {
+        //lay(del);
+        delay(del*2);
+    }
+    else {
+        uint32_t ms = frq*del/500;
+        play(frq, ms*0.80);
+        //TIM2_reg->CR1 |= (1 << 0); //Enable CEN
+        delay(ms);
+    }
+    i++;
+    GPIOB_reg->ODR = ~(1 << SPK); //Toggling to create the square wave
+    }
+}
+:::For more context on the signals within each register (i.e. GPIOB_reg->ODR), the library I made below can illuminate that and the STM32L4 reference manual can provide more context.::: {.callout-note collapse="true" title="definitionlibrary.h"}C// definitionlibrary.h
+// Header for Digital Audio Lab functions
+
+#ifndef STM32L4_TIM2_H
+#define STM32L4_TIM2_H
+
+
+#include <stdint.h> // Include stdint header
+
+//Pg. 396 TIM2 stuff
+//Pg. 70 Memory Map and Register Offsets
+
+
+///////////////////////////////////////////////////////////////////////////////
+// Definitions
+///////////////////////////////////////////////////////////////////////////////
+
+// Timer register structs here
+typedef struct {
+volatile uint32_t CR1;   // Power Control Register STOP/START
+volatile uint32_t OTYPER;  // TIM2 Offset 0x04
+volatile uint32_t OSPEEDR; // TIM2 Offset 0x08
+volatile uint32_t DIER;  // GPIO Offset 0x0C
+volatile uint32_t SR;     // GPIO Offset 0x10
+volatile uint32_t ODR;     // GPIO Offset 0x14
+volatile uint32_t BSRR;    // GPIO Offset 0x18
+volatile uint32_t LCKR;    // GPIO Offset 0x1C
+volatile uint32_t AFRL;    // GPIO Offset 0x20
+volatile uint32_t CNT;    // GPIO Offset 0x24
+volatile uint32_t PSC;
+volatile uint32_t ARR;
+} TIM2;
+#define TIM2_reg ((TIM2 *) 0x40000000UL)
+#endif
+
+#ifndef STM32L4_GPIOB_H
+#define STM32L4_GPIOB_H
+
+#include <stdint.h> // Include stdint header
+
+// GPIOB register structs here
+typedef struct {
+volatile uint32_t MODER;   // GPIO Offset 0x00 GPIO port mode register
+volatile uint32_t OTYPER;  // GPIO Offset 0x04
+volatile uint32_t OSPEEDR; // GPIO Offset 0x08
+volatile uint32_t PURPDR;  // GPIO Offset 0x0C
+volatile uint32_t IDR;     // GPIO Offset 0x10
+volatile uint32_t ODR;     // GPIO Offset 0x14
+volatile uint32_t BSRR;    // GPIO Offset 0x18
+volatile uint32_t LCKR;    // GPIO Offset 0x1C
+volatile uint32_t AFRL;    // GPIO Offset 0x20
+volatile uint32_t AFRH;    // GPIO Offset 0x24
+} GPIOB;
+#define GPIOB_reg ((GPIOB *) 0x48000400UL)
+
+#endif
+
+#ifndef STM32L4_RCC_H
+#define STM32L4_RCC_H
+
+#include <stdint.h> // Include stdint header
+
+// Base addresses
+#define RCC_BASE (0x40021000UL) // base address of RCC
+
+// PLL
+#define PLLSRC_HSI 0
+#define PLLSRC_HSE 1
+
+// Clock configuration
+#define SW_HSI  0
+#define SW_HSE  1
+#define SW_PLL  2
+#define __IO volatile
+
+/**
+* @brief Reset and Clock Control
+*/
+
+typedef struct
+{
+__IO uint32_t CR;          /*!< RCC clock control register,                                              Address offset: 0x00 */
+__IO uint32_t ICSCR;       /*!< RCC internal clock sources calibration register,                         Address offset: 0x04 */
+__IO uint32_t CFGR;        /*!< RCC clock configuration register,                                        Address offset: 0x08 */
+__IO uint32_t PLLCFGR;     /*!< RCC system PLL configuration register,                                   Address offset: 0x0C */
+__IO uint32_t PLLSAI1CFGR; /*!< RCC PLL SAI1 configuration register,                                     Address offset: 0x10 */
+uint32_t      RESERVED;    /*!< Reserved,                                                                Address offset: 0x14 */
+__IO uint32_t CIER;        /*!< RCC clock interrupt enable register,                                     Address offset: 0x18 */
+__IO uint32_t CIFR;        /*!< RCC clock interrupt flag register,                                       Address offset: 0x1C */
+__IO uint32_t CICR;        /*!< RCC clock interrupt clear register,                                      Address offset: 0x20 */
+uint32_t      RESERVED0;   /*!< Reserved,                                                                Address offset: 0x24 */
+__IO uint32_t AHB1RSTR;    /*!< RCC AHB1 peripheral reset register,                                      Address offset: 0x28 */
+__IO uint32_t AHB2RSTR;    /*!< RCC AHB2 peripheral reset register,                                      Address offset: 0x2C */
+__IO uint32_t AHB3RSTR;    /*!< RCC AHB3 peripheral reset register,                                      Address offset: 0x30 */
+uint32_t      RESERVED1;   /*!< Reserved,                                                                Address offset: 0x34 */
+__IO uint32_t APB1RSTR1;   /*!< RCC APB1 peripheral reset register 1,                                    Address offset: 0x38 */
+__IO uint32_t APB1RSTR2;   /*!< RCC APB1 peripheral reset register 2,                                    Address offset: 0x3C */
+__IO uint32_t APB2RSTR;    /*!< RCC APB2 peripheral reset register,                                      Address offset: 0x40 */
+uint32_t      RESERVED2;   /*!< Reserved,                                                                Address offset: 0x44 */
+__IO uint32_t AHB1ENR;     /*!< RCC AHB1 peripheral clocks enable register,                              Address offset: 0x48 */
+__IO uint32_t AHB2ENR;     /*!< RCC AHB2 peripheral clocks enable register,                              Address offset: 0x4C */   
+__IO uint32_t AHB3ENR;     /*!< RCC AHB3 peripheral clocks enable register,                              Address offset: 0x50 */
+uint32_t      RESERVED3;   /*!< Reserved,                                                                Address offset: 0x54 */
+__IO uint32_t APB1ENR1;    /*!< RCC APB1 peripheral clocks enable register 1,                            Address offset: 0x58 */
+__IO uint32_t APB1ENR2;    /*!< RCC APB1 peripheral clocks enable register 2,                            Address offset: 0x5C */
+__IO uint32_t APB2ENR;     /*!< RCC APB2 peripheral clocks enable register,                              Address offset: 0x60 */
+uint32_t      RESERVED4;   /*!< Reserved,                                                                Address offset: 0x64 */
+__IO uint32_t AHB1SMENR;   /*!< RCC AHB1 peripheral clocks enable in sleep and stop modes register,      Address offset: 0x68 */
+__IO uint32_t AHB2SMENR;   /*!< RCC AHB2 peripheral clocks enable in sleep and stop modes register,      Address offset: 0x6C */
+__IO uint32_t AHB3SMENR;   /*!< RCC AHB3 peripheral clocks enable in sleep and stop modes register,      Address offset: 0x70 */
+uint32_t      RESERVED5;   /*!< Reserved,                                                                Address offset: 0x74 */
+__IO uint32_t APB1SMENR1;  /*!< RCC APB1 peripheral clocks enable in sleep mode and stop modes register 1, Address offset: 0x78 */
+__IO uint32_t APB1SMENR2;  /*!< RCC APB1 peripheral clocks enable in sleep mode and stop modes register 2, Address offset: 0x7C */
+__IO uint32_t APB2SMENR;   /*!< RCC APB2 peripheral clocks enable in sleep mode and stop modes register, Address offset: 0x80 */
+uint32_t      RESERVED6;   /*!< Reserved,                                                                Address offset: 0x84 */
+__IO uint32_t CCIPR;       /*!< RCC peripherals independent clock configuration register,                Address offset: 0x88 */
+uint32_t      RESERVED7;   /*!< Reserved,                                                                Address offset: 0x8C */
+__IO uint32_t BDCR;        /*!< RCC backup domain control register,                                      Address offset: 0x90 */
+__IO uint32_t CSR;         /*!< RCC clock control & status register,                                     Address offset: 0x94 */
+__IO uint32_t CRRCR;       /*!< RCC clock recovery RC register,                                          Address offset: 0x98 */
+} RCC_TypeDef;
+
+#define RCC_reg ((RCC_TypeDef *) RCC_BASE)
+
+#endif
+:::Technical Documentation:The source code for the project can be found in the associated Github repository.Schematic{#fig-schematic}@fig-schematic shows the electical layout of the design. Since our output can't necessarily drive a speaker, an audio amplifier is needed for the speaker to properly read the GPIO output. Additionally, a potentiometer serves as volume control.Results and DiscussionThe overall design and construction was successful as confirmed via physical circuitry and the successful upload of the solution to the MCU. I was able to accomplish all tasks outlined in the beginning of this lab report and utilize some interesting logic that I didn't see other peers using.ConclusionThe design successfully programmed the speaker to play two tunes. I learned a lot about communicating with the MCU using a reference manual and datasheet and manipulating the values of registers to essentially get a MAX COUNT.AI Prototype Summary{#fig-aisynthesis}::: {.callout-note collapse="true" title="Initial Prompt"}Timers to Use (220 Hz to 1 kHz)The STM32L432KC includes several general-purpose and advanced timers suitable for signal and PWM generation:TIM2 (32-bit): High-precision general-purpose timer. Its 32-bit width provides a massive counting range, making low frequencies easily reachable without risk of counter overflow.TIM1 (16-bit): Advanced-control timer. Fully capable, but includes extra complex features (break inputs, dead-time) that are unnecessary for basic audio/PWM signals.TIM15 & TIM16 (16-bit): General-purpose 16-bit timers. Suitable for basic signal output, though care must be taken to ensure the 16-bit limit ($65,535$) isn't exceeded when selecting prescaler values.Best Choice & Easy GPIO Pin MappingTIM2 Channel 1 mapping to PA0 (Pin A0 on the NUCLEO-L432KC board) is the best choice.Why: TIM2 is a 32-bit timer, giving you maximum resolution for calculating duty cycles and frequencies.Pin Connection: PA0 supports AF1 (Alternate Function 1) for TIM2_CH1. It breaks out cleanly on the outer headers of the Nucleo-32 board.Relevant FormulasOutput Frequency ($f_{\text{PWM}}$)$$f_{\text{PWM}} = \frac{f_{\text{TIMCLK}}}{(\text{PSC} + 1) \times (\text{ARR} + 1)}$$$f_{\text{TIMCLK}}$: Timer input clock frequency (e.g., $80\text{ MHz}$ standard system clock).$\text{PSC}$: Prescaler register value ($0\text{ to }65,535$).$\text{ARR}$: Auto-Reload Register value (defines the period).Duty Cycle (%)$$\text{Duty Cycle} = \frac{\text{CCR1}}{\text{ARR} + 1} \times 100\%$$$\text{CCR1}$: Capture/Compare Register value (controls when the pin toggles).Calculation Example ($f_{\text{TIMCLK}} = 80\text{ MHz}$)To maintain a high counter resolution, pick a fixed Prescaler ($\text{PSC}$) value:Set $\text{PSC} = 79$ (Divides the clock down to $1\text{ MHz}$ or $1\mu\text{s}$ per tick).For $1000\text{ Hz}$ Output:$$\text{ARR} = \frac{80,000,000}{(79 + 1) \times 1000} - 1 = \frac{1,000,000}{1000} - 1 = 999$$For $220\text{ Hz}$ Output:$$\text{ARR} = \frac{1,000,000}{220} - 1 \approx 4544$$Required Registers & Configuration StepsTo output a hardware PWM signal on pin PA0 without CPU overhead, configure the following registers:Clock Enable RegistersRCC->AHB2ENR: Set bit GPIOAEN to enable the GPIOA clock.RCC->APB1ENR1: Set bit TIM2EN to enable the TIM2 peripheral clock.GPIO Pin Configuration (GPIOA)GPIOA->MODER: Set MODER0 to 10 (Alternate Function Mode).GPIOA->AFR[0]: Set AFSEL0 to 0001 (AF1) to select TIM2_CH1.Timer Configuration (TIM2)TIM2->PSC: Set to 79 (1 MHz counter clock).TIM2->ARR: Set to desired frequency target (e.g., 999 for 1 kHz, 4544 for 220 Hz).TIM2->CCR1: Set to half of ARR for a 50% square wave (e.g., 500 for 1 kHz).TIM2->CCMR1:Set OC1M bits to 0110 (PWM Mode 1: Active while CNT < CCR1).Set OC1PE bit to 1 (Enable Preload register).TIM2->CCER: Set CC1E bit to 1 to enable output on Channel 1.TIM2->CR1: Set CEN bit to 1 to enable the counter.:::For clarity, the prompt was as follows:What timers should I use on the STM32L432KC to generate frequencies ranging from 220Hz to 1kHz? What’s the best choice of timer if I want to easily connect it to a GPIO pin? What formulae are relevant, and what registers need to be set to configure them properly?I decided to prompt Gemini via the Harvey Mudd license (as to not train the AI) and I was presented with the “Initial Prompt” block seen above. Notably, it is comprehensive and covers a lot about timer selection and some of the information I cam across reading the manual. The AI does conclude that TIM2 is ideal for practically the same reason I described about it being 32-bit. However, it instead opts for pin A0 because it supports Alternate Function 1. I instead went the route of using GPIO B and just declaring it as a general purpose output but I can see how PA0 also makes sense and maybe even be more effective since it’s not paired with an LED and AF1 seems to be well equipped for this purpose. It also uses the same logic to enable the clock registers but has to use GPIOA->MODER and declare that as Alternate Function mode. When giving it the files, it functioned more as a table of contents with a summary rather than pointing me to specific addresses and telling me what to do about those sections. I can see why this may be helpful though.
+
+@fig-aisynthesis shows a screenshot of the second prompting and it seems pretty thorough as an overview if someone wanted to figure out where to go.ResourcesThe source code for the project can be found in the associated Github repository.
