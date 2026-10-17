@@ -1,0 +1,219 @@
+---
+title: "Interrupts"
+author: "Eduardo Ambriz Lazo"
+date: "2026-10-07"
+categories: [Lab Report]
+format:
+  html:
+    toc: true
+---
+
+## Introduction
+
+In this lab, we once again leveraged the MCU aboard the MicroP's Dev Board, particularly the STM32L4xx model. The idea was to use interrupts as we make an encoder to tackle measuring the rev/s (and in extension RPM) for a motor going in either direction or having a specified RPM 25GA-370 motor. Interrupts allows us to assess if the encoder functions properly and if the motor skips any pulses because the print logic and direction logic (CW or CCW), illuminates that. With all THESE puzzle pieces, we are able to encode a motor and assess the use of interrupts against other strategies like polling. Additionally, interrupts were actually successful and we know we didn't skip any pulses because readings would naturally end up randomly switching in direction when no hardware was changed. This was a problem before but quickly patched.
+
+*I spent approximately 18 hours in this lab all together including familiarizing myself with the idea and a whole lot of debugging*
+
+## Design and Testing Methodology
+
+Using SEGGER Embedded Studio, the logic of this lab was contained in a header file and a main file.
+
+There are many timers onboard the MCU but TIM2 has 32 bits and is generally recommended so overflow doesn't occur and we can leverage it's interrupt as long as pins PA1 and PA2 which also feature IRQHandlers. These are also great because the MCU datasheet states in section 4 Table 14 that these have an I/O Structure of FT_a which is 5V tolerant.
+
+First, data being read out regarding the bits of calculation and the RPS require 1 kHz refresh in the terminal and computing as specified. Since TIM2 was selected, this is 1 ms and with an IRQHandler we can make it so when ARR (aka SAMPL, aka sampling frequency) reaches 999 (and we add 1 in the calculations) it enables an interrupt. This corresponds with 1 second which is what we want. It should even be compatible with the EXTI IRQ Handlers.
+
+The code also notes PPR and is editable to be configured with a motor operating at 150 RPM (408 PPR) though this can be changed. Accounting for the 2 interrupts and the rising and falling edge we don't just double this. This was an issue but fixed and is now an estimated 1632 counts per revolution.
+
+With all this in mind, to calculate RPS, the formula is RPS = count / (cntsperrev*(SAMPL+1) / 1000). We take into account the timer duration (for that PS of RPS) as well as the expected counts per revolution and count which corresponds to observed pulses in both pins (and rising/falling edges).
+
+To explain better, we can plug in some expected values: Let's say we put in 10V
+
+Now, an important question to ask is why the need for interrupts. Why would interrupts be better than polling or timers?
+
+Implementing polling would theoretically be far easier than interrupts where we simply read the encoder values as prev, do the calculation and we can do a check to do a calculation every time. Pooling IS simple to integrate but it is set up by counting how many times it reads a value in that 1 second interval. By only relying on digitalRead and timers, we read a value and there is a delay/wait time when a pulse is read. If we're lucky, it's fine, but there is a high risk to skip a pulse and be off loop resulting in wildly wrong values or changed in direction where there shouldn't be. Even if we have a high sampling frequency and low computation, there will still be enough inconsistency for the risk of skipping a pulse to be nonzero.
+
+This also brings up concerns with sampling as a whole with pooling and how some RPS or such can'r be recorded if sampling frequency is not twice or more as the RPS.
+
+Interrupts, theoretically, resolve this because it is not doing the computation all the time and waiting. We only run the computational code when we read soemthing worth processing to trigger an interrupt and thus, processing is more fluid.
+
+In other words, polling has you trapped in a “Data?” while(1) loop which consumes 100% of the CPU's processing power just for checking. It depends on that loop length for execution and moving on, and it is beholden to the Nyquist Shannon Sampling Theorem.
+
+When implemented, we see the theoretical limitations. For polling, even if we use 80 MHz clock (max for the MCU), our cycles are 12.5 ns and in that time, we have to read the IDR, mask the bit, compare, and then go back in basic assembly. Even with severe optimization, it's 80 MHz divided by let's say 5 cycles to do this all. That 16 million polls. In reality, with the printf() and register saving that number goes considerably down. We get an approximate (from experimentation) of 30-50 kHz which is not great.
+
+The limit for an interrupt is latency and the ISR because the NVIC can handle multiple interrupts and neither affects each other. Latency isn't a concerning issue but the ISR execution time is how much time is spent in the IRQ handlers. If it takes 100 clock cycles (based on code below, that's more than reasonable) the our limit is 80 MHz/(12+100) or 714 kHz. That is FAR better even in the worst case scenario.
+
+## Example Calculations and Code
+
+One of the simplest calculations we can do is assuming that 408 resulting in a value for count of 1632. Thi is because there are two interrupts and a rising and falling edge so we multiply by 4. If we get this the formula ends up as: count/(1632(1000)/1000) where count is 1632 so we get 1 RPS.
+
+On the other hand, let's say we get a 12V input. In the terminal, we see a real value of around 2.5-2.7. Since the 150 RPM motor is rated for 12V, we expect a value of 150RPM/60 or 2.5 RPS. This is EXACTLY in that margin.
+
+Without these “set in stone” RPS values, we can be a bit more interesting. When trying for 10V we get the following. Since PPR is still 408, we still get that 1632 from the interrupts and such. For 2 rev/s at 10V, there is 3845 pulses for count. Doing the math, count/(1632(1000)/1000) = 2.356. Recalculating this from a motor perspective, using teh rating we expect (10/12)150 RPM = 125 RPM. Divided by 60, this is 2.083. Either way, we expect about that range which was observed experimentally.
+
+Finally, to assess 5V we would expect a pulse count of RPS x PPR x SAMPL and that ends up being 1908. Calculating that from the code, we get 1908/1632 or 1.169. That matches our experimental value immensely closely.
+
+::: {.callout-note collapse="true" title="Main Loop"}
+```c
+int main(void) {
+setupGPIO(); setupTimer(); setupIQR();
+
+CW = 0;
+
+volatile int prev = (digitalRead(ENCODER_PIN_A) ^ digitalRead(ENCODER_PIN_B)); //Gets initial readings
+
+while(1){ RPS = count / (cntsperrev*(SAMPL+1) / 1000); //Formula for RPS
+
+if (abs(RPS) > LOCK_THRES) {
+  islocked = 1;
+} else {
+  islocked = 0;
+}
+
+if(print){
+  printf("%f RPS\n", RPS); //printf for debug terminal
+  count = 0; //Reset the one second
+  print = 0; 
+        }  
+    }
+}
+:::
+
+For more context on the signals within each register (i.e. GPIOB_reg->ODR), the library I made below can illuminate that and the STM32L4 reference manual can provide more context.
+
+::: {.callout-note collapse="true" title="Header File"}
+
+C
+//Eduardo Ambriz Lazo
+//10/7/2026
+#ifndef LAB5_H
+#define LAB5_H
+
+
+#include "STM32L432KC_GPIO.h"
+#include "STM32L432KC_RCC.h"
+#include "STM32L432KC_TIM.h"
+#include "STM32L432KC_FLASH.h"
+#include "STM32L432KC_USART.h"
+#include "STM32L432KC_SPI.h"
+
+#define ENCODER_PIN_A PA1
+#define ENCODER_PIN_B PA2 
+#define TIM TIM2 //TIM2 interrupt specified
+#define SAMPL 499 //For the calc, we add 1 to this to get 500 ms
+#define LOCK_THRES 0.5 //When to lock
+
+
+void setupTimer(void);
+void setupGPIO(void);
+void setupIQR(void);
+int _write(int file, char *ptr, int len);
+
+#endif
+:::
+
+Technical Documentation:
+The source code for the project can be found in the associated Github repository.
+
+Schematic
+![Figure: Schematic of the physical circuit including motor, appropiate pins, and voltage connections.](images/lab5-schematic (2).png){#fig-schematic}
+
+@fig-schematic shows the electrical layout of the design. Note the need for 2 encoder signals which obey the concept of quadrature encoders. Additionally, we must ensure common ground and appropriate V_DD for the motor depending on it's PPR.
+
+Flowchart
+{#fig-flowchart}
+
+@fig-flowchart shows the the main loop and each interrupt handler, and how they communicate.
+
+Results and Discussion
+The overall design and construction was successful as confirmed via teh Debug Terminal and the successful upload of the solution to the MCU. I was able to accomplish all tasks outlined in the beginning of this lab report and even handle direction of the motor.
+
+Conclusion
+The design successfully programmed the speaker to play two tunes. I learned a lot about communicating with the MCU using a reference manual and datasheet and manipulating the values of registers to essentially get a MAX COUNT.
+
+AI Prototype Summary
+{#fig-aisynthesis}
+
+::: {.callout-note collapse="true" title="Initial Prompt"}
+
+C
+TIM_HandleTypeDef htim2;
+
+void MX_TIM2_Init(void)
+{
+    TIM_Encoder_InitTypeDef sConfig = {0};
+    TIM_MasterConfigTypeDef sMasterConfig = {0};
+
+htim2.Instance = TIM2;
+htim2.Init.Prescaler = 0;
+htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
+htim2.Init.Period = 65535; // 16-bit or 32-bit (TIM2 is 32-bit on STM32L4)
+htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+
+// Encoder mode configuration: counts on both TI1 and TI2 edges (X4 decoding)
+sConfig.EncoderMode = TIM_ENCODERMODE_TI12;
+sConfig.IC1Polarity = TIM_ICPOLARITY_RISING;
+sConfig.IC1Selection = TIM_ICSELECTION_DIRECT_TI;
+sConfig.IC1Prescaler = TIM_ICPSC_DIV1;
+sConfig.IC1Filter = 10; // Glitch filter (0-15)
+
+sConfig.IC2Polarity = TIM_ICPOLARITY_RISING;
+sConfig.IC2Selection = TIM_ICSELECTION_DIRECT_TI;
+sConfig.IC2Prescaler = TIM_ICPSC_DIV1;
+sConfig.IC2Filter = 10;
+
+if (HAL_TIM_Encoder_Init(&htim2, &sConfig) != HAL_OK)
+{
+    // Initialization Error
+    Error_Handler();
+}
+}
+// Start the hardware encoder counter
+HAL_TIM_Encoder_Start(&htim2, TIM_CHANNEL_ALL);
+
+// Read position (Counter value updates automatically in hardware)
+uint32_t encoder_count = __HAL_TIM_GET_COUNTER(&htim2);
+
+// Check rotation direction (0 = Counting Up / Forward, 1 = Counting Down / Reverse)
+uint8_t direction = __HAL_TIM_IS_TIM_COUNTING_DOWN(&htim2);
+:::
+
+For clarity, the prompt was as follows:
+
+Write me interrupt handlers to interface with a quadrature encoder. I'm using the STM32L432KC, what pins should I connect the encoder to in order to allow it to easily trigger the interrupts?
+
+I decided to prompt Gemini via the Harvey Mudd license (as to not train the AI) and I was presented with the “Initial Prompt” block seen above. A step in this case would be defined sort of by polling and it checks direction by checking the timer and manipulating the way it operates. This isn pretty flawed for reasons we've already said but I can see the justification for pin management and simplicity by simply having the encoder, position and direction.
+
+@fig-aisynthesis shows a screenshot of the inital prompting though there was also redirection and an insistence to use interrupts to which the AI responded.
+
+::: {.callout-note collapse="true" title="Reprompting"}
+
+C
+void MX_GPIO_Init(void)
+{
+GPIO_InitTypeDef GPIO_InitStruct = {0};
+
+__HAL_RCC_GPIOA_CLK_ENABLE();
+
+// Configure PA0 (Channel A) as EXTI Interrupt on Rising & Falling Edges
+GPIO_InitStruct.Pin = GPIO_PIN_0;
+GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING_FALLING;
+GPIO_InitStruct.Pull = GPIO_PULLUP; // Set to PULLUP if open-drain encoder
+HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+// Configure PA1 (Channel B) as regular Input
+GPIO_InitStruct.Pin = GPIO_PIN_1;
+GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+GPIO_InitStruct.Pull = GPIO_PULLUP;
+HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+// Enable NVIC Interrupt line for EXTI Line 0 (PA0)
+HAL_NVIC_SetPriority(EXTI0_IRQn, 2, 0);
+HAL_NVIC_EnableIRQ(EXTI0_IRQn);
+}
+:::
+
+This is far more familiar but when running it's clear it's missing a lot of foundation. It doesn't run and the use of NVIC is on the right track along with the IRQ Handlers, but there ARE flaws.
+
+Resources
+The source code for the project can be found in the associated Github repository.

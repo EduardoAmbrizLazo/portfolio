@@ -1,0 +1,198 @@
+---
+title: "Multiplexed Seven Segment Display"
+author: "Eduardo Ambriz Lazo"
+date: "2026-09-15"
+categories: [Lab Report]
+format:
+  html:
+    toc: true
+---
+
+## Introduction
+
+In this lab, we built upon the foundation of a single seven segment display leveraged the FPGA aboard the MicroP's Dev Board to branch out to a dual seven segment display which was integrated using multiplexing logic to properly select a DIP switch as an input the continuously flash the 2 hex digits of the display fast enough to be undetectable to the human eye. The decoding module and counter module are identical to Lab 1 save for a new top-level test bench that makes use of the parameterized counter to flash and assign logic such that the right DIP switch and digit (i.e. common anode on the dual seven segment display) is selected. The multiplexing logic allows us to control 2 digits with just 9 pins and utilizing the counter module, we aim for the internal 48 MHz clock to be divided by ~18'b0 resulting in a clock at ~90 Hz (due to toggling) which is indeed sufficient. Additionally, this lab also included building a scanning module such that a scanning signal be displayed at ~2 Hz on internal LEDs when buttons on a keypad are pressed. The idea is that each row runs at a slightly different offset clock cycle and pressing all 4 columns in conjunction results in a synchronized blinking. Furthermore, the designs of both took advantage of the physics for PNP and NPN transistors as to not drain more than 8 mA for the FPGA pins but get sufficient current draw.
+
+*I spent approximately 15 hours in this lab all together including familiarizing myself with the idea and a whole lot of debugging*
+
+## Design and Testing Methodology
+
+The overall logic was stored in four modules where the top module called on the counter, decoder, and scanner submodules. It also included the assign logic prescribing which digit to select (based on the count declared in the top module) and assigned LEDs to be the inverse of the column inputs in the scanner. On the topic of the scanner submodule, it contained a counter in it of itself (targetting that 2 Hz) and contained logic to scan a 4 x 4 keypad by setting a 4-bit row vector to exhibit HIGH across a bit, one at a time. As previously stated, the parameterized clock divider in the top module was 18 bits whereas here, it increased to 25 bits (lower frequency naturally).
+
+::: {.callout-note collapse="true" title="Top Level Module Calls and Multiplexing Logic"}
+    ```systemverilog
+    logic int_osc;
+    //Internal high-speed oscillator 48 MHz
+    HSOSC hf_osc (.CLKHFPU (1'b1), .CLKHFEN (1'b1), .CLKHF(int_osc));
+
+    //Leverage winker to get the desired Hz so they blink enough to not be seen
+    logic [17:0] displayCount;
+    winker #(18, ~18'b0) display(.int_osc (int_osc), .nreset (nreset), .en (1'b1), .count (displayCount));
+
+    logic [3:0] sActive;
+    assign sActive = ~displayCount[17] ? sRight : sLeft; //Multiplexer
+
+    decoder decode(.s (sActive), .seg (seg)); //calls on decoder module 
+    scanner scan(.int_osc (int_osc), .nreset (nreset), .en (1'b1), .row (row));
+
+    assign digit[0] = ~displayCount[17];
+    assign digit[1] = displayCount[17];
+    assign led = ~col;
+:::
+
+::: {.callout-note collapse="true" title="Scanner Bit Shift Logic and Parameterization"}
+    module scanner#(
+    parameter WIDTH = 25,
+    parameter MAX = ~25'b0)
+    (
+    input logic int_osc, nreset, en,
+    output logic [3:0] row
+    );
+        logic [WIDTH-1:0] keypadCount;
+        winker #(WIDTH, MAX) keypad(.int_osc (int_osc), .nreset (nreset), .en (en), .count (keypadCount));
+        assign row = 1'b1 << (keypadCount[WIDTH-1:WIDTH-2]); //For the sake of parameterization
+
+    endmodule
+:::
+
+For further elaboration, the scanner module was paramterized for the purpose of decreasing the clock division so an internally generated clock can properly exhibit the expected waveforms.
+
+## Technical Documentation:
+
+The source code for the project can be found in the associated Github repository.
+
+## Block Diagram
+{#fig-block-diagram}
+
+The block diagram in @fig-block-diagram demonstrates the overall architecture of the design. The top-level module lab2_ea includes three submodules: the winker/counter which is paramterized for displaying a range of frequencies to the top module or scanner (winker), the scanner which cycles between which bit of the [3:0] row output vector (fed into the keypad) is HIGH (scanner), and the 7-segment display logic module (decoder) Additionally, HS_OSC is also leveraged for an internal 48 MHz clock.
+
+## Schematic
+{#fig-schematic}
+
+@fig-schematic shows the electical layout of the design. Because driving every segment at 10 mA is strenuous (especially if we consider a case where both digits display 8), 150 $\Omega$ was the appropriate value per the equation where $R_{seg} = (3.3V-2)/10mA$ making 150 our ideal choice. Additionally, the transistors and the resistor values associated with the keypad scanner were also paramount. First, to explain, the display was multiplexed by having 2 independent 2N3906 PNP transistors control a common anode of each digit respectively (specifically the Collector pin of the transistor). These transistors are configured such that they saturate when the FPGA pin (connected to Base) reads LOW. The Emitter is simply connected to +3.3V. Another thing to clarify is the NPN setup for each row of the keypad (4 row inputs). Following the E155 site instructions, the Emitter was grounded to the FPGA ground, the Base was connected to an FPGA pin (row outputs) via a resistor ($R_{base}$). The Collector was wired to the rows of the keypad as shown in @fig-schematic and the columns were wired both to the FPGA as column inputs and to +3.3V via a 1 k$\Omega$ pullup resistor. The value of this resistor is somewhat arbitrary and should be a decent value to pull-up. However, it does inform the value of $R_{base}$ as stated earlier. The equation is practically $R_{base} = (3.3V-0.7V)$ where 0.7V is the voltage drop across the resistor divided by $I_{base}$ which we expect to be $I_{collector}/10$ or 0.33mA. This ultimately yields a value of 7.8 k$\Omega$ though a 2.2 k$\Omega$ serves our purpose of saturating just fine.Results and DiscussionThe overall design and construction was successful as confirmed via simulation (incoming) and through the physical circuitry. I was able to accomplish all tasks outlined in the beginning of this lab report and utilize some interesting code and pin assignment workarounds. Overall, results are as expected and even with a few roadblocks in testbench logic (once again, incoming) and pins being assigned or not reading values.
+
+## Testbench Simulation
+::: {.callout-note collapse="true" title="View Testbench Simulation"}
+    {#fig-testbench1}
+:::
+The design met all intended design objectives. @fig-testbench1 shows a screenshot of the QuestaSim simulation.
+
+::: {.callout-note collapse="true"}
+    {#fig-testbench2}
+:::
+The design met all intended design objectives. @fig-testbench2 shows a screenshot of the QuestaSim simulation.
+
+## Conclusion
+
+The design successfully programmed the 7-segment display and outputted the right LED logic. I learned a lot about testbenches, communication between modules, etc.
+
+AI Prototype Summary
+
+{#fig-aisynthesis}
+
+::: {.callout-note collapse="true" title="Initial Prompt"}
+    // Module 1: Common Anode Seven-Segment Decoder (4-bit BCD to 7-segment)// Common Anode logic: 0 = Segment ON, 1 = Segment OFF// Output mapping: {a, b, c, d, e, f, g}module seg7_decoder (input logic [3:0] bcd,output logic [6:0] seg);always_comb begincase (bcd)4'h0: seg = 7'b0000001; // 04'h1: seg = 7'b1001111; // 14'h2: seg = 7'b0010010; // 24'h3: seg = 7'b0000110; // 34'h4: seg = 7'b1001100; // 44'h5: seg = 7'b0100100; // 54'h6: seg = 7'b0100000; // 64'h7: seg = 7'b0001111; // 74'h8: seg = 7'b0000000; // 84'h9: seg = 7'b0000100; // 94'hA: seg = 7'b0001000; // A4'hB: seg = 7'b1100000; // b4'hC: seg = 7'b0110001; // C4'hD: seg = 7'b1000010; // d4'hE: seg = 7'b0110000; // E4'hF: seg = 7'b0111000; // Fdefault: seg = 7'b1111111; // Offendcaseendendmodule// Module 2: Time-Multiplexed Dual Seven-Segment Display Controllermodule seg7_mux_top (input logic clk, // System clockinput logic rst, // Active-high resetinput logic [3:0] in0, // First 4-bit BCD inputinput logic [3:0] in1, // Second 4-bit BCD inputoutput logic [6:0] seg_out, // Cathode segment drive outputs (shared)output logic [1:0] anodes // Common Anodes control (active-low));// Clock Divider / Multiplexing Toggle Flag
+    // For hardware implementation, set counter size to refresh around ~1 kHz to prevent flicker
+    logic [15:0] refresh_counter;
+    logic        select_reg;
+
+    always_ff @(posedge clk or posedge rst) begin
+        if (rst) begin
+            refresh_counter <= '0;
+            select_reg      <= 1'b0;
+        end else begin
+            refresh_counter <= refresh_counter + 1'b1;
+            select_reg      <= refresh_counter[15]; // Toggles active display
+        end
+    end
+
+    // 2-to-1 Multiplexer for BCD inputs
+    logic [3:0] current_bcd;
+    assign current_bcd = select_reg ? in1 : in0;
+
+    // Single Decoder Instance
+    seg7_decoder u_decoder (
+        .bcd (current_bcd),
+        .seg (seg_out)
+    );
+
+    // Active-Low Anode Controller (Enable one display at a time)
+    // anodes[0] drives Display 0, anodes[1] drives Display 1
+    assign anodes = select_reg ? 2'b10 : 2'b01;
+    endmodule// Module 3: Testbenchmodule seg7_mux_tb;logic       clk;
+    logic       rst;
+    logic [3:0] in0;
+    logic [3:0] in1;
+    logic [6:0] seg_out;
+    logic [1:0] anodes;
+
+    // Instantiate Unit Under Test (UUT)
+    seg7_mux_top uut (
+        .clk     (clk),
+        .rst     (rst),
+        .in0     (in0),
+        .in1     (in1),
+        .seg_out (seg_out),
+        .anodes  (anodes)
+    );
+
+    // Clock generation (100MHz)
+    always #5 clk = ~clk;
+
+    initial begin
+        clk = 0;
+        rst = 1;
+        in0 = 4'h3; // Display 0 should show '3'
+        in1 = 4'hA; // Display 1 should show 'A'
+
+        #20 rst = 0;
+
+        // Monitor multiplexing transitions
+        #100000;
+        $display("Input 0: %h, Input 1: %h", in0, in1);
+        $finish;
+    end
+    endmodule:::::: {.callout-note collapse="true" title="Prompt with File Attachment"}module top_mux_7seg (input logic clk,input logic reset,input logic en,input logic [3:0] in0,input logic [3:0] in1,output logic [6:0] seg0,output logic [6:0] seg1);logic mux_sel;
+    logic [3:0] current_in;
+    logic [6:0] decoded_seg;
+
+    // Instantiate provided clock divider/oscillator module
+    blinker #(
+        .WIDTH(23),
+        .MAX(23'd10000) // Lowered max count to toggle faster for time multiplexing
+    ) osc_inst (
+        .int_osc(clk),
+        .reset(reset),
+        .en(en),
+        .fpga_blink_out(mux_sel)
+    );
+
+    // Mux 1: Select between the two 4-bit inputs based on clock state
+    assign current_in = mux_sel ? in1 : in0;
+
+    // Instantiate provided 7-segment decoder
+    decoder decoder_inst (
+        .s(current_in),
+        .seg(decoded_seg)
+    );
+
+    // Demux / Register output: Hold and display the decoded bits for each segment
+    always_ff @(posedge clk or negedge reset) begin
+        if (!reset) begin
+            seg0 <= 7'b1111111; // Off state for common anode
+            seg1 <= 7'b1111111;
+        end else begin
+            if (mux_sel) begin
+                seg1 <= decoded_seg;
+            end else begin
+                seg0 <= decoded_seg;
+            end
+        end
+    end
+    endmodule
+:::
+
+For clarity, the two prompts were as follows:Write SystemVerilog HDL to time multiplex a single seven segment decoder (that decodes from four bits to a common anode seven segment display) to decode two sets of input bits and drive two sets of seven output bits.Write SystemVerilog HDL to time multiplex a single seven segment decoder (that decodes from four bits to a common anode seven segment display) to decode two sets of input bits and drive two sets of seven output bits. Use the seven segment decoder and oscillator provided in the attached files.I decided to prompt Gemini via the Harvey Mudd license (as to not train the AI) and I was presented with the first block of code in this section. Notably, it is quite dense and has some distinct deviations from my approach including unclear signal names, lack of parameterization (which wasn’t specified but is definitely valuable for testbenches), and only a singular VERY SHORT testbench that doesn’t thoroughly check things. It didn’t synthesize the first time because of some strange misspelling in the always_comb statement and I did try pasting all of this in a singular .sv file (with successful synthesization) though I suspect different files would be preferred.When prompting Gemini in a new tab with attached files it did remarkably well in calling my files and organizing the signals which genuinely surprised me since I thought it’d be unresponsive to the files or make things up. This time around, a de-mux block of code of used which seems to essentially be the sActive mux logic with some strange reset cases.@fig-aisynthesis shows a screenshot of the synthesis and warnings that appeared. Some are minor but the “clk” blurb made me realize it didn’t leverage the internal oscillator which my counter module depends on. It also preferred using clk as a signal name over my consistent int_osc. Overall, AI seems to be even stronger with a basis in files but it lacks some of the creative decisions I made while making logic.
+
+## Resources
+
+The source code for the project can be found in the associated Github repository.
