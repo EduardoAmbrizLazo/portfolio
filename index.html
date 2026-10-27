@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Eduardo Ambriz Lazo – My Portfolio</title>
+<title>Eduardo Ambriz Lazo</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -30,7 +30,6 @@ ul.task-list li input[type="checkbox"] {
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
 <script src="site_libs/clipboard/clipboard.min.js"></script>
 <script src="site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="site_libs/quarto-search/fuse.min.js"></script>
@@ -45,7 +44,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-e2e65ff9fa0c80472c97194b2415a86f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-23d8ad43b263299e4500d71d4dd14e9a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -73,6 +72,10 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Montserrat:wght@700;800&amp;display=swap" rel="stylesheet">
 
 
 </head>
@@ -85,7 +88,7 @@ ul.task-list li input[type="checkbox"] {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">My Portfolio</span>
+    <span class="navbar-title">Eduardo Ambriz Lazo</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -107,20 +110,29 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-projects">    
         <li>
-    <a class="dropdown-item" href="./Projects/auv.html">
- <span class="dropdown-text">AUV Project</span></a>
+    <a class="dropdown-item" href="./Projects/index.html">
+ <span class="dropdown-text">All Projects</span></a>
   </li>  
+        <li><hr class="dropdown-divider"></li>
         <li>
-    <a class="dropdown-item" href="./Projects/hammer.html">
- <span class="dropdown-text">Hammer Project</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./Projects/multicycleprocessor.html">
- <span class="dropdown-text">Multicycle Processor</span></a>
+    <a class="dropdown-item" href="./Projects/glove.html">
+ <span class="dropdown-text">IR Motion-Tracking Glove</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./Projects/tortillamach.html">
  <span class="dropdown-text">Tortilla Machine</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./Projects/multicycleprocessor.html">
+ <span class="dropdown-text">RISC-V Processor &amp; Synth</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./Projects/auv.html">
+ <span class="dropdown-text">AUV Telemetry System</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./Projects/hammer.html">
+ <span class="dropdown-text">Hammer Project</span></a>
   </li>  
     </ul>
   </li>
@@ -131,6 +143,11 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Art</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-art">    
+        <li>
+    <a class="dropdown-item" href="./Art/index.html">
+ <span class="dropdown-text">Art Gallery</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
         <li>
     <a class="dropdown-item" href="./Art/sketches.html">
  <span class="dropdown-text">Sketches</span></a>
@@ -153,42 +170,52 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-labs">    
         <li>
+    <a class="dropdown-item" href="./labs/index.html">
+ <span class="dropdown-text">E155 Lab Reports</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
     <a class="dropdown-item" href="./labs/lab1/index.html">
- <span class="dropdown-text">FPGA and MCU Setup and Testing</span></a>
+ <span class="dropdown-text">Lab 1: FPGA and MCU Setup and Testing</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./labs/lab2/lab2.html">
- <span class="dropdown-text">Multiplexed Seven Segment Display</span></a>
+ <span class="dropdown-text">Lab 2: Multiplexed Seven Segment Display</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./labs/lab3/lab3.html">
- <span class="dropdown-text">Keypad Scanner</span></a>
+ <span class="dropdown-text">Lab 3: Keypad Scanner</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./labs/lab4/lab4.html">
- <span class="dropdown-text">Digital Audio</span></a>
+ <span class="dropdown-text">Lab 4: Digital Audio</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./labs/lab5/lab5.html">
- <span class="dropdown-text">Interrupts</span></a>
+ <span class="dropdown-text">Lab 5: Interrupts</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./labs/lab6/index.html">
- <span class="dropdown-text">IoT, Web Server, and SPI</span></a>
+ <span class="dropdown-text">Lab 6: IoT, Web Server, and SPI</span></a>
   </li>  
     </ul>
   </li>
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item">
-    <a class="nav-link" href="https://www.linkedin.com/in/eduardo-ambriz-lazo-207b2129b/"> <i class="bi bi-linkedin" role="img">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/in/eduardo-ambriz-lazo-207b2129b/"> <i class="bi bi-linkedin" role="img" aria-label="LinkedIn">
 </i> 
-<span class="menu-text">LinkedIn</span></a>
+<span class="menu-text"></span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="https://github.com/EduardoAmbrizLazo"> <i class="bi bi-github" role="img">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/EduardoAmbrizLazo"> <i class="bi bi-github" role="img" aria-label="GitHub">
 </i> 
-<span class="menu-text">GitHub</span></a>
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="mailto:eduardoambriz1234@gmail.com"> <i class="bi bi-envelope" role="img" aria-label="Email">
+</i> 
+<span class="menu-text"></span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -213,15 +240,50 @@ ul.task-list li input[type="checkbox"] {
 <div class="quarto-title-meta">
   </div>
 </header><main class="content" id="quarto-document-content">
-<p>Welcome to my Engineering Portfolio! I’m a senior Engineering major at <a href="https://www.hmc.edu/">Harvey Mudd College</a> with an emphasis on mechatronics, mechanical design, and a heavy interest in biomimetics. I’ve been a clinic engineer at <a href="https://airmyne.com/">AirMyne</a> where I did research regarding interfacial structure design to facilitate the absorption rate of CO2 in the atmosphere. I’m currently doing fluid dynamics research regarding fin motion at the Harvey Mudd <a href="https://sites.google.com/g.hmc.edu/flow-imaging-lab/home">FILM Lab</a> and a mechatronics engineer under <a href="https://www.blueorigin.com/">Blue Origin</a>. In my free time, I could be working on a variety of personal mechanical/microcontroller projects, creating art, playing videogames, or rock climbing. Stay curious!</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/gears.gif" class="img-fluid quarto-figure quarto-figure-center figure-img" width="600"></p>
-</figure>
+<p>Welcome to my engineering portfolio! I’m a senior engineering major at <a href="https://www.hmc.edu/">Harvey Mudd College</a> with a mechanical focus, an emphasis on mechatronics and mechanical design, and a heavy interest in biomimetics.</p>
+<p>I’m currently a mechatronics clinic engineer on a project sponsored by <a href="https://www.blueorigin.com/">Blue Origin</a>, and I research fin motion and fluid dynamics at the Harvey Mudd <a href="https://sites.google.com/g.hmc.edu/flow-imaging-lab/home">FILM Lab</a>. Last spring I was a mechanical/R&amp;D engineer on an <a href="https://airmyne.com/">AirMyne</a> project, where I looked at interfacial structure design to improve how quickly CO<sub>2</sub> can be absorbed from the atmosphere.</p>
+<p>In my free time I’m usually working on personal mechanical and microcontroller projects, creating art, playing video games, or rock climbing. Stay curious!</p>
+<section id="what-im-working-on-now" class="level2">
+<h2 data-anchor-id="what-im-working-on-now">What I’m Working On Now</h2>
+<ul>
+<li><strong>Blue Origin Clinic:</strong> an automated umbilical panel extraction and engagement system for launch vehicles, with a real-time vision pipeline for sub-millimeter alignment.</li>
+<li><strong>FILM Lab:</strong> precision gantry control and Particle Image Velocimetry (PIV) for flexible-fin thrust.</li>
+<li><strong>Side Project:</strong> a wearable IR motion-tracking glove that drives a custom FPGA display.</li>
+</ul>
+</section>
+<section id="explore" class="level2">
+<h2 data-anchor-id="explore">Explore</h2>
+<div class="grid">
+<div class="g-col-12 g-col-md-4">
+<section id="projects" class="level3 nav-card">
+<h3 data-anchor-id="projects">Projects</h3>
+<p>Mechatronics, FPGA, and embedded builds, from a waterjet-cut tortilla machine to a RISC-V processor. <a href="./Projects/index.html" class="stretched-link">See the projects</a></p>
+</section>
 </div>
+<div class="g-col-12 g-col-md-4">
+<section id="art" class="level3 nav-card">
+<h3 data-anchor-id="art">Art</h3>
+<p>Sketches, digital art, and 3D models from outside the lab. <a href="./Art/index.html" class="stretched-link">Browse the gallery</a></p>
+</section>
+</div>
+<div class="g-col-12 g-col-md-4">
+<section id="e155-labs" class="level3 nav-card">
+<h3 data-anchor-id="e155-labs">E155 Labs</h3>
+<p>Write-ups for my microprocessor systems labs: FPGAs, MCUs, interrupts, and IoT. <a href="./labs/index.html" class="stretched-link">Read the labs</a></p>
+</section>
+</div>
+</div>
+</section>
+<section id="beyond-the-lab" class="level2">
+<h2 data-anchor-id="beyond-the-lab">Beyond the Lab</h2>
+<p>I’m the founder and treasurer of our campus chapter of the Society of Hispanic Professional Engineers (SHPE), and the board president of SALSA MUDD.</p>
+<video class="hero-video" autoplay="" loop="" muted="" playsinline="" preload="metadata" poster="images/gears-poster.jpg" aria-label="Animated blueprint of a planetary gearset and chain drive">
+  <source src="images/gears.mp4" type="video/mp4">
+</video>
 
 
-</main> 
+</section>
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> 
   <hr class="about-sep">
    <div class="about-links">
   <a href="https://www.linkedin.com/in/eduardo-ambriz-lazo-207b2129b/" class="about-link" rel="" target="">
@@ -319,6 +381,11 @@ ul.task-list li input[type="checkbox"] {
           if (link.dataset.originalHref !== undefined) {
             link.href = link.dataset.originalHref;
           }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
         }
       }
     function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
@@ -633,8 +700,22 @@ ul.task-list li input[type="checkbox"] {
   });
   </script>
 </div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2026 Eduardo Ambriz Lazo</p>
+</div>   
+    <div class="nav-footer-center">
+<p>Harvey Mudd College · Engineering ’27</p>
+</div>
+    <div class="nav-footer-right">
+<p>Built with <a href="https://quarto.org">Quarto</a></p>
+</div>
+  </div>
+</footer>
 
 
 
 
+<script src="site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

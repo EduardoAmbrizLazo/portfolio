@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Eduardo Ambriz Lazo">
+<meta name="description" content="A wireless gesture-control glove that tracks hand motion with IR sensors and drives a custom FPGA display.">
 
-<title>Projects – My Portfolio</title>
+<title>Wearable IR Motion-Tracking Glove &amp; Display Interface – Eduardo Ambriz Lazo</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -29,24 +31,23 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./images/knight.jpg" rel="icon" type="image/jpeg">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-e2e65ff9fa0c80472c97194b2415a86f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../images/knight.jpg" rel="icon" type="image/jpeg">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-23d8ad43b263299e4500d71d4dd14e9a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -74,6 +75,10 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Montserrat:wght@700;800&amp;display=swap" rel="stylesheet">
 
 
 </head>
@@ -85,8 +90,8 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">My Portfolio</span>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Eduardo Ambriz Lazo</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -96,7 +101,7 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html"> <i class="bi bi-house-door" role="img">
+    <a class="nav-link" href="../index.html"> <i class="bi bi-house-door" role="img">
 </i> 
 <span class="menu-text">Home</span></a>
   </li>  
@@ -108,20 +113,29 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-projects">    
         <li>
-    <a class="dropdown-item" href="./Projects/auv.html">
- <span class="dropdown-text">AUV Project</span></a>
+    <a class="dropdown-item" href="../Projects/index.html">
+ <span class="dropdown-text">All Projects</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="../Projects/glove.html">
+ <span class="dropdown-text">IR Motion-Tracking Glove</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Projects/hammer.html">
- <span class="dropdown-text">Hammer Project</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./Projects/multicycleprocessor.html">
- <span class="dropdown-text">Multicycle Processor</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./Projects/tortillamach.html">
+    <a class="dropdown-item" href="../Projects/tortillamach.html">
  <span class="dropdown-text">Tortilla Machine</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Projects/multicycleprocessor.html">
+ <span class="dropdown-text">RISC-V Processor &amp; Synth</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Projects/auv.html">
+ <span class="dropdown-text">AUV Telemetry System</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Projects/hammer.html">
+ <span class="dropdown-text">Hammer Project</span></a>
   </li>  
     </ul>
   </li>
@@ -133,15 +147,20 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-art">    
         <li>
-    <a class="dropdown-item" href="./Art/sketches.html">
+    <a class="dropdown-item" href="../Art/index.html">
+ <span class="dropdown-text">Art Gallery</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="../Art/sketches.html">
  <span class="dropdown-text">Sketches</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Art/digitalart.html">
+    <a class="dropdown-item" href="../Art/digitalart.html">
  <span class="dropdown-text">Digital Art</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Art/3Dmodeling.html">
+    <a class="dropdown-item" href="../Art/3Dmodeling.html">
  <span class="dropdown-text">3D Modeling</span></a>
   </li>  
     </ul>
@@ -154,42 +173,52 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-labs">    
         <li>
-    <a class="dropdown-item" href="./labs/lab1/index.html">
- <span class="dropdown-text">FPGA and MCU Setup and Testing</span></a>
+    <a class="dropdown-item" href="../labs/index.html">
+ <span class="dropdown-text">E155 Lab Reports</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="../labs/lab1/index.html">
+ <span class="dropdown-text">Lab 1: FPGA and MCU Setup and Testing</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./labs/lab2/lab2.html">
- <span class="dropdown-text">Multiplexed Seven Segment Display</span></a>
+    <a class="dropdown-item" href="../labs/lab2/lab2.html">
+ <span class="dropdown-text">Lab 2: Multiplexed Seven Segment Display</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./labs/lab3/lab3.html">
- <span class="dropdown-text">Keypad Scanner</span></a>
+    <a class="dropdown-item" href="../labs/lab3/lab3.html">
+ <span class="dropdown-text">Lab 3: Keypad Scanner</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./labs/lab4/lab4.html">
- <span class="dropdown-text">Digital Audio</span></a>
+    <a class="dropdown-item" href="../labs/lab4/lab4.html">
+ <span class="dropdown-text">Lab 4: Digital Audio</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./labs/lab5/lab5.html">
- <span class="dropdown-text">Interrupts</span></a>
+    <a class="dropdown-item" href="../labs/lab5/lab5.html">
+ <span class="dropdown-text">Lab 5: Interrupts</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./labs/lab6/index.html">
- <span class="dropdown-text">IoT, Web Server, and SPI</span></a>
+    <a class="dropdown-item" href="../labs/lab6/index.html">
+ <span class="dropdown-text">Lab 6: IoT, Web Server, and SPI</span></a>
   </li>  
     </ul>
   </li>
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item">
-    <a class="nav-link" href="https://www.linkedin.com/in/eduardo-ambriz-lazo-207b2129b/"> <i class="bi bi-linkedin" role="img">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/in/eduardo-ambriz-lazo-207b2129b/"> <i class="bi bi-linkedin" role="img" aria-label="LinkedIn">
 </i> 
-<span class="menu-text">LinkedIn</span></a>
+<span class="menu-text"></span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="https://github.com/EduardoAmbrizLazo"> <i class="bi bi-github" role="img">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/EduardoAmbrizLazo"> <i class="bi bi-github" role="img" aria-label="GitHub">
 </i> 
-<span class="menu-text">GitHub</span></a>
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="mailto:eduardoambriz1234@gmail.com"> <i class="bi bi-envelope" role="img" aria-label="Email">
+</i> 
+<span class="menu-text"></span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -202,22 +231,55 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#goals" id="toc-goals" class="nav-link" data-scroll-target="#goals">Goals</a></li>
+  <li><a href="#system-architecture" id="toc-system-architecture" class="nav-link" data-scroll-target="#system-architecture">System Architecture</a></li>
+  <li><a href="#progress-log" id="toc-progress-log" class="nav-link" data-scroll-target="#progress-log">Progress Log</a></li>
+  <li><a href="#gallery" id="toc-gallery" class="nav-link" data-scroll-target="#gallery">Gallery</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Projects</h1>
-</div>
+<h1 class="title">Wearable IR Motion-Tracking Glove &amp; Display Interface</h1>
+<p class="subtitle lead">September 2026 – present · STM32, SystemVerilog/FPGA, C++</p>
+  <div class="quarto-categories">
+    <div class="quarto-category">Embedded</div>
+    <div class="quarto-category">FPGA</div>
+    <div class="quarto-category">In Progress</div>
+  </div>
+  </div>
 
+<div>
+  <div class="description">
+    A wireless gesture-control glove that tracks hand motion with IR sensors and drives a custom FPGA display.
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Eduardo Ambriz Lazo </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">September 2026</p>
+    </div>
+  </div>
   
     
   </div>
@@ -227,11 +289,63 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Under construction… Coming soon to theaters near you…</p>
+<div class="project-meta">
+<p><strong>Status:</strong> In progress<br>
+<strong>Timeline:</strong> September 2026 – present<br>
+<strong>Tools:</strong> <span class="pill">STM32</span> <span class="pill">SystemVerilog / FPGA</span> <span class="pill">C++</span> <span class="pill">SPI</span> <span class="pill">UART</span></p>
+</div>
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>A wearable glove that turns hand motion into input. An STM32 microcontroller reads IR sensors on the glove to track spatial motion in real time, and the glove works as a wireless gesture controller. A custom display driver, written in SystemVerilog and running on an FPGA, renders an interactive UI and visual feedback so you can see your gestures respond.</p>
+<div class="img-placeholder">
+<p>Image coming soon: finished glove, hero shot</p>
+</div>
+</section>
+<section id="goals" class="level2">
+<h2 class="anchored" data-anchor-id="goals">Goals</h2>
+<ul>
+<li>Track hand position and motion in real time using IR sensors read by an STM32.</li>
+<li>Send gesture data wirelessly so the glove can control a separate display.</li>
+<li>Build a high-speed SPI/UART link between the microcontroller and the FPGA.</li>
+<li>Design a custom FPGA display driver that draws an interactive interface and gives visual feedback.</li>
+</ul>
+</section>
+<section id="system-architecture" class="level2">
+<h2 class="anchored" data-anchor-id="system-architecture">System Architecture</h2>
+<p>The system splits into two halves: a sensing and processing side (STM32 and IR sensors, programmed in C++) and a display side (FPGA with a custom SystemVerilog display driver). The two talk over SPI/UART.</p>
+<div class="img-placeholder">
+<p>Image coming soon: system block diagram</p>
+</div>
+</section>
+<section id="progress-log" class="level2">
+<h2 class="anchored" data-anchor-id="progress-log">Progress Log</h2>
+<p>This project is still in progress, so this page will grow as the build does.</p>
+<!-- Add dated entries here, e.g.:
+### October 2026: first sensor readings
+What worked, what didn't, plus a photo or scope capture. -->
+</section>
+<section id="gallery" class="level2">
+<h2 class="anchored" data-anchor-id="gallery">Gallery</h2>
+<div class="grid">
+<div class="g-col-12 g-col-md-6">
+<div class="img-placeholder">
+<p>Image coming soon: glove sensor layout</p>
+</div>
+</div>
+<div class="g-col-12 g-col-md-6">
+<div class="img-placeholder">
+<p>Image coming soon: FPGA display output</p>
+</div>
+</div>
+</div>
+<!-- To add an image later, replace a placeholder block with:
+![Caption text](images/your-file.jpg){#fig-your-id}
+and put the file in Projects/images/ -->
 
 
+</section>
 
-</main> <!-- /main -->
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
@@ -319,6 +433,11 @@ ul.task-list li input[type="checkbox"] {
           if (link.dataset.originalHref !== undefined) {
             link.href = link.dataset.originalHref;
           }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
         }
       }
     function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
@@ -633,8 +752,22 @@ ul.task-list li input[type="checkbox"] {
   });
   </script>
 </div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2026 Eduardo Ambriz Lazo</p>
+</div>   
+    <div class="nav-footer-center">
+<p>Harvey Mudd College · Engineering ’27</p>
+</div>
+    <div class="nav-footer-right">
+<p>Built with <a href="https://quarto.org">Quarto</a></p>
+</div>
+  </div>
+</footer>
 
 
 
 
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>
