@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Eduardo Ambriz Lazo">
-<meta name="description" content="Multi-sensor data acquisition and live telemetry for an autonomous underwater vehicle.">
+<meta name="description" content="Comparing a force-sensing resistor and spring against an ultrasonic sensor to measure distance on an AUV, plus a hall effect anemometer, deployed at Dana Point.">
 
 <title>AUV Sensor Deployment &amp; Telemetry System – Eduardo Ambriz Lazo</title>
 <style>
@@ -28,6 +28,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -47,7 +82,10 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-23d8ad43b263299e4500d71d4dd14e9a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-0d160f1e9578a5fb1854bf9644f4e79c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -80,6 +118,35 @@ ul.task-list li input[type="checkbox"] {
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Montserrat:wght@700;800&amp;display=swap" rel="stylesheet">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -237,9 +304,20 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
-  <li><a href="#what-i-built" id="toc-what-i-built" class="nav-link" data-scroll-target="#what-i-built">What I Built</a></li>
-  <li><a href="#data-flow" id="toc-data-flow" class="nav-link" data-scroll-target="#data-flow">Data Flow</a></li>
-  <li><a href="#gallery" id="toc-gallery" class="nav-link" data-scroll-target="#gallery">Gallery</a></li>
+  <li><a href="#results-at-a-glance" id="toc-results-at-a-glance" class="nav-link" data-scroll-target="#results-at-a-glance">Results at a Glance</a></li>
+  <li><a href="#the-sensors" id="toc-the-sensors" class="nav-link" data-scroll-target="#the-sensors">The Sensors</a>
+  <ul class="collapse">
+  <li><a href="#force-sensing-resistor-and-spring" id="toc-force-sensing-resistor-and-spring" class="nav-link" data-scroll-target="#force-sensing-resistor-and-spring">Force-Sensing Resistor and Spring</a></li>
+  <li><a href="#ultrasonic-distance-sensor" id="toc-ultrasonic-distance-sensor" class="nav-link" data-scroll-target="#ultrasonic-distance-sensor">Ultrasonic Distance Sensor</a></li>
+  <li><a href="#hall-effect-anemometer" id="toc-hall-effect-anemometer" class="nav-link" data-scroll-target="#hall-effect-anemometer">Hall Effect Anemometer</a></li>
+  </ul></li>
+  <li><a href="#mechanical-design" id="toc-mechanical-design" class="nav-link" data-scroll-target="#mechanical-design">Mechanical Design</a></li>
+  <li><a href="#deployment" id="toc-deployment" class="nav-link" data-scroll-target="#deployment">Deployment</a>
+  <ul class="collapse">
+  <li><a href="#what-went-wrong" id="toc-what-went-wrong" class="nav-link" data-scroll-target="#what-went-wrong">What Went Wrong</a></li>
+  </ul></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a></li>
+  <li><a href="#what-id-do-differently" id="toc-what-id-do-differently" class="nav-link" data-scroll-target="#what-id-do-differently">What I’d Do Differently</a></li>
   </ul>
 </nav>
     </div>
@@ -249,17 +327,18 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">AUV Sensor Deployment &amp; Telemetry System</h1>
-<p class="subtitle lead">January – May 2025 · Machining, PCB Design, Arduino</p>
+<p class="subtitle lead">E80 Experimental Engineering final project · January – May 2025</p>
   <div class="quarto-categories">
     <div class="quarto-category">Embedded</div>
-    <div class="quarto-category">Machining</div>
+    <div class="quarto-category">Sensors</div>
     <div class="quarto-category">Data Acquisition</div>
+    <div class="quarto-category">Machining</div>
   </div>
   </div>
 
 <div>
   <div class="description">
-    Multi-sensor data acquisition and live telemetry for an autonomous underwater vehicle.
+    Comparing a force-sensing resistor and spring against an ultrasonic sensor to measure distance on an AUV, plus a hall effect anemometer, deployed at Dana Point.
   </div>
 </div>
 
@@ -289,51 +368,621 @@ ul.task-list li input[type="checkbox"] {
 
 
 <div class="project-meta">
-<p><strong>Timeline:</strong> January – May 2025<br>
-<strong>Tools:</strong> <span class="pill">Teensy 4.0</span> <span class="pill">Arduino</span> <span class="pill">MATLAB</span> <span class="pill">I2C / SPI</span> <span class="pill">PCB design</span> <span class="pill">Machining</span></p>
+<p><strong>Course:</strong> E80 Experimental Engineering, Harvey Mudd College (Team 37, Section 3)<br>
+<strong>Team:</strong> Eduardo Ambriz Lazo, Lily Anfang, Nicholas Dass, Quinn Miyamoto<br>
+<strong>Timeline:</strong> January – May 2025 · deployed at Baby Beach, Dana Point, CA<br>
+<strong>Tools:</strong> <span class="pill">Teensy 4.0</span> <span class="pill">Arduino</span> <span class="pill">MATLAB</span> <span class="pill">FSR 400</span> <span class="pill">HC-SR04</span> <span class="pill">AH9246 hall sensor</span> <span class="pill">555 timer</span> <span class="pill">Op-amps</span> <span class="pill">Machining</span><br>
+<strong>Full report:</strong> <a href="files/E80_Final_Report_Ambriz_Lazo.pdf">Evaluating the Accuracy of Ultrasonic Waves and Force for Determining Distance (PDF)</a></p>
 </div>
 <section id="overview" class="level2">
 <h2 class="anchored" data-anchor-id="overview">Overview</h2>
-<p>For this project I built the sensor and telemetry system for an autonomous underwater vehicle (AUV). The goal was to collect data from several sensors on the vehicle and get it to a computer in real time for hydrodynamic profiling.</p>
-<div class="img-placeholder">
-<p>Image coming soon: the AUV or the sensor payload</p>
-</div>
+<p>For our final E80 project, my team built an autonomous underwater vehicle (AUV) that was supposed to measure the distance to an object it was following. Ideally, that distance would feed a control loop on the motor PWM so the vehicle could hold a constant following distance.</p>
+<p>Instead of relying on a single sensor, we compared two very different ways of measuring distance:</p>
+<ol type="1">
+<li><strong>Ultrasonic time of flight</strong> with an HC-SR04, which sends out pulses and times the echo.</li>
+<li><strong>Force and Hooke’s Law</strong>, where a force-sensing resistor (FSR) reads the force on a spring-loaded extrusion and a calibrated spring constant turns that force into a distance.</li>
+</ol>
+<p>We also built an <strong>anemometer</strong> around a hall effect sensor to log wind speed during deployment, so we could explain any odd behavior in the distance data.</p>
+<p>Then it rained at Dana Point. The ultrasonic sensor was not waterproof and failed, so the deployment turned into a test of the novel FSR-and-spring approach to object detection.</p>
 </section>
-<section id="what-i-built" class="level2">
-<h2 class="anchored" data-anchor-id="what-i-built">What I Built</h2>
-<ul>
-<li><strong>Electronics:</strong> a Teensy 4.0 motherboard integrated on a custom protoboard, managing multi-sensor data acquisition over I2C and SPI.</li>
-<li><strong>Telemetry:</strong> an Arduino that processes the telemetry data and streams real-time packets to MATLAB.</li>
-<li><strong>Analysis:</strong> MATLAB receives the packets for hydrodynamic profiling.</li>
-<li><strong>Hardware:</strong> machined parts and PCB design supported the sensor deployment.</li>
-</ul>
-</section>
-<section id="data-flow" class="level2">
-<h2 class="anchored" data-anchor-id="data-flow">Data Flow</h2>
-<p>Sensors → Teensy 4.0 (I2C / SPI) → Arduino (telemetry processing) → real-time packets → MATLAB</p>
-<div class="img-placeholder">
-<p>Image coming soon: wiring diagram or board photo</p>
-</div>
-</section>
-<section id="gallery" class="level2">
-<h2 class="anchored" data-anchor-id="gallery">Gallery</h2>
+<section id="results-at-a-glance" class="level2">
+<h2 class="anchored" data-anchor-id="results-at-a-glance">Results at a Glance</h2>
 <div class="grid">
-<div class="g-col-12 g-col-md-6">
-<div class="img-placeholder">
-<p>Image coming soon: custom protoboard</p>
+<div class="g-col-6 g-col-md-3">
+<div class="exp-card">
+<div class="stat-num">
+0.993
+</div>
+<div class="stat-label">
+R² of the ultrasonic sensor’s linear calibration
 </div>
 </div>
-<div class="g-col-12 g-col-md-6">
-<div class="img-placeholder">
-<p>Image coming soon: MATLAB telemetry plot</p>
+</div>
+<div class="g-col-6 g-col-md-3">
+<div class="exp-card">
+<div class="stat-num">
+1–3 V
+</div>
+<div class="stat-label">
+FSR circuit output, sized for the Teensy’s ADC
 </div>
 </div>
 </div>
+<div class="g-col-6 g-col-md-3">
+<div class="exp-card">
+<div class="stat-num">
+2–6.21 m/s
+</div>
+<div class="stat-label">
+wind speeds measured at the beach (reported average: 6.25 m/s)
+</div>
+</div>
+</div>
+<div class="g-col-6 g-col-md-3">
+<div class="exp-card">
+<div class="stat-num">
+14.4 Hz
+</div>
+<div class="stat-label">
+ADC sampling rate (69 ms period)
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="the-sensors" class="level2">
+<h2 class="anchored" data-anchor-id="the-sensors">The Sensors</h2>
+<section id="force-sensing-resistor-and-spring" class="level3">
+<h3 class="anchored" data-anchor-id="force-sensing-resistor-and-spring">Force-Sensing Resistor and Spring</h3>
+<p>The idea comes straight from Hooke’s Law, <span class="math inline">\(F_s = k\,\Delta x\)</span>, so <span class="math inline">\(\Delta x = F_s / k\)</span>. If the FSR measures the force on a spring with a known spring constant <span class="math inline">\(k\)</span>, the spring’s compression tells us how far away an object is when the extrusion touches it. FSRs are normally used to detect pressure, so using one this way was a creative twist, and FSRs are also easy to calibrate with just a few known loads.</p>
+<p>The FSR sits in a voltage divider with a 10 kΩ resistor:</p>
+<p><span class="math display">\[V_{out} = \frac{R_g}{R_g + R_{p1}} V_{in}\]</span></p>
+<p>An op-amp stage then adds gain and an offset so the signal lands in a 1–3 V range, comfortably inside the Teensy’s readable range.</p>
+<div id="fig-fsr-circuit" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-fsr-circuit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="images/auv-fsr-circuit.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;1: Circuit for the FSR: voltage divider followed by a gain and offset stage built from OP07 op-amps."><img src="images/auv-fsr-circuit.png" class="img-fluid figure-img" style="width:80.0%"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-fsr-circuit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Circuit for the FSR: voltage divider followed by a gain and offset stage built from OP07 op-amps.
+</figcaption>
+</figure>
+</div>
+<p>We calibrated the sensor by applying known forces and measuring the output. A cubic polynomial fit the force-to-resistance relationship very well (R² = 0.999), and the force-to-voltage relationship through our actual circuit also fit a cubic (R² = 0.989), which is the one we used.</p>
+<div class="quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-force-resistance" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-force-resistance-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="images/auv-force-resistance.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;2: Force vs.&nbsp;resistance calibration (R² = 0.999)."><img src="images/auv-force-resistance.png" class="img-fluid figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-force-resistance-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Force vs.&nbsp;resistance calibration (R² = 0.999).
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-force-voltage" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-force-voltage-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="images/auv-force-voltage.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Figure&nbsp;3: Force vs.&nbsp;voltage calibration through the circuit (R² = 0.989)."><img src="images/auv-force-voltage.png" class="img-fluid figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-force-voltage-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Force vs.&nbsp;voltage calibration through the circuit (R² = 0.989).
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p>The last calibration was the spring itself, which relates the sensed force (and so the voltage) to a physical displacement. Running multiple trials gave an uncertainty on each distance value.</p>
+<div id="fig-spring" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-spring-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="images/auv-spring-calibration.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Figure&nbsp;4: Spring calibration curve (R² = 0.988), with uncertainty bars."><img src="images/auv-spring-calibration.png" class="img-fluid figure-img" style="width:70.0%"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-spring-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Spring calibration curve (R² = 0.988), with uncertainty bars.
+</figcaption>
+</figure>
+</div>
+<div id="tbl-fsr" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-fsr-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Force, voltage, and derived distance for the FSR circuit, with uncertainty.
+</figcaption>
+<div aria-describedby="tbl-fsr-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Force (N)</th>
+<th style="text-align: center;">Voltage (V)</th>
+<th style="text-align: center;">Δx (m)</th>
+<th style="text-align: center;">Uncertainty</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0.000</td>
+<td style="text-align: center;">3.58</td>
+<td style="text-align: center;">-0.104</td>
+<td style="text-align: center;">0.127</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">0.195</td>
+<td style="text-align: center;">3.13</td>
+<td style="text-align: center;">-0.012</td>
+<td style="text-align: center;">0.116</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">0.391</td>
+<td style="text-align: center;">2.72</td>
+<td style="text-align: center;">0.071</td>
+<td style="text-align: center;">0.101</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">0.686</td>
+<td style="text-align: center;">2.20</td>
+<td style="text-align: center;">0.176</td>
+<td style="text-align: center;">0.078</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">1.176</td>
+<td style="text-align: center;">1.59</td>
+<td style="text-align: center;">0.303</td>
+<td style="text-align: center;">0.055</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2.157</td>
+<td style="text-align: center;">1.26</td>
+<td style="text-align: center;">0.369</td>
+<td style="text-align: center;">0.050</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</section>
+<section id="ultrasonic-distance-sensor" class="level3">
+<h3 class="anchored" data-anchor-id="ultrasonic-distance-sensor">Ultrasonic Distance Sensor</h3>
+<p>The HC-SR04 estimates distance from how long an ultrasonic pulse takes to bounce back: distance = (high-level time × 340 m/s) / 2. It needs a trigger pulse, so the circuit uses an NA555P timer in astable configuration that fires the trigger roughly every 345 ms. The sensor’s echo output is then scaled with a non-inverting op-amp stage (gain of 4), so about 1 meter of range maps to 0–2.1 V.</p>
+<div id="fig-ultrasonic-circuit" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ultrasonic-circuit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="images/auv-ultrasonic-circuit.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Figure&nbsp;5: Ultrasonic sensor circuit: 555 timer trigger on the left, op-amp scaling stage on the right."><img src="images/auv-ultrasonic-circuit.png" class="img-fluid figure-img" style="width:85.0%"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ultrasonic-circuit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: Ultrasonic sensor circuit: 555 timer trigger on the left, op-amp scaling stage on the right.
+</figcaption>
+</figure>
+</div>
+<p>We calibrated it by recording the average peak voltage over 10 trials at 10 cm increments from 10 cm to 1 m. A straight line fit well (R² = 0.993), with distance in cm ≈ 46.5 × V − 3.01.</p>
+<div class="quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-ultrasonic-cal" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ultrasonic-cal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="images/auv-ultrasonic-calibration.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Figure&nbsp;6: Ultrasonic calibration curve (R² = 0.993)."><img src="images/auv-ultrasonic-calibration.png" class="img-fluid figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ultrasonic-cal-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: Ultrasonic calibration curve (R² = 0.993).
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-ultrasonic-scope" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ultrasonic-scope-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="images/auv-ultrasonic-scope.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Figure&nbsp;7: Oscilloscope trace of the echo output in a dry test."><img src="images/auv-ultrasonic-scope.png" class="img-fluid figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ultrasonic-scope-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7: Oscilloscope trace of the echo output in a dry test.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p>A dry test on the AUV’s protoboard showed the setup only reached about 1.2 m, well short of the 4 m the datasheet promises.</p>
+</section>
+<section id="hall-effect-anemometer" class="level3">
+<h3 class="anchored" data-anchor-id="hall-effect-anemometer">Hall Effect Anemometer</h3>
+<p>To log the weather, we built a cup anemometer that carries a magnet. Each time the magnet passes the AH9246 hall effect sensor, the output drops, and counting those drops gives revolutions per second. A single OP07 op-amp conditions the output to 1–3 V.</p>
+<div id="fig-hall-circuit" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-hall-circuit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="images/auv-hall-circuit.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8" title="Figure&nbsp;8: Hall effect sensor circuit with a single OP07 op-amp."><img src="images/auv-hall-circuit.png" class="img-fluid figure-img" style="width:70.0%"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-hall-circuit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8: Hall effect sensor circuit with a single OP07 op-amp.
+</figcaption>
+</figure>
+</div>
+<p>The software side took the most work. We extended the base ADC loop so it watches for voltage drops, counts revolutions with an interrupt, and computes RPS over each 69 ms sampling window. Calibration happened in a wind tunnel in two steps: first relating the tunnel’s fan RPM to wind speed, then relating the anemometer’s RPS to that wind speed.</p>
+<div class="quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-wind-tunnel" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-wind-tunnel-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="images/auv-wind-tunnel.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9" title="Figure&nbsp;9: Wind tunnel fan RPM vs.&nbsp;wind speed."><img src="images/auv-wind-tunnel.png" class="img-fluid figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-wind-tunnel-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;9: Wind tunnel fan RPM vs.&nbsp;wind speed.
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-anemometer-rps" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-anemometer-rps-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="images/auv-anemometer-rps.png" class="lightbox" data-gallery="quarto-lightbox-gallery-10" title="Figure&nbsp;10: Anemometer RPS vs.&nbsp;wind speed (R² = 0.886)."><img src="images/auv-anemometer-rps.png" class="img-fluid figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-anemometer-rps-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;10: Anemometer RPS vs.&nbsp;wind speed (R² = 0.886).
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="mechanical-design" class="level2">
+<h2 class="anchored" data-anchor-id="mechanical-design">Mechanical Design</h2>
+<p>The frame had a lot of competing requirements. The motors had to be underwater, the anemometer had to be elevated to catch real wind, and the electronics box had to stay dry above the waterline.</p>
+<ul>
+<li><strong>Stability:</strong> a large surface area keeps the AUV from tipping, but adds weight up high. We kept the center of mass below the center of buoyancy so the vehicle self-rights, and added pool noodles for flotation.</li>
+<li><strong>Dry electronics:</strong> the box holding the Teensy, motherboard, and protoboard sits above the water for safety.</li>
+<li><strong>Anemometer frame:</strong> the cups spin a magnet past the hall sensor. Mounting that assembly tilted the vehicle’s balance, which is why the other two sensors got their own second frame.</li>
+<li><strong>Spring and extrusion frame:</strong> a CAD-designed housing holds a spring-loaded extrusion about 14.5 inches long that changes length as force is applied, and an elevated panel gives the ultrasonic sensor something to reflect off.</li>
+</ul>
+<div class="quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-frame-sketch" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-frame-sketch-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="images/auv-frame-sketch.jpg" class="lightbox" data-gallery="quarto-lightbox-gallery-11" title="Figure&nbsp;11: Sketches of the overall mechanical assembly (side, isometric, and top views)."><img src="images/auv-frame-sketch.jpg" class="img-fluid figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-frame-sketch-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;11: Sketches of the overall mechanical assembly (side, isometric, and top views).
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-cutaway" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-cutaway-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="images/auv-anemometer-cutaway.png" class="lightbox" data-gallery="quarto-lightbox-gallery-12" title="Figure&nbsp;12: Cutaway of the anemometer showing the magnet and the hall effect sensor."><img src="images/auv-anemometer-cutaway.png" class="img-fluid figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-cutaway-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;12: Cutaway of the anemometer showing the magnet and the hall effect sensor.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div id="fig-cad" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-cad-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="images/auv-cad.png" class="lightbox" data-gallery="quarto-lightbox-gallery-13" title="Figure&nbsp;13: CAD model of the ultrasonic sensor frame and the spring-and-arm assembly that triggers the FSR."><img src="images/auv-cad.png" class="img-fluid figure-img" style="width:80.0%"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-cad-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;13: CAD model of the ultrasonic sensor frame and the spring-and-arm assembly that triggers the FSR.
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="deployment" class="level2">
+<h2 class="anchored" data-anchor-id="deployment">Deployment</h2>
+<p>We deployed the AUV at the shore of Baby Beach in Dana Point, California, to keep the vehicle easy to recover and minimize any environmental impact. A previous lake deployment nearly lost a piece of the vehicle, so staying close to shore was deliberate. We also checked the onboard circuitry before and after the run.</p>
+<p>Each run went like this:</p>
+<ol type="1">
+<li>Insert an SD card into the motherboard and flip the power switch.</li>
+<li>Close the circuitry into its harnessed box and strap it to the AUV.</li>
+<li>Let the motors drive the AUV forward until the FSR feels a high enough force (the extrusion pressed against a team member), then back off and repeat.</li>
+<li>Retrieve the AUV, then read the SD card log in MATLAB with <code>logreader.m</code> to plot each sensor’s raw voltage. Wind speed was also watched live in the Arduino Serial Monitor.</li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled" title="Motor control logic (DanaDrive.ino, partial)">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Motor control logic (DanaDrive.ino, partial)
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>currentTime <span class="op">=</span> millis<span class="op">();</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="op">(</span>forceSensor <span class="op">&lt;=</span> <span class="dv">500</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  motor_driver<span class="op">.</span>drive<span class="op">(</span><span class="dv">290</span><span class="op">,</span> <span class="dv">290</span><span class="op">,</span> <span class="dv">0</span><span class="op">);</span>   <span class="co">// drive forward</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  motor_driver<span class="op">.</span>drive<span class="op">(-</span><span class="dv">150</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">);</span>    <span class="co">// contact detected: back off</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Anemometer wind speed logic (DanaDrive.ino, partial)">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Anemometer wind speed logic (DanaDrive.ino, partial)
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="op">(</span>currentTime <span class="op">-</span> anem_sampler<span class="op">.</span>lastExecutionTime <span class="op">&gt;</span> LOOP_PERIOD<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  anem_sampler<span class="op">.</span>lastExecutionTime <span class="op">=</span> currentTime<span class="op">;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">float</span> timeDifference <span class="op">=</span> currentTime <span class="op">-</span> endTime<span class="op">;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="op">(</span>timeDifference <span class="op">&gt;</span> sampleTime<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    RPS <span class="op">=</span> <span class="op">(</span>revolution <span class="op">/</span> sampleTime<span class="op">)</span> <span class="op">*</span> <span class="dv">1000</span><span class="op">;</span>   <span class="co">// revolutions per second</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    anem_sampler<span class="op">.</span>updateState<span class="op">(</span>RPS<span class="op">);</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    endTime <span class="op">=</span> currentTime<span class="op">;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    revolution <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> ISR<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  revolution <span class="op">+=</span> <span class="dv">1</span><span class="op">;</span>   <span class="co">// one hall effect pulse per revolution</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+<div id="fig-deployment" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-deployment-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="images/auv-deployment.jpg" class="lightbox" data-gallery="quarto-lightbox-gallery-14" title="Figure&nbsp;14: The AUV in the water near the shore during deployment."><img src="images/auv-deployment.jpg" class="img-fluid figure-img" style="width:80.0%"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-deployment-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;14: The AUV in the water near the shore during deployment.
+</figcaption>
+</figure>
+</div>
+<section id="what-went-wrong" class="level3">
+<h3 class="anchored" data-anchor-id="what-went-wrong">What Went Wrong</h3>
+<p>The day of deployment it rained, and the HC-SR04 was not waterproof. The mechanical design had accounted for water, but we didn’t adequately consider the effect of rain on the electronics. The sensor failed, and the resulting short also affected the hall effect sensor. Fortunately we found a replacement for the hall sensor, but the ultrasonic sensor was lost.</p>
+</section>
+</section>
+<section id="results" class="level2">
+<h2 class="anchored" data-anchor-id="results">Results</h2>
+<ul>
+<li><strong>Ultrasonic sensor:</strong> no usable data. Despite repeated attempts to trigger it with a panel in close proximity, its output stayed constant after the rain damage.</li>
+<li><strong>Anemometer:</strong> worked as expected. Live readings ranged from about 2 m/s to 6.21 m/s, in line with the day’s reported average wind of 14 mph (about 6.25 m/s). The remaining discrepancy was likely due to the anemometer’s low elevation.</li>
+<li><strong>FSR and spring:</strong> the main result. Within the pre-specified distance during deployment, the FSR output swung between 1 and 3 V for forces of roughly 0.36 N, 0.853 N, and 1.36 N, which supports the force-to-distance idea.</li>
+</ul>
+<p>We compared two trials with different motor power: Deployment 1 at 120 PWM and Deployment 2 at 290 PWM.</p>
+<div class="quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-deploy1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-deploy1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="images/auv-deployment-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-15" title="Figure&nbsp;15: Deployment 1 raw data at 120 PWM (anemometer on top, FSR below)."><img src="images/auv-deployment-1.png" class="img-fluid figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-deploy1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;15: Deployment 1 raw data at 120 PWM (anemometer on top, FSR below).
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-deploy2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-deploy2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="images/auv-deployment-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-16" title="Figure&nbsp;16: Deployment 2 raw data at 290 PWM."><img src="images/auv-deployment-2.png" class="img-fluid figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-deploy2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;16: Deployment 2 raw data at 290 PWM.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p>In Deployment 1, the FSR looked nearly digital instead of showing the slow rise in force our dry tests produced. Comparing against the video showed the FSR’s response was valid, but the gradual change was missing from the data. The most likely cause is aliasing: at a 14.4 Hz sampling rate, the force can change faster than we sample it.</p>
+</section>
+<section id="what-id-do-differently" class="level2">
+<h2 class="anchored" data-anchor-id="what-id-do-differently">What I’d Do Differently</h2>
+<ul>
+<li><strong>Waterproof the ultrasonic sensor</strong> and rework its output into an analog voltage proportional to distance, so it can drive a real control loop on motor PWM, the same way the anemometer software works.</li>
+<li><strong>Raise the sampling rate</strong> to avoid aliasing and make post-processing easier.</li>
+<li><strong>Elevate the anemometer</strong> more so it sees real wind speeds.</li>
+<li><strong>Recalibrate any replacement sensors</strong> before deployment.</li>
+</ul>
+<p>This project showed how much each sensor demands in its own way: mechanical design for the spring and frame, software for the anemometer, and careful circuit work for the ultrasonic sensor.</p>
+<!-- TODO: add a short note on your specific contributions (e.g. which circuits, code, and machined parts were yours). -->
 
 
 </section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<!-- Easter egg: ↑ ↑ ↓ ↓ ← → ← → B A  (keyboard)  or  swipe ↑ ↑ ↓ ↓ ← → ← →, then tap twice (mobile) -->
+<style>
+  #mx-egg { position: fixed; inset: 0; z-index: 3000; display: flex; align-items: center; justify-content: center;
+    padding: 1rem; background: rgba(8, 16, 30, 0.88); backdrop-filter: blur(4px); animation: mx-fade 0.25s ease-out; }
+  #mx-egg[hidden] { display: none; }
+  #mx-egg .mx-panel { position: relative; width: 100%; max-width: 640px; max-height: 100%; overflow-y: auto;
+    background: #12233d; color: #f1e6c9; border: 2px solid #f1e6c9; border-radius: 16px; padding: 1.2rem 1.3rem 1rem;
+    box-shadow: 0 0 0 4px #12233d, 0 20px 60px rgba(0, 0, 0, 0.6); }
+  #mx-egg h2 { font-family: 'Montserrat', sans-serif; font-size: 1.25rem; margin: 0 2.5rem 0.6rem 0;
+    color: #f4a261; border: none; padding: 0; }
+  #mx-egg .mx-close { position: absolute; top: 0.7rem; right: 0.8rem; background: transparent; color: #f1e6c9;
+    border: 1.5px solid #f1e6c9; border-radius: 8px; font-size: 1rem; line-height: 1; padding: 0.35rem 0.6rem; cursor: pointer; }
+  #mx-egg .mx-close:hover, #mx-egg .mx-close:focus-visible { background: #f1e6c9; color: #12233d; outline: none; }
+  #mx-egg svg { display: block; width: 100%; height: auto; }
+  #mx-egg .mx-gear { fill: rgba(241, 230, 201, 0.10); stroke: #f1e6c9; stroke-width: 2; stroke-linejoin: round; }
+  #mx-egg .mx-hub  { fill: none; stroke: #f4a261; stroke-width: 2; }
+  #mx-egg .mx-term { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.82rem;
+    line-height: 1.55; min-height: 8.2rem; margin: 0.4rem 0 0.6rem; padding: 0.7rem 0.9rem; background: #0b1627;
+    border-radius: 10px; color: #9be8b0; white-space: pre-wrap; }
+  #mx-egg .mx-readout { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.78rem;
+    display: flex; flex-wrap: wrap; gap: 0.3rem 1.2rem; color: #f4a261; margin-bottom: 0.5rem; }
+  #mx-egg .mx-fact { font-size: 0.8rem; opacity: 0.85; margin: 0; }
+  @keyframes mx-fade { from { opacity: 0; } to { opacity: 1; } }
+  @media (prefers-reduced-motion: reduce) { #mx-egg { animation: none; } }
+</style>
+<script>
+(function () {
+  var SEQ = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+  var pos = 0, resetTimer = null, overlay = null, isOpen = false;
+  var raf = null, typeTimers = [], lastFocus = null;
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ----- input handling -----
+  function advance(tok) {
+    if (isOpen) return;
+    clearTimeout(resetTimer);
+    if (tok === SEQ[pos]) { pos++; } else { pos = (tok === SEQ[0]) ? 1 : 0; }
+    if (pos === SEQ.length) { pos = 0; show(); return; }
+    resetTimer = setTimeout(function () { pos = 0; }, 4000);
+  }
+
+  document.addEventListener('keydown', function (e) {
+    var t = e.target;
+    if (t && (/^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName) || t.isContentEditable)) return;
+    if (e.ctrlKey || e.metaKey || e.altKey) return;
+    var k = e.key && e.key.length === 1 ? e.key.toLowerCase() : e.key;
+    if (isOpen) { if (k === 'Escape') hide(); return; }
+    advance(k);
+  });
+
+  // Mobile: swipe the four directions, then tap twice (B, A).
+  var sx = null, sy = 0, st = 0;
+  document.addEventListener('touchstart', function (e) {
+    if (isOpen || e.touches.length !== 1) { sx = null; return; }
+    sx = e.touches[0].clientX; sy = e.touches[0].clientY; st = Date.now();
+  }, { passive: true });
+  document.addEventListener('touchcancel', function () { sx = null; }, { passive: true });
+  document.addEventListener('touchend', function (e) {
+    if (isOpen || sx === null) return;
+    var t = e.changedTouches[0], dx = t.clientX - sx, dy = t.clientY - sy;
+    var ax = Math.abs(dx), ay = Math.abs(dy);
+    sx = null;
+    if (Math.max(ax, ay) >= 40) {
+      advance(ax > ay ? (dx > 0 ? 'ArrowRight' : 'ArrowLeft') : (dy > 0 ? 'ArrowDown' : 'ArrowUp'));
+    } else if (ax < 10 && ay < 10 && Date.now() - st < 300 && pos >= 8) {
+      advance(pos === 8 ? 'b' : 'a');   // taps only count once all 8 swipes are in
+    }
+  }, { passive: true });
+
+  // ----- gear geometry -----
+  function gearPath(N, r) {
+    var add = 8, ded = 10, ro = r + add, rr = r - ded, p = 2 * Math.PI / N, pts = [];
+    for (var i = 0; i < N; i++) {
+      var t = i * p;
+      [[-0.25, rr], [-0.12, ro], [0.12, ro], [0.25, rr]].forEach(function (q) {
+        pts.push((q[1] * Math.cos(t + q[0] * p)).toFixed(2) + ',' + (q[1] * Math.sin(t + q[0] * p)).toFixed(2));
+      });
+    }
+    return 'M' + pts.join('L') + 'Z';
+  }
+
+  var NA = 12, NB = 18, RA = 60, RB = 90, CD = RA + RB;   // module 10 → pitch radius = 5·N
+  var A_DEG_PER_S = 60;                                  // gear A = 10 RPM
+  var B_PHASE = 180 + 180 / NB;                           // put a gap of B on the line of centers
+
+  function build() {
+    overlay = document.createElement('div');
+    overlay.id = 'mx-egg';
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    overlay.setAttribute('aria-label', 'Mechatronics easter egg');
+    overlay.hidden = true;
+    overlay.innerHTML =
+      '<div class="mx-panel">' +
+        '<button class="mx-close" type="button" aria-label="Close">✕</button>' +
+        '<h2>⚙ Mechatronics mode unlocked</h2>' +
+        '<svg viewBox="-72 -100 322 200" aria-hidden="true">' +
+          '<g id="mx-ga"><path class="mx-gear" d="' + gearPath(NA, RA) + '"/><circle class="mx-hub" r="14"/><circle class="mx-hub" r="3"/>' +
+            '<line class="mx-hub" x1="14" y1="0" x2="' + (RA - 12) + '" y2="0"/></g>' +
+          '<g id="mx-gb" transform="translate(' + CD + ',0)"><path class="mx-gear" d="' + gearPath(NB, RB) + '"/>' +
+            '<circle class="mx-hub" r="18"/><circle class="mx-hub" r="3"/><line class="mx-hub" x1="18" y1="0" x2="' + (RB - 12) + '" y2="0"/></g>' +
+        '</svg>' +
+        '<div class="mx-readout"><span id="mx-r1"></span><span id="mx-r2"></span><span id="mx-r3"></span></div>' +
+        '<div class="mx-term" id="mx-term" aria-live="polite"></div>' +
+        '<p class="mx-fact">Fun fact: the worm gear in my tortilla machine can be self-locking, so the load can’t back-drive the motor. Press Esc or tap anywhere outside to close.</p>' +
+      '</div>';
+    document.body.appendChild(overlay);
+    overlay.addEventListener('click', function (e) { if (e.target === overlay) hide(); });
+    overlay.querySelector('.mx-close').addEventListener('click', hide);
+    overlay.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') hide();
+      if (e.key === 'Tab') { e.preventDefault(); overlay.querySelector('.mx-close').focus(); }
+    });
+  }
+
+  var LINES = [
+    '> homing axes ............... OK',
+    '> calibrating encoder ....... 1632 counts/rev',
+    '> meshing gear train ........ 12T : 18T  (3:2)',
+    '> tuning PID loop ........... settled, no overshoot',
+    '> code accepted: \u2191\u2191\u2193\u2193\u2190\u2192\u2190\u2192 B A',
+    '> system nominal. carry on, engineer.'
+  ];
+
+  function spin(t0) {
+    var ga = document.getElementById('mx-ga'), gb = document.getElementById('mx-gb');
+    var r1 = document.getElementById('mx-r1'), r2 = document.getElementById('mx-r2'), r3 = document.getElementById('mx-r3');
+    function frame(now) {
+      var s = reduce ? 0 : (now - t0) / 1000;
+      var a = A_DEG_PER_S * s, b = B_PHASE - a * NA / NB;
+      ga.setAttribute('transform', 'rotate(' + a.toFixed(2) + ')');
+      gb.setAttribute('transform', 'translate(' + CD + ',0) rotate(' + b.toFixed(2) + ')');
+      var counts = Math.floor((a / 360) * 1632);
+      r1.textContent = 'A: ' + (A_DEG_PER_S / 6).toFixed(1) + ' RPM';
+      r2.textContent = 'B: ' + (A_DEG_PER_S / 6 * NA / NB).toFixed(1) + ' RPM';
+      r3.textContent = 'ENC: ' + String(counts).padStart(7, '0');
+      if (!reduce) raf = requestAnimationFrame(frame);
+    }
+    raf = requestAnimationFrame(frame);
+  }
+
+  function type() {
+    var term = document.getElementById('mx-term');
+    term.textContent = '';
+    LINES.forEach(function (line, i) {
+      var add = function () { term.textContent += (i ? '\n' : '') + line; };
+      if (reduce) add(); else typeTimers.push(setTimeout(add, 350 + i * 550));
+    });
+  }
+
+  function show() {
+    if (!overlay) build();
+    lastFocus = document.activeElement;
+    overlay.hidden = false;
+    isOpen = true;
+    document.documentElement.style.overflow = 'hidden';
+    overlay.querySelector('.mx-close').focus();
+    type();
+    spin(performance.now());
+  }
+
+  function hide() {
+    if (!overlay) return;
+    overlay.hidden = true;
+    isOpen = false;
+    pos = 0;
+    cancelAnimationFrame(raf);
+    typeTimers.forEach(clearTimeout); typeTimers = [];
+    document.documentElement.style.overflow = '';
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+})();
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
@@ -753,6 +1402,38 @@ ul.task-list li input[type="checkbox"] {
 </div>
   </div>
 </footer>
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
 
 
 

@@ -39,14 +39,14 @@
     "href": "Projects/index.html",
     "title": "Projects",
     "section": "",
-    "text": "Mechanical\n\n\n\nWrite-up in progress.\n\n\n\n\n\n\n\n\n\n\n\n\nEmbedded\n\nFPGA\n\nIn Progress\n\n\n\nA wireless gesture-control glove that tracks hand motion with IR sensors and drives a custom FPGA display.\n\n\n\nSep 2026\n\n\n\n\n\n\n\n\n\n\n\n\n\nMechanical\n\nMechanism Design\n\nFabrication\n\n\n\nAn automated mechanical production system built around a DC worm gear motor and a waterjet-cut gear train.\n\n\n\nJan 2026\n\n\n\n\n\n\n\n\n\n\n\n\n\nFPGA\n\nDigital Design\n\nSystemVerilog\n\n\n\nA multi-cycle processor with a custom ISA, plus an FPGA digital keyboard synthesizer.\n\n\n\nAug 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\nEmbedded\n\nMachining\n\nData Acquisition\n\n\n\nMulti-sensor data acquisition and live telemetry for an autonomous underwater vehicle.\n\n\n\nJan 2025\n\n\n\n\n\n\nNo matching items"
+    "text": "Hardware, firmware, and everything in between. Click a card for the full write-up, or scroll down for my professional and research work."
   },
   {
     "objectID": "Projects/index.html#technical-projects",
     "href": "Projects/index.html#technical-projects",
     "title": "Projects",
-    "section": "",
-    "text": "Mechanical\n\n\n\nWrite-up in progress.\n\n\n\n\n\n\n\n\n\n\n\n\nEmbedded\n\nFPGA\n\nIn Progress\n\n\n\nA wireless gesture-control glove that tracks hand motion with IR sensors and drives a custom FPGA display.\n\n\n\nSep 2026\n\n\n\n\n\n\n\n\n\n\n\n\n\nMechanical\n\nMechanism Design\n\nFabrication\n\n\n\nAn automated mechanical production system built around a DC worm gear motor and a waterjet-cut gear train.\n\n\n\nJan 2026\n\n\n\n\n\n\n\n\n\n\n\n\n\nFPGA\n\nDigital Design\n\nSystemVerilog\n\n\n\nA multi-cycle processor with a custom ISA, plus an FPGA digital keyboard synthesizer.\n\n\n\nAug 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\nEmbedded\n\nMachining\n\nData Acquisition\n\n\n\nMulti-sensor data acquisition and live telemetry for an autonomous underwater vehicle.\n\n\n\nJan 2025\n\n\n\n\n\n\nNo matching items"
+    "section": "Technical Projects",
+    "text": "Technical Projects\n\n\n\n\n\n\n\n\nHammer Project\n\n\n\nMechanical\n\n\n\nWrite-up in progress.\n\n\n\n\n\n\n\n\n\n\nWearable IR Motion-Tracking Glove & Display Interface\n\n\n\nEmbedded\n\nFPGA\n\nIn Progress\n\n\n\nA wireless gesture-control glove that tracks hand motion with IR sensors and drives a custom FPGA display.\n\n\n\nSep 2026\n\n\n\n\n\n\n\n\n\n\n\nAutomated Tortilla Machine Prototype\n\n\n\nMechanical\n\nMechanism Design\n\nFabrication\n\n\n\nAn automated mechanical production system built around a DC worm gear motor and a waterjet-cut gear train.\n\n\n\nJan 2026\n\n\n\n\n\n\n\n\n\n\n\nRISC-V Multi-Cycle Processor & FPGA Synthesizer\n\n\n\nFPGA\n\nDigital Design\n\nSystemVerilog\n\n\n\nA multi-cycle processor with a custom ISA, plus an FPGA digital keyboard synthesizer.\n\n\n\nAug 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\nAUV Sensor Deployment & Telemetry System\n\n\n\nEmbedded\n\nSensors\n\nData Acquisition\n\nMachining\n\n\n\nComparing a force-sensing resistor and spring against an ultrasonic sensor to measure distance on an AUV, plus a hall effect anemometer, deployed at Dana Point.\n\n\n\nJan 2025\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "Projects/index.html#professional-research-experience",
@@ -263,14 +263,14 @@
     "href": "labs/index.html",
     "title": "E155 Lab Reports",
     "section": "",
-    "text": "During this class I hope to hone my skills in FPGAs, MCUs, digital electronics, and overall computer logic so I can improve at sensor communication. I hope to apply this to larger projects and systems that can help in my career and curious endeavors."
+    "text": "During this class I hope to hone my skills in FPGAs, MCUs, digital electronics, and overall computer logic so I can improve at sensor communication. I hope to apply this to larger projects and systems that can help in my career and curious endeavors.\nSix labs that took me from blinking an LED on an FPGA to serving a web page from an IoT device:\nSystemVerilog FPGA STM32 Timers Interrupts SPI IoT"
   },
   {
     "objectID": "labs/index.html#goals-for-the-course",
     "href": "labs/index.html#goals-for-the-course",
     "title": "E155 Lab Reports",
     "section": "",
-    "text": "During this class I hope to hone my skills in FPGAs, MCUs, digital electronics, and overall computer logic so I can improve at sensor communication. I hope to apply this to larger projects and systems that can help in my career and curious endeavors."
+    "text": "During this class I hope to hone my skills in FPGAs, MCUs, digital electronics, and overall computer logic so I can improve at sensor communication. I hope to apply this to larger projects and systems that can help in my career and curious endeavors.\nSix labs that took me from blinking an LED on an FPGA to serving a web page from an IoT device:\nSystemVerilog FPGA STM32 Timers Interrupts SPI IoT"
   },
   {
     "objectID": "labs/index.html#lab-reports",
@@ -326,35 +326,42 @@
     "href": "Art/index.html",
     "title": "Art",
     "section": "",
-    "text": "Making things isn’t limited to the machine shop. Here’s some of the art I make in my free time.\n\n\n\nSketches\nGraphite, ink, and notebook doodles. View sketches\n\n\n\n\nDigital Art\nIllustration and digital painting. View digital art\n\n\n\n\n3D Modeling\nBlender, SolidWorks, and Fusion 360 models. View 3D models\n\n\n\n\n\n\n Back to top"
+    "text": "Making things isn’t limited to the machine shop. Here’s some of what I make in my free time.\n\n\n\n Sketches\nGraphite, ink, and notebook doodles. View sketches\n\n\n\n\n Digital Art\nIllustration and digital painting. View digital art\n\n\n\n\n 3D Modeling\nBlender, SolidWorks, and Fusion 360 models. View 3D models\n\n\n\n\n\n\n Back to top"
   },
   {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Eduardo Ambriz Lazo",
     "section": "",
-    "text": "Welcome to my engineering portfolio! I’m a senior engineering major at Harvey Mudd College with a mechanical focus, an emphasis on mechatronics and mechanical design, and a heavy interest in biomimetics.\nI’m currently a mechatronics clinic engineer on a project sponsored by Blue Origin, and I research fin motion and fluid dynamics at the Harvey Mudd FILM Lab. Last spring I was a mechanical/R&D engineer on an AirMyne project, where I looked at interfacial structure design to improve how quickly CO2 can be absorbed from the atmosphere.\nIn my free time I’m usually working on personal mechanical and microcontroller projects, creating art, playing video games, or rock climbing. Stay curious!"
+    "text": "Mechatronics · FPGAs · Embedded systems · Biomimetics\nWelcome to my engineering portfolio! I’m a senior at Harvey Mudd College studying engineering with a mechanical focus, and I love projects where mechanical design, electronics, and code all have to work together.\nRight now I’m a mechatronics clinic engineer on a project sponsored by Blue Origin, and I research flexible-fin motion and fluid dynamics at the Harvey Mudd FILM Lab. Last spring I was a mechanical/R&D engineer on an AirMyne project, studying interfacial structure design to improve how quickly CO2 can be absorbed from the atmosphere.\nOutside of class I’m usually working on mechanical and microcontroller projects, making art, playing video games, or rock climbing. Stay curious!"
   },
   {
-    "objectID": "index.html#what-im-working-on-now",
-    "href": "index.html#what-im-working-on-now",
+    "objectID": "index.html#currently",
+    "href": "index.html#currently",
     "title": "Eduardo Ambriz Lazo",
-    "section": "What I’m Working On Now",
-    "text": "What I’m Working On Now\n\nBlue Origin Clinic: an automated umbilical panel extraction and engagement system for launch vehicles, with a real-time vision pipeline for sub-millimeter alignment.\nFILM Lab: precision gantry control and Particle Image Velocimetry (PIV) for flexible-fin thrust.\nSide Project: a wearable IR motion-tracking glove that drives a custom FPGA display."
+    "section": "Currently",
+    "text": "Currently\n\n\n\nBlue Origin Clinic\n\nAug 2026 – present\n\nAn automated umbilical panel extraction and engagement system for launch vehicles, guided by a real-time vision pipeline for sub-millimeter alignment.\n\n\n\n\nFILM Lab\n\nJun 2026 – present\n\nPrecision gantry control and Particle Image Velocimetry (PIV) to study the thrust of flexible fins.\n\n\n\n\nIR Motion-Tracking Glove\n\nSep 2026 – present\n\nA wireless gesture-control glove driving a custom FPGA display. Read more"
   },
   {
     "objectID": "index.html#explore",
     "href": "index.html#explore",
     "title": "Eduardo Ambriz Lazo",
     "section": "Explore",
-    "text": "Explore\n\n\n\nProjects\nMechatronics, FPGA, and embedded builds, from a waterjet-cut tortilla machine to a RISC-V processor. See the projects\n\n\n\n\nArt\nSketches, digital art, and 3D models from outside the lab. Browse the gallery\n\n\n\n\nE155 Labs\nWrite-ups for my microprocessor systems labs: FPGAs, MCUs, interrupts, and IoT. Read the labs"
+    "text": "Explore\n\n\n\n Projects\nFrom a waterjet-cut tortilla machine to a RISC-V processor. See the projects\n\n\n\n\n Art\nSketches, digital art, and 3D models from outside the lab. Browse the gallery\n\n\n\n\n E155 Labs\nFPGAs, MCUs, interrupts, and IoT from my microprocessor systems course. Read the labs"
+  },
+  {
+    "objectID": "index.html#toolbox",
+    "href": "index.html#toolbox",
+    "title": "Eduardo Ambriz Lazo",
+    "section": "Toolbox",
+    "text": "Toolbox\nLanguages: Python C/C++ SystemVerilog MATLAB R HTML/CSS GDScript\nSoftware: SolidWorks Fusion 360 Blender Quartus Questa Git Linux\nHardware & fabrication: Oscilloscopes Soldering Precision machining Laser cutting 3D printing Rapid prototyping"
   },
   {
     "objectID": "index.html#beyond-the-lab",
     "href": "index.html#beyond-the-lab",
     "title": "Eduardo Ambriz Lazo",
     "section": "Beyond the Lab",
-    "text": "Beyond the Lab\nI’m the founder and treasurer of our campus chapter of the Society of Hispanic Professional Engineers (SHPE), and the board president of SALSA MUDD."
+    "text": "Beyond the Lab\nI’m a co-founder and treasurer of our campus chapter of the Society of Hispanic Professional Engineers (SHPE) and the board president of SALSA MUDD."
   },
   {
     "objectID": "labs/lab1/index.html",
@@ -536,35 +543,56 @@
     "href": "Projects/auv.html",
     "title": "AUV Sensor Deployment & Telemetry System",
     "section": "",
-    "text": "Timeline: January – May 2025\nTools: Teensy 4.0 Arduino MATLAB I2C / SPI PCB design Machining"
+    "text": "Course: E80 Experimental Engineering, Harvey Mudd College (Team 37, Section 3)\nTeam: Eduardo Ambriz Lazo, Lily Anfang, Nicholas Dass, Quinn Miyamoto\nTimeline: January – May 2025 · deployed at Baby Beach, Dana Point, CA\nTools: Teensy 4.0 Arduino MATLAB FSR 400 HC-SR04 AH9246 hall sensor 555 timer Op-amps Machining\nFull report: Evaluating the Accuracy of Ultrasonic Waves and Force for Determining Distance (PDF)"
   },
   {
     "objectID": "Projects/auv.html#overview",
     "href": "Projects/auv.html#overview",
     "title": "AUV Sensor Deployment & Telemetry System",
     "section": "Overview",
-    "text": "Overview\nFor this project I built the sensor and telemetry system for an autonomous underwater vehicle (AUV). The goal was to collect data from several sensors on the vehicle and get it to a computer in real time for hydrodynamic profiling.\n\nImage coming soon: the AUV or the sensor payload"
+    "text": "Overview\nFor our final E80 project, my team built an autonomous underwater vehicle (AUV) that was supposed to measure the distance to an object it was following. Ideally, that distance would feed a control loop on the motor PWM so the vehicle could hold a constant following distance.\nInstead of relying on a single sensor, we compared two very different ways of measuring distance:\n\nUltrasonic time of flight with an HC-SR04, which sends out pulses and times the echo.\nForce and Hooke’s Law, where a force-sensing resistor (FSR) reads the force on a spring-loaded extrusion and a calibrated spring constant turns that force into a distance.\n\nWe also built an anemometer around a hall effect sensor to log wind speed during deployment, so we could explain any odd behavior in the distance data.\nThen it rained at Dana Point. The ultrasonic sensor was not waterproof and failed, so the deployment turned into a test of the novel FSR-and-spring approach to object detection."
   },
   {
-    "objectID": "Projects/auv.html#what-i-built",
-    "href": "Projects/auv.html#what-i-built",
+    "objectID": "Projects/auv.html#results-at-a-glance",
+    "href": "Projects/auv.html#results-at-a-glance",
     "title": "AUV Sensor Deployment & Telemetry System",
-    "section": "What I Built",
-    "text": "What I Built\n\nElectronics: a Teensy 4.0 motherboard integrated on a custom protoboard, managing multi-sensor data acquisition over I2C and SPI.\nTelemetry: an Arduino that processes the telemetry data and streams real-time packets to MATLAB.\nAnalysis: MATLAB receives the packets for hydrodynamic profiling.\nHardware: machined parts and PCB design supported the sensor deployment."
+    "section": "Results at a Glance",
+    "text": "Results at a Glance\n\n\n\n\n0.993\n\n\nR² of the ultrasonic sensor’s linear calibration\n\n\n\n\n\n\n1–3 V\n\n\nFSR circuit output, sized for the Teensy’s ADC\n\n\n\n\n\n\n2–6.21 m/s\n\n\nwind speeds measured at the beach (reported average: 6.25 m/s)\n\n\n\n\n\n\n14.4 Hz\n\n\nADC sampling rate (69 ms period)"
   },
   {
-    "objectID": "Projects/auv.html#data-flow",
-    "href": "Projects/auv.html#data-flow",
+    "objectID": "Projects/auv.html#the-sensors",
+    "href": "Projects/auv.html#the-sensors",
     "title": "AUV Sensor Deployment & Telemetry System",
-    "section": "Data Flow",
-    "text": "Data Flow\nSensors → Teensy 4.0 (I2C / SPI) → Arduino (telemetry processing) → real-time packets → MATLAB\n\nImage coming soon: wiring diagram or board photo"
+    "section": "The Sensors",
+    "text": "The Sensors\n\nForce-Sensing Resistor and Spring\nThe idea comes straight from Hooke’s Law, \\(F_s = k\\,\\Delta x\\), so \\(\\Delta x = F_s / k\\). If the FSR measures the force on a spring with a known spring constant \\(k\\), the spring’s compression tells us how far away an object is when the extrusion touches it. FSRs are normally used to detect pressure, so using one this way was a creative twist, and FSRs are also easy to calibrate with just a few known loads.\nThe FSR sits in a voltage divider with a 10 kΩ resistor:\n\\[V_{out} = \\frac{R_g}{R_g + R_{p1}} V_{in}\\]\nAn op-amp stage then adds gain and an offset so the signal lands in a 1–3 V range, comfortably inside the Teensy’s readable range.\n\n\n\n\n\n\nFigure 1: Circuit for the FSR: voltage divider followed by a gain and offset stage built from OP07 op-amps.\n\n\n\nWe calibrated the sensor by applying known forces and measuring the output. A cubic polynomial fit the force-to-resistance relationship very well (R² = 0.999), and the force-to-voltage relationship through our actual circuit also fit a cubic (R² = 0.989), which is the one we used.\n\n\n\n\n\n\n\n\n\nFigure 2: Force vs. resistance calibration (R² = 0.999).\n\n\n\n\n\n\n\n\n\n\n\nFigure 3: Force vs. voltage calibration through the circuit (R² = 0.989).\n\n\n\n\n\n\nThe last calibration was the spring itself, which relates the sensed force (and so the voltage) to a physical displacement. Running multiple trials gave an uncertainty on each distance value.\n\n\n\n\n\n\nFigure 4: Spring calibration curve (R² = 0.988), with uncertainty bars.\n\n\n\n\n\n\nTable 1: Force, voltage, and derived distance for the FSR circuit, with uncertainty.\n\n\n\n\n\nForce (N)\nVoltage (V)\nΔx (m)\nUncertainty\n\n\n\n\n0.000\n3.58\n-0.104\n0.127\n\n\n0.195\n3.13\n-0.012\n0.116\n\n\n0.391\n2.72\n0.071\n0.101\n\n\n0.686\n2.20\n0.176\n0.078\n\n\n1.176\n1.59\n0.303\n0.055\n\n\n2.157\n1.26\n0.369\n0.050\n\n\n\n\n\n\n\n\nUltrasonic Distance Sensor\nThe HC-SR04 estimates distance from how long an ultrasonic pulse takes to bounce back: distance = (high-level time × 340 m/s) / 2. It needs a trigger pulse, so the circuit uses an NA555P timer in astable configuration that fires the trigger roughly every 345 ms. The sensor’s echo output is then scaled with a non-inverting op-amp stage (gain of 4), so about 1 meter of range maps to 0–2.1 V.\n\n\n\n\n\n\nFigure 5: Ultrasonic sensor circuit: 555 timer trigger on the left, op-amp scaling stage on the right.\n\n\n\nWe calibrated it by recording the average peak voltage over 10 trials at 10 cm increments from 10 cm to 1 m. A straight line fit well (R² = 0.993), with distance in cm ≈ 46.5 × V − 3.01.\n\n\n\n\n\n\n\n\n\nFigure 6: Ultrasonic calibration curve (R² = 0.993).\n\n\n\n\n\n\n\n\n\n\n\nFigure 7: Oscilloscope trace of the echo output in a dry test.\n\n\n\n\n\n\nA dry test on the AUV’s protoboard showed the setup only reached about 1.2 m, well short of the 4 m the datasheet promises.\n\n\nHall Effect Anemometer\nTo log the weather, we built a cup anemometer that carries a magnet. Each time the magnet passes the AH9246 hall effect sensor, the output drops, and counting those drops gives revolutions per second. A single OP07 op-amp conditions the output to 1–3 V.\n\n\n\n\n\n\nFigure 8: Hall effect sensor circuit with a single OP07 op-amp.\n\n\n\nThe software side took the most work. We extended the base ADC loop so it watches for voltage drops, counts revolutions with an interrupt, and computes RPS over each 69 ms sampling window. Calibration happened in a wind tunnel in two steps: first relating the tunnel’s fan RPM to wind speed, then relating the anemometer’s RPS to that wind speed.\n\n\n\n\n\n\n\n\n\nFigure 9: Wind tunnel fan RPM vs. wind speed.\n\n\n\n\n\n\n\n\n\n\n\nFigure 10: Anemometer RPS vs. wind speed (R² = 0.886)."
   },
   {
-    "objectID": "Projects/auv.html#gallery",
-    "href": "Projects/auv.html#gallery",
+    "objectID": "Projects/auv.html#mechanical-design",
+    "href": "Projects/auv.html#mechanical-design",
     "title": "AUV Sensor Deployment & Telemetry System",
-    "section": "Gallery",
-    "text": "Gallery\n\n\n\nImage coming soon: custom protoboard\n\n\n\n\nImage coming soon: MATLAB telemetry plot"
+    "section": "Mechanical Design",
+    "text": "Mechanical Design\nThe frame had a lot of competing requirements. The motors had to be underwater, the anemometer had to be elevated to catch real wind, and the electronics box had to stay dry above the waterline.\n\nStability: a large surface area keeps the AUV from tipping, but adds weight up high. We kept the center of mass below the center of buoyancy so the vehicle self-rights, and added pool noodles for flotation.\nDry electronics: the box holding the Teensy, motherboard, and protoboard sits above the water for safety.\nAnemometer frame: the cups spin a magnet past the hall sensor. Mounting that assembly tilted the vehicle’s balance, which is why the other two sensors got their own second frame.\nSpring and extrusion frame: a CAD-designed housing holds a spring-loaded extrusion about 14.5 inches long that changes length as force is applied, and an elevated panel gives the ultrasonic sensor something to reflect off.\n\n\n\n\n\n\n\n\n\n\nFigure 11: Sketches of the overall mechanical assembly (side, isometric, and top views).\n\n\n\n\n\n\n\n\n\n\n\nFigure 12: Cutaway of the anemometer showing the magnet and the hall effect sensor.\n\n\n\n\n\n\n\n\n\n\n\n\nFigure 13: CAD model of the ultrasonic sensor frame and the spring-and-arm assembly that triggers the FSR."
+  },
+  {
+    "objectID": "Projects/auv.html#deployment",
+    "href": "Projects/auv.html#deployment",
+    "title": "AUV Sensor Deployment & Telemetry System",
+    "section": "Deployment",
+    "text": "Deployment\nWe deployed the AUV at the shore of Baby Beach in Dana Point, California, to keep the vehicle easy to recover and minimize any environmental impact. A previous lake deployment nearly lost a piece of the vehicle, so staying close to shore was deliberate. We also checked the onboard circuitry before and after the run.\nEach run went like this:\n\nInsert an SD card into the motherboard and flip the power switch.\nClose the circuitry into its harnessed box and strap it to the AUV.\nLet the motors drive the AUV forward until the FSR feels a high enough force (the extrusion pressed against a team member), then back off and repeat.\nRetrieve the AUV, then read the SD card log in MATLAB with logreader.m to plot each sensor’s raw voltage. Wind speed was also watched live in the Arduino Serial Monitor.\n\n\n\n\n\n\n\nNoteMotor control logic (DanaDrive.ino, partial)\n\n\n\n\n\ncurrentTime = millis();\nif (forceSensor &lt;= 500) {\n  motor_driver.drive(290, 290, 0);   // drive forward\n} else {\n  motor_driver.drive(-150, 0, 0);    // contact detected: back off\n}\n\n\n\n\n\n\n\n\n\nNoteAnemometer wind speed logic (DanaDrive.ino, partial)\n\n\n\n\n\nif (currentTime - anem_sampler.lastExecutionTime &gt; LOOP_PERIOD) {\n  anem_sampler.lastExecutionTime = currentTime;\n  float timeDifference = currentTime - endTime;\n  if (timeDifference &gt; sampleTime) {\n    RPS = (revolution / sampleTime) * 1000;   // revolutions per second\n    anem_sampler.updateState(RPS);\n    endTime = currentTime;\n    revolution = 0;\n  }\n}\n\nvoid ISR() {\n  revolution += 1;   // one hall effect pulse per revolution\n}\n\n\n\n\n\n\n\n\n\nFigure 14: The AUV in the water near the shore during deployment.\n\n\n\n\nWhat Went Wrong\nThe day of deployment it rained, and the HC-SR04 was not waterproof. The mechanical design had accounted for water, but we didn’t adequately consider the effect of rain on the electronics. The sensor failed, and the resulting short also affected the hall effect sensor. Fortunately we found a replacement for the hall sensor, but the ultrasonic sensor was lost."
+  },
+  {
+    "objectID": "Projects/auv.html#results",
+    "href": "Projects/auv.html#results",
+    "title": "AUV Sensor Deployment & Telemetry System",
+    "section": "Results",
+    "text": "Results\n\nUltrasonic sensor: no usable data. Despite repeated attempts to trigger it with a panel in close proximity, its output stayed constant after the rain damage.\nAnemometer: worked as expected. Live readings ranged from about 2 m/s to 6.21 m/s, in line with the day’s reported average wind of 14 mph (about 6.25 m/s). The remaining discrepancy was likely due to the anemometer’s low elevation.\nFSR and spring: the main result. Within the pre-specified distance during deployment, the FSR output swung between 1 and 3 V for forces of roughly 0.36 N, 0.853 N, and 1.36 N, which supports the force-to-distance idea.\n\nWe compared two trials with different motor power: Deployment 1 at 120 PWM and Deployment 2 at 290 PWM.\n\n\n\n\n\n\n\n\n\nFigure 15: Deployment 1 raw data at 120 PWM (anemometer on top, FSR below).\n\n\n\n\n\n\n\n\n\n\n\nFigure 16: Deployment 2 raw data at 290 PWM.\n\n\n\n\n\n\nIn Deployment 1, the FSR looked nearly digital instead of showing the slow rise in force our dry tests produced. Comparing against the video showed the FSR’s response was valid, but the gradual change was missing from the data. The most likely cause is aliasing: at a 14.4 Hz sampling rate, the force can change faster than we sample it."
+  },
+  {
+    "objectID": "Projects/auv.html#what-id-do-differently",
+    "href": "Projects/auv.html#what-id-do-differently",
+    "title": "AUV Sensor Deployment & Telemetry System",
+    "section": "What I’d Do Differently",
+    "text": "What I’d Do Differently\n\nWaterproof the ultrasonic sensor and rework its output into an analog voltage proportional to distance, so it can drive a real control loop on motor PWM, the same way the anemometer software works.\nRaise the sampling rate to avoid aliasing and make post-processing easier.\nElevate the anemometer more so it sees real wind speeds.\nRecalibrate any replacement sensors before deployment.\n\nThis project showed how much each sensor demands in its own way: mechanical design for the spring and frame, software for the anemometer, and careful circuit work for the ultrasonic sensor."
   },
   {
     "objectID": "Projects/hammer.html",
