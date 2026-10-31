@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Eduardo Ambriz Lazo">
-<meta name="description" content="Write-up in progress.">
+<meta name="description" content="A multi-material hammer machined from a full drawing package: steel head, heat-treated hardface, nylon softface, and an oak handle.">
 
-<title>Hammer Project – Portfolio</title>
+<title>Machined Hammer – Portfolio</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -47,7 +47,10 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-0d160f1e9578a5fb1854bf9644f4e79c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-2ca4257ca38fdd789a25acd2d1b6d69e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -134,8 +137,12 @@ ul.task-list li input[type="checkbox"] {
  <span class="dropdown-text">AUV Telemetry System</span></a>
   </li>  
         <li>
+    <a class="dropdown-item" href="../Projects/nosecone.html">
+ <span class="dropdown-text">Nose Cone Drag (CFD)</span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="../Projects/hammer.html">
- <span class="dropdown-text">Hammer Project</span></a>
+ <span class="dropdown-text">Machined Hammer</span></a>
   </li>  
     </ul>
   </li>
@@ -237,6 +244,9 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#parts" id="toc-parts" class="nav-link" data-scroll-target="#parts">Parts</a></li>
+  <li><a href="#reading-the-drawings" id="toc-reading-the-drawings" class="nav-link" data-scroll-target="#reading-the-drawings">Reading the Drawings</a></li>
+  <li><a href="#drawings" id="toc-drawings" class="nav-link" data-scroll-target="#drawings">Drawings</a></li>
   <li><a href="#gallery" id="toc-gallery" class="nav-link" data-scroll-target="#gallery">Gallery</a></li>
   </ul>
 </nav>
@@ -246,16 +256,17 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Hammer Project</h1>
-<p class="subtitle lead">Details coming soon</p>
+<h1 class="title">Machined Hammer</h1>
+<p class="subtitle lead">Spring 2024 · Manual machining, GD&amp;T drawings, SolidWorks</p>
   <div class="quarto-categories">
     <div class="quarto-category">Mechanical</div>
+    <div class="quarto-category">Machining</div>
   </div>
   </div>
 
 <div>
   <div class="description">
-    Write-up in progress.
+    A multi-material hammer machined from a full drawing package: steel head, heat-treated hardface, nylon softface, and an oak handle.
   </div>
 </div>
 
@@ -269,6 +280,12 @@ ul.task-list li input[type="checkbox"] {
           </div>
   </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">March 2024</p>
+    </div>
+  </div>
   
     
   </div>
@@ -278,17 +295,115 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<!-- TODO: this project wasn't on the resume, so there was nothing to fill in from.
-Add: timeline, tools, what you built, and photos. Copy the structure from tortillamach.qmd. -->
 <div class="project-meta">
-<p><strong>Timeline:</strong> to be added<br>
-<strong>Tools:</strong> to be added</p>
+<p><strong>Timeline:</strong> Spring 2024 (drawing set revised 03/22/24)<br>
+<strong>Tools:</strong> <span class="pill">SolidWorks</span> <span class="pill">Lathe</span> <span class="pill">Mill</span> <span class="pill">GD&amp;T</span> <span class="pill">Heat treatment</span><br>
+<strong>Materials:</strong> <span class="pill">AISI 1015</span> <span class="pill">AISI 4340</span> <span class="pill">Nylon</span> <span class="pill">Oak</span></p>
 </div>
 <section id="overview" class="level2">
 <h2 class="anchored" data-anchor-id="overview">Overview</h2>
-<p>A full write-up for this project is on its way.</p>
-<div class="img-placeholder">
-<p>Image coming soon: hero shot</p>
+<p>This is a six-part hammer that I machined and assembled from a set of engineering drawings. It has a steel head, a hardened steel face on one end, a replaceable nylon face on the other, and a wooden handle that is locked in with a wedge. Each part has its own drawing with dimensions, tolerances, and geometric tolerancing, and a sheet of assembly drawings shows how it all goes together.</p>
+<!-- TODO: add a photo of the finished hammer here, e.g.
+![Finished hammer.](images/hammer-finished.jpg){#fig-hammer}
+-->
+</section>
+<section id="parts" class="level2">
+<h2 class="anchored" data-anchor-id="parts">Parts</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 23%">
+<col style="width: 38%">
+<col style="width: 26%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Part</th>
+<th>Material</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>Handle</td>
+<td>1 × 1.5 in clear oak</td>
+<td>Tapered, sanded handle with a slot for the wedge</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>Head</td>
+<td>AISI 1015 steel</td>
+<td>Turned from 1.0 in stock to Ø.812, with threaded and bored features on both ends</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>Hardface</td>
+<td>AISI 4340 steel</td>
+<td>Domed face, heat treated to Rockwell C 43–48 and polished</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>Softface</td>
+<td>Nylon</td>
+<td>Replaceable face, Ø.812 × .62 with a .04 × 45° chamfer</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>Set screw</td>
+<td>AISI 1015 steel</td>
+<td>Ø.250-20 × .75, holds the face in the head</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>Wedge</td>
+<td>Red Devil #4</td>
+<td>Grady wedge that locks the head onto the handle</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="reading-the-drawings" class="level2">
+<h2 class="anchored" data-anchor-id="reading-the-drawings">Reading the Drawings</h2>
+<p>The head drawing is where most of the tolerancing shows up. Both ends are controlled with position and perpendicularity callouts back to datums, so the faces end up concentric with the head and square to its axis. The softface drawing is a good small example of the same idea: a Ø.201 hole with a 1/4-20 UNC thread is positioned to within Ø.003 of two datums, which is what lets the face thread onto the head and sit true.</p>
+<p>The assembly drawing has one rule that matters a lot in practice: items 1, 2, and 6 (handle, head, and wedge) must be flush.</p>
+</section>
+<section id="drawings" class="level2">
+<h2 class="anchored" data-anchor-id="drawings">Drawings</h2>
+<div class="grid">
+<div class="g-col-12 g-col-md-6">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/hammer-drawing-1.jpg" class="lightbox" data-gallery="hammer" title="Head drawing (sheet 1 of 5)."><img src="images/hammer-drawing-1.jpg" class="img-fluid figure-img" alt="Head drawing (sheet 1 of 5)."></a></p>
+<figcaption>Head drawing (sheet 1 of 5).</figcaption>
+</figure>
+</div>
+</div>
+<div class="g-col-12 g-col-md-6">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/hammer-drawing-2.jpg" class="lightbox" data-gallery="hammer" title="Softface drawing (sheet 2 of 5)."><img src="images/hammer-drawing-2.jpg" class="img-fluid figure-img" alt="Softface drawing (sheet 2 of 5)."></a></p>
+<figcaption>Softface drawing (sheet 2 of 5).</figcaption>
+</figure>
+</div>
+</div>
+<div class="g-col-12 g-col-md-6">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/hammer-drawing-3.jpg" class="lightbox" data-gallery="hammer" title="Hardface drawing (sheet 3 of 5)."><img src="images/hammer-drawing-3.jpg" class="img-fluid figure-img" alt="Hardface drawing (sheet 3 of 5)."></a></p>
+<figcaption>Hardface drawing (sheet 3 of 5).</figcaption>
+</figure>
+</div>
+</div>
+<div class="g-col-12 g-col-md-6">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/hammer-drawing-5.jpg" class="lightbox" data-gallery="hammer" title="Assembly drawing with bill of materials (sheet 5 of 5)."><img src="images/hammer-drawing-5.jpg" class="img-fluid figure-img" alt="Assembly drawing with bill of materials (sheet 5 of 5)."></a></p>
+<figcaption>Assembly drawing with bill of materials (sheet 5 of 5).</figcaption>
+</figure>
+</div>
+</div>
 </div>
 </section>
 <section id="gallery" class="level2">
@@ -296,12 +411,12 @@ Add: timeline, tools, what you built, and photos. Copy the structure from tortil
 <div class="grid">
 <div class="g-col-12 g-col-md-6">
 <div class="img-placeholder">
-<p>Image coming soon</p>
+<p>Image coming soon: finished hammer</p>
 </div>
 </div>
 <div class="g-col-12 g-col-md-6">
 <div class="img-placeholder">
-<p>Image coming soon</p>
+<p>Image coming soon: parts in progress</p>
 </div>
 </div>
 </div>
@@ -481,6 +596,47 @@ Add: timeline, tools, what you built, and photos. Copy the structure from tortil
     document.documentElement.style.overflow = '';
     if (lastFocus && lastFocus.focus) lastFocus.focus();
   }
+})();
+</script>
+<!-- Mobile bottom tab bar: always-visible navigation on phones and small tablets.
+     Hidden on desktop (>= 992px), where the regular navbar is used.
+     Links are built relative to the site root by reading the path of a site_libs script. -->
+<nav id="mobile-tabbar" aria-label="Main sections">
+  <a href="index.html" data-section="home"><i class="bi bi-house-door"></i><span>Home</span></a>
+  <a href="Projects/index.html" data-section="Projects"><i class="bi bi-briefcase"></i><span>Projects</span></a>
+  <a href="Art/index.html" data-section="Art"><i class="bi bi-brush"></i><span>Art</span></a>
+  <a href="labs/index.html" data-section="labs"><i class="bi bi-rocket-takeoff"></i><span>Labs</span></a>
+</nav>
+<script>
+(function () {
+  var bar = document.getElementById("mobile-tabbar");
+  if (!bar) return;
+  // Work out the path prefix back to the site root (e.g. "", "../", "../../").
+  var s = document.querySelector('script[src*="site_libs/"]');
+  var prefix = "";
+  if (s) {
+    var src = s.getAttribute("src");
+    prefix = src.slice(0, src.indexOf("site_libs/"));
+  }
+  // Figure out which section we are in from the first folder after the site root.
+  var path = decodeURIComponent(location.pathname);
+  var depth = (prefix.match(/\.\.\//g) || []).length;
+  var parts = path.split("/").filter(Boolean);
+  var section = "home";
+  if (depth > 0 && parts.length >= depth + 1) {
+    section = parts[parts.length - 1 - depth];
+  }
+  var links = bar.querySelectorAll("a");
+  for (var i = 0; i < links.length; i++) {
+    var a = links[i];
+    a.setAttribute("href", prefix + a.getAttribute("href"));
+    if (a.getAttribute("data-section") === section) {
+      a.classList.add("active");
+      a.setAttribute("aria-current", "page");
+    }
+  }
+  // Keep the page content clear of the bar.
+  document.body.classList.add("has-mobile-tabbar");
 })();
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
@@ -902,6 +1058,38 @@ Add: timeline, tools, what you built, and photos. Copy the structure from tortil
 </div>
   </div>
 </footer>
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
 
 
 

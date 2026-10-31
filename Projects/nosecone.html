@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.19">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Eduardo Ambriz Lazo">
+<meta name="description" content="Simulating three nose cone shapes in COMSOL and checking the results against wind tunnel measurements.">
+
+<title>Nose Cone Drag: COMSOL CFD vs.&nbsp;Wind Tunnel – Portfolio</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../images/knight.jpg" rel="icon" type="image/jpeg">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-2ca4257ca38fdd789a25acd2d1b6d69e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Montserrat:wght@700;800&amp;display=swap" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Portfolio</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> <i class="bi bi-house-door" role="img">
+</i> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-projects" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-briefcase" role="img">
+</i> 
+ <span class="menu-text">Projects</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-projects">    
+        <li>
+    <a class="dropdown-item" href="../Projects/index.html">
+ <span class="dropdown-text">All Projects</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="../Projects/glove.html">
+ <span class="dropdown-text">IR Motion-Tracking Glove</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Projects/tortillamach.html">
+ <span class="dropdown-text">Tortilla Machine</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Projects/multicycleprocessor.html">
+ <span class="dropdown-text">RISC-V Processor &amp; Synth</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Projects/auv.html">
+ <span class="dropdown-text">AUV Telemetry System</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Projects/nosecone.html">
+ <span class="dropdown-text">Nose Cone Drag (CFD)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Projects/hammer.html">
+ <span class="dropdown-text">Machined Hammer</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-art" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-brush" role="img">
+</i> 
+ <span class="menu-text">Art</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-art">    
+        <li>
+    <a class="dropdown-item" href="../Art/index.html">
+ <span class="dropdown-text">Art Gallery</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="../Art/sketches.html">
+ <span class="dropdown-text">Sketches</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Art/digitalart.html">
+ <span class="dropdown-text">Digital Art</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Art/3Dmodeling.html">
+ <span class="dropdown-text">3D Modeling</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-labs" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-rocket-takeoff" role="img">
+</i> 
+ <span class="menu-text">Labs</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-labs">    
+        <li>
+    <a class="dropdown-item" href="../labs/index.html">
+ <span class="dropdown-text">E155 Lab Reports</span></a>
+  </li>  
+        <li><hr class="dropdown-divider"></li>
+        <li>
+    <a class="dropdown-item" href="../labs/lab1/index.html">
+ <span class="dropdown-text">Lab 1: FPGA and MCU Setup and Testing</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../labs/lab2/lab2.html">
+ <span class="dropdown-text">Lab 2: Multiplexed Seven Segment Display</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../labs/lab3/lab3.html">
+ <span class="dropdown-text">Lab 3: Keypad Scanner</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../labs/lab4/lab4.html">
+ <span class="dropdown-text">Lab 4: Digital Audio</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../labs/lab5/lab5.html">
+ <span class="dropdown-text">Lab 5: Interrupts</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../labs/lab6/index.html">
+ <span class="dropdown-text">Lab 6: IoT, Web Server, and SPI</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/in/eduardo-ambriz-lazo-207b2129b/"> <i class="bi bi-linkedin" role="img" aria-label="LinkedIn">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/EduardoAmbrizLazo"> <i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="mailto:eduardoambriz1234@gmail.com"> <i class="bi bi-envelope" role="img" aria-label="Email">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#the-three-nose-cones" id="toc-the-three-nose-cones" class="nav-link" data-scroll-target="#the-three-nose-cones">The Three Nose Cones</a></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a>
+  <ul class="collapse">
+  <li><a href="#the-simulation-behaved-like-a-drag-coefficient-should" id="toc-the-simulation-behaved-like-a-drag-coefficient-should" class="nav-link" data-scroll-target="#the-simulation-behaved-like-a-drag-coefficient-should">The simulation behaved like a drag coefficient should</a></li>
+  <li><a href="#the-wind-tunnel-was-messier" id="toc-the-wind-tunnel-was-messier" class="nav-link" data-scroll-target="#the-wind-tunnel-was-messier">The wind tunnel was messier</a></li>
+  <li><a href="#drag-force-told-a-more-consistent-story" id="toc-drag-force-told-a-more-consistent-story" class="nav-link" data-scroll-target="#drag-force-told-a-more-consistent-story">Drag force told a more consistent story</a></li>
+  <li><a href="#velocity-profiles" id="toc-velocity-profiles" class="nav-link" data-scroll-target="#velocity-profiles">Velocity profiles</a></li>
+  </ul></li>
+  <li><a href="#takeaways" id="toc-takeaways" class="nav-link" data-scroll-target="#takeaways">Takeaways</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Nose Cone Drag: COMSOL CFD vs.&nbsp;Wind Tunnel</h1>
+<p class="subtitle lead">E80 Lab 6 · Spring 2025 · COMSOL, Wind Tunnel, Theory of Models</p>
+  <div class="quarto-categories">
+    <div class="quarto-category">Fluids</div>
+    <div class="quarto-category">Simulation</div>
+    <div class="quarto-category">Experiment</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    Simulating three nose cone shapes in COMSOL and checking the results against wind tunnel measurements.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Eduardo Ambriz Lazo </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">March 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="project-meta">
+<p><strong>Course:</strong> E80 Experimental Engineering, Harvey Mudd College<br>
+<strong>Tools:</strong> <span class="pill">COMSOL</span> <span class="pill">Wind tunnel</span> <span class="pill">Theory of Models</span> <span class="pill">Data analysis</span><br>
+<strong>Full memo:</strong> <a href="files/E80_Lab6_Nose_Cone_Memo_Ambriz_Lazo.pdf">Lab 6 Technical Memo (PDF)</a></p>
+</div>
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>How well can a computer simulation stand in for a physical prototype? For this lab I measured the drag on three nose cone shapes in a wind tunnel, then simulated the same shapes with computational fluid dynamics (CFD) in COMSOL and compared the two.</p>
+<p>The comparison uses the Theory of Models: a model can represent a prototype if both are described by the same dimensionless parameters. Here those are the <strong>Reynolds number</strong> and the <strong>drag coefficient</strong>, with drag force as the quantity we ultimately care about.</p>
+<p><span class="math display">\[F_D = \tfrac{1}{2}\rho v^2 C_D A \qquad\qquad Re = \frac{\rho v L}{\mu}\]</span></p>
+</section>
+<section id="the-three-nose-cones" class="level2">
+<h2 class="anchored" data-anchor-id="the-three-nose-cones">The Three Nose Cones</h2>
+<p>All three share the same cylindrical body (25 mm radius, 125 mm long) and differ only in the nose: <strong>Nose #1</strong> is flat-faced, <strong>Nose #2</strong> is a hemisphere, and <strong>Nose #3</strong> is a cone.</p>
+<div id="fig-noses" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-noses-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="images/nose-cones.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;1: The three nose cone shapes, each on the same cylindrical base."><img src="images/nose-cones.png" class="img-fluid figure-img" style="width:70.0%"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-noses-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: The three nose cone shapes, each on the same cylindrical base.
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="results" class="level2">
+<h2 class="anchored" data-anchor-id="results">Results</h2>
+<section id="the-simulation-behaved-like-a-drag-coefficient-should" class="level3">
+<h3 class="anchored" data-anchor-id="the-simulation-behaved-like-a-drag-coefficient-should">The simulation behaved like a drag coefficient should</h3>
+<p>A drag coefficient belongs to the object’s shape, so it should stay roughly constant as Reynolds number changes. In COMSOL it did. Each nose held its own flat value, and the ranking matched the geometry: the flat face has the highest drag coefficient and the cone has the lowest.</p>
+</section>
+<section id="the-wind-tunnel-was-messier" class="level3">
+<h3 class="anchored" data-anchor-id="the-wind-tunnel-was-messier">The wind tunnel was messier</h3>
+<p>The measured coefficients dropped as Reynolds number rose, and the first data point of each nose sat noticeably high. The best-fit curves for the measured coefficient were loose (R² between about 0.44 and 0.74), which points to the tunnel not being perfectly controlled: air density and viscosity can vary through the chamber, and the instrument offsets have to be subtracted at zero flow.</p>
+<div id="fig-cd" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-cd-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="images/comsol-cd-vs-re.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;2: Drag coefficient versus Reynolds number, simulated (left) and measured (right)."><img src="images/comsol-cd-vs-re.png" class="img-fluid figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-cd-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Drag coefficient versus Reynolds number, simulated (left) and measured (right).
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="drag-force-told-a-more-consistent-story" class="level3">
+<h3 class="anchored" data-anchor-id="drag-force-told-a-more-consistent-story">Drag force told a more consistent story</h3>
+<p>Drag force grew smoothly with Reynolds number in both the simulation and the experiment, and the measured curves fit very well (R² of 0.997 or better). The simulation predicted a steeper increase than the tunnel measured, and the measured results for Nose #2 and Nose #3 came out unexpectedly close together. I attribute those gaps to measurement error and to non-ideal tunnel conditions, and to the possibility that a laminar-flow simulation stops being appropriate at the higher Reynolds numbers.</p>
+<div id="fig-drag" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-drag-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="images/comsol-drag-vs-re.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Figure&nbsp;3: Drag force versus Reynolds number, simulated (left) and measured (right)."><img src="images/comsol-drag-vs-re.png" class="img-fluid figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-drag-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Drag force versus Reynolds number, simulated (left) and measured (right).
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="velocity-profiles" class="level3">
+<h3 class="anchored" data-anchor-id="velocity-profiles">Velocity profiles</h3>
+<p>The COMSOL velocity profiles show why the shapes rank the way they do. Behind Nose #3 there is the least slow-moving, low-velocity region, so the cone disturbs the flow the least.</p>
+<div id="fig-velocity" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-velocity-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="images/comsol-velocity-profile.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Figure&nbsp;4: COMSOL velocity profiles for the three nose cones, with flow moving left. The color scale is velocity in m/s."><img src="images/comsol-velocity-profile.png" class="img-fluid figure-img" style="width:60.0%"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-velocity-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: COMSOL velocity profiles for the three nose cones, with flow moving left. The color scale is velocity in m/s.
+</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="takeaways" class="level2">
+<h2 class="anchored" data-anchor-id="takeaways">Takeaways</h2>
+<ul>
+<li>The COMSOL model was a reasonable stand-in for the prototype. It reproduced the main physics, and it ranked the three shapes correctly.</li>
+<li>Shape sets the drag coefficient. Nose #3, the cone, produced the least drag, and nose shape mattered even though the body and cross-sectional area were identical.</li>
+<li>Simulation and experiment agree best on trends, and they disagree on the details. Those details are where careful control of the experiment (and checking whether the flow regime matches the simulation) matters most.</li>
+</ul>
+<p>This kind of model-versus-prototype reasoning carries straight into mechanical design for vehicles that move through fluids, such as underwater robots, where a validated simulation and a small prototype can stand in for a larger system.</p>
+
+
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<!-- Easter egg: ↑ ↑ ↓ ↓ ← → ← → B A  (keyboard)  or  swipe ↑ ↑ ↓ ↓ ← → ← →, then tap twice (mobile) -->
+<style>
+  #mx-egg { position: fixed; inset: 0; z-index: 3000; display: flex; align-items: center; justify-content: center;
+    padding: 1rem; background: rgba(8, 16, 30, 0.88); backdrop-filter: blur(4px); animation: mx-fade 0.25s ease-out; }
+  #mx-egg[hidden] { display: none; }
+  #mx-egg .mx-panel { position: relative; width: 100%; max-width: 640px; max-height: 100%; overflow-y: auto;
+    background: #12233d; color: #f1e6c9; border: 2px solid #f1e6c9; border-radius: 16px; padding: 1.2rem 1.3rem 1rem;
+    box-shadow: 0 0 0 4px #12233d, 0 20px 60px rgba(0, 0, 0, 0.6); }
+  #mx-egg h2 { font-family: 'Montserrat', sans-serif; font-size: 1.25rem; margin: 0 2.5rem 0.6rem 0;
+    color: #f4a261; border: none; padding: 0; }
+  #mx-egg .mx-close { position: absolute; top: 0.7rem; right: 0.8rem; background: transparent; color: #f1e6c9;
+    border: 1.5px solid #f1e6c9; border-radius: 8px; font-size: 1rem; line-height: 1; padding: 0.35rem 0.6rem; cursor: pointer; }
+  #mx-egg .mx-close:hover, #mx-egg .mx-close:focus-visible { background: #f1e6c9; color: #12233d; outline: none; }
+  #mx-egg svg { display: block; width: 100%; height: auto; }
+  #mx-egg .mx-gear { fill: rgba(241, 230, 201, 0.10); stroke: #f1e6c9; stroke-width: 2; stroke-linejoin: round; }
+  #mx-egg .mx-hub  { fill: none; stroke: #f4a261; stroke-width: 2; }
+  #mx-egg .mx-term { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.82rem;
+    line-height: 1.55; min-height: 8.2rem; margin: 0.4rem 0 0.6rem; padding: 0.7rem 0.9rem; background: #0b1627;
+    border-radius: 10px; color: #9be8b0; white-space: pre-wrap; }
+  #mx-egg .mx-readout { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.78rem;
+    display: flex; flex-wrap: wrap; gap: 0.3rem 1.2rem; color: #f4a261; margin-bottom: 0.5rem; }
+  #mx-egg .mx-fact { font-size: 0.8rem; opacity: 0.85; margin: 0; }
+  @keyframes mx-fade { from { opacity: 0; } to { opacity: 1; } }
+  @media (prefers-reduced-motion: reduce) { #mx-egg { animation: none; } }
+</style>
+<script>
+(function () {
+  var SEQ = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+  var pos = 0, resetTimer = null, overlay = null, isOpen = false;
+  var raf = null, typeTimers = [], lastFocus = null;
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ----- input handling -----
+  function advance(tok) {
+    if (isOpen) return;
+    clearTimeout(resetTimer);
+    if (tok === SEQ[pos]) { pos++; } else { pos = (tok === SEQ[0]) ? 1 : 0; }
+    if (pos === SEQ.length) { pos = 0; show(); return; }
+    resetTimer = setTimeout(function () { pos = 0; }, 4000);
+  }
+
+  document.addEventListener('keydown', function (e) {
+    var t = e.target;
+    if (t && (/^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName) || t.isContentEditable)) return;
+    if (e.ctrlKey || e.metaKey || e.altKey) return;
+    var k = e.key && e.key.length === 1 ? e.key.toLowerCase() : e.key;
+    if (isOpen) { if (k === 'Escape') hide(); return; }
+    advance(k);
+  });
+
+  // Mobile: swipe the four directions, then tap twice (B, A).
+  var sx = null, sy = 0, st = 0;
+  document.addEventListener('touchstart', function (e) {
+    if (isOpen || e.touches.length !== 1) { sx = null; return; }
+    sx = e.touches[0].clientX; sy = e.touches[0].clientY; st = Date.now();
+  }, { passive: true });
+  document.addEventListener('touchcancel', function () { sx = null; }, { passive: true });
+  document.addEventListener('touchend', function (e) {
+    if (isOpen || sx === null) return;
+    var t = e.changedTouches[0], dx = t.clientX - sx, dy = t.clientY - sy;
+    var ax = Math.abs(dx), ay = Math.abs(dy);
+    sx = null;
+    if (Math.max(ax, ay) >= 40) {
+      advance(ax > ay ? (dx > 0 ? 'ArrowRight' : 'ArrowLeft') : (dy > 0 ? 'ArrowDown' : 'ArrowUp'));
+    } else if (ax < 10 && ay < 10 && Date.now() - st < 300 && pos >= 8) {
+      advance(pos === 8 ? 'b' : 'a');   // taps only count once all 8 swipes are in
+    }
+  }, { passive: true });
+
+  // ----- gear geometry -----
+  function gearPath(N, r) {
+    var add = 8, ded = 10, ro = r + add, rr = r - ded, p = 2 * Math.PI / N, pts = [];
+    for (var i = 0; i < N; i++) {
+      var t = i * p;
+      [[-0.25, rr], [-0.12, ro], [0.12, ro], [0.25, rr]].forEach(function (q) {
+        pts.push((q[1] * Math.cos(t + q[0] * p)).toFixed(2) + ',' + (q[1] * Math.sin(t + q[0] * p)).toFixed(2));
+      });
+    }
+    return 'M' + pts.join('L') + 'Z';
+  }
+
+  var NA = 12, NB = 18, RA = 60, RB = 90, CD = RA + RB;   // module 10 → pitch radius = 5·N
+  var A_DEG_PER_S = 60;                                  // gear A = 10 RPM
+  var B_PHASE = 180 + 180 / NB;                           // put a gap of B on the line of centers
+
+  function build() {
+    overlay = document.createElement('div');
+    overlay.id = 'mx-egg';
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    overlay.setAttribute('aria-label', 'Mechatronics easter egg');
+    overlay.hidden = true;
+    overlay.innerHTML =
+      '<div class="mx-panel">' +
+        '<button class="mx-close" type="button" aria-label="Close">✕</button>' +
+        '<h2>⚙ Mechatronics mode unlocked</h2>' +
+        '<svg viewBox="-72 -100 322 200" aria-hidden="true">' +
+          '<g id="mx-ga"><path class="mx-gear" d="' + gearPath(NA, RA) + '"/><circle class="mx-hub" r="14"/><circle class="mx-hub" r="3"/>' +
+            '<line class="mx-hub" x1="14" y1="0" x2="' + (RA - 12) + '" y2="0"/></g>' +
+          '<g id="mx-gb" transform="translate(' + CD + ',0)"><path class="mx-gear" d="' + gearPath(NB, RB) + '"/>' +
+            '<circle class="mx-hub" r="18"/><circle class="mx-hub" r="3"/><line class="mx-hub" x1="18" y1="0" x2="' + (RB - 12) + '" y2="0"/></g>' +
+        '</svg>' +
+        '<div class="mx-readout"><span id="mx-r1"></span><span id="mx-r2"></span><span id="mx-r3"></span></div>' +
+        '<div class="mx-term" id="mx-term" aria-live="polite"></div>' +
+        '<p class="mx-fact">Fun fact: the worm gear in my tortilla machine can be self-locking, so the load can’t back-drive the motor. Press Esc or tap anywhere outside to close.</p>' +
+      '</div>';
+    document.body.appendChild(overlay);
+    overlay.addEventListener('click', function (e) { if (e.target === overlay) hide(); });
+    overlay.querySelector('.mx-close').addEventListener('click', hide);
+    overlay.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') hide();
+      if (e.key === 'Tab') { e.preventDefault(); overlay.querySelector('.mx-close').focus(); }
+    });
+  }
+
+  var LINES = [
+    '> homing axes ............... OK',
+    '> calibrating encoder ....... 1632 counts/rev',
+    '> meshing gear train ........ 12T : 18T  (3:2)',
+    '> tuning PID loop ........... settled, no overshoot',
+    '> code accepted: \u2191\u2191\u2193\u2193\u2190\u2192\u2190\u2192 B A',
+    '> system nominal. carry on, engineer.'
+  ];
+
+  function spin(t0) {
+    var ga = document.getElementById('mx-ga'), gb = document.getElementById('mx-gb');
+    var r1 = document.getElementById('mx-r1'), r2 = document.getElementById('mx-r2'), r3 = document.getElementById('mx-r3');
+    function frame(now) {
+      var s = reduce ? 0 : (now - t0) / 1000;
+      var a = A_DEG_PER_S * s, b = B_PHASE - a * NA / NB;
+      ga.setAttribute('transform', 'rotate(' + a.toFixed(2) + ')');
+      gb.setAttribute('transform', 'translate(' + CD + ',0) rotate(' + b.toFixed(2) + ')');
+      var counts = Math.floor((a / 360) * 1632);
+      r1.textContent = 'A: ' + (A_DEG_PER_S / 6).toFixed(1) + ' RPM';
+      r2.textContent = 'B: ' + (A_DEG_PER_S / 6 * NA / NB).toFixed(1) + ' RPM';
+      r3.textContent = 'ENC: ' + String(counts).padStart(7, '0');
+      if (!reduce) raf = requestAnimationFrame(frame);
+    }
+    raf = requestAnimationFrame(frame);
+  }
+
+  function type() {
+    var term = document.getElementById('mx-term');
+    term.textContent = '';
+    LINES.forEach(function (line, i) {
+      var add = function () { term.textContent += (i ? '\n' : '') + line; };
+      if (reduce) add(); else typeTimers.push(setTimeout(add, 350 + i * 550));
+    });
+  }
+
+  function show() {
+    if (!overlay) build();
+    lastFocus = document.activeElement;
+    overlay.hidden = false;
+    isOpen = true;
+    document.documentElement.style.overflow = 'hidden';
+    overlay.querySelector('.mx-close').focus();
+    type();
+    spin(performance.now());
+  }
+
+  function hide() {
+    if (!overlay) return;
+    overlay.hidden = true;
+    isOpen = false;
+    pos = 0;
+    cancelAnimationFrame(raf);
+    typeTimers.forEach(clearTimeout); typeTimers = [];
+    document.documentElement.style.overflow = '';
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+})();
+</script>
+<!-- Mobile bottom tab bar: always-visible navigation on phones and small tablets.
+     Hidden on desktop (>= 992px), where the regular navbar is used.
+     Links are built relative to the site root by reading the path of a site_libs script. -->
+<nav id="mobile-tabbar" aria-label="Main sections">
+  <a href="index.html" data-section="home"><i class="bi bi-house-door"></i><span>Home</span></a>
+  <a href="Projects/index.html" data-section="Projects"><i class="bi bi-briefcase"></i><span>Projects</span></a>
+  <a href="Art/index.html" data-section="Art"><i class="bi bi-brush"></i><span>Art</span></a>
+  <a href="labs/index.html" data-section="labs"><i class="bi bi-rocket-takeoff"></i><span>Labs</span></a>
+</nav>
+<script>
+(function () {
+  var bar = document.getElementById("mobile-tabbar");
+  if (!bar) return;
+  // Work out the path prefix back to the site root (e.g. "", "../", "../../").
+  var s = document.querySelector('script[src*="site_libs/"]');
+  var prefix = "";
+  if (s) {
+    var src = s.getAttribute("src");
+    prefix = src.slice(0, src.indexOf("site_libs/"));
+  }
+  // Figure out which section we are in from the first folder after the site root.
+  var path = decodeURIComponent(location.pathname);
+  var depth = (prefix.match(/\.\.\//g) || []).length;
+  var parts = path.split("/").filter(Boolean);
+  var section = "home";
+  if (depth > 0 && parts.length >= depth + 1) {
+    section = parts[parts.length - 1 - depth];
+  }
+  var links = bar.querySelectorAll("a");
+  for (var i = 0; i < links.length; i++) {
+    var a = links[i];
+    a.setAttribute("href", prefix + a.getAttribute("href"));
+    if (a.getAttribute("data-section") === section) {
+      a.classList.add("active");
+      a.setAttribute("aria-current", "page");
+    }
+  }
+  // Keep the page content clear of the bar.
+  document.body.classList.add("has-mobile-tabbar");
+})();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/EduardoAmbrizLazo\.github\.io\/portfolio\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>Harvey Mudd College · Engineering ’27</p>
+</div>
+    <div class="nav-footer-right">
+<p>Built with <a href="https://quarto.org">Quarto</a></p>
+</div>
+  </div>
+</footer>
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
+
+
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Eduardo Ambriz Lazo">
-<meta name="description" content="A multi-cycle processor with a custom ISA, plus an FPGA digital keyboard synthesizer.">
+<meta name="description" content="A multi-cycle RISC-V processor built around a finite state machine, plus an FPGA digital keyboard synthesizer.">
 
 <title>RISC-V Multi-Cycle Processor &amp; FPGA Synthesizer – Portfolio</title>
 <style>
@@ -47,7 +47,10 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-0d160f1e9578a5fb1854bf9644f4e79c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-2ca4257ca38fdd789a25acd2d1b6d69e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -134,8 +137,12 @@ ul.task-list li input[type="checkbox"] {
  <span class="dropdown-text">AUV Telemetry System</span></a>
   </li>  
         <li>
+    <a class="dropdown-item" href="../Projects/nosecone.html">
+ <span class="dropdown-text">Nose Cone Drag (CFD)</span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="../Projects/hammer.html">
- <span class="dropdown-text">Hammer Project</span></a>
+ <span class="dropdown-text">Machined Hammer</span></a>
   </li>  
     </ul>
   </li>
@@ -237,7 +244,12 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
-  <li><a href="#the-processor" id="toc-the-processor" class="nav-link" data-scroll-target="#the-processor">The Processor</a></li>
+  <li><a href="#the-processor" id="toc-the-processor" class="nav-link" data-scroll-target="#the-processor">The Processor</a>
+  <ul class="collapse">
+  <li><a href="#hierarchy" id="toc-hierarchy" class="nav-link" data-scroll-target="#hierarchy">Hierarchy</a></li>
+  <li><a href="#the-controller-fsm" id="toc-the-controller-fsm" class="nav-link" data-scroll-target="#the-controller-fsm">The Controller FSM</a></li>
+  </ul></li>
+  <li><a href="#verification" id="toc-verification" class="nav-link" data-scroll-target="#verification">Verification</a></li>
   <li><a href="#the-fpga-keyboard-synthesizer" id="toc-the-fpga-keyboard-synthesizer" class="nav-link" data-scroll-target="#the-fpga-keyboard-synthesizer">The FPGA Keyboard Synthesizer</a></li>
   <li><a href="#gallery" id="toc-gallery" class="nav-link" data-scroll-target="#gallery">Gallery</a></li>
   </ul>
@@ -259,7 +271,7 @@ ul.task-list li input[type="checkbox"] {
 
 <div>
   <div class="description">
-    A multi-cycle processor with a custom ISA, plus an FPGA digital keyboard synthesizer.
+    A multi-cycle RISC-V processor built around a finite state machine, plus an FPGA digital keyboard synthesizer.
   </div>
 </div>
 
@@ -290,22 +302,127 @@ ul.task-list li input[type="checkbox"] {
 
 <div class="project-meta">
 <p><strong>Timeline:</strong> August – December 2025<br>
+<strong>Course:</strong> E85 Digital Electronics and Computer Engineering, Harvey Mudd College<br>
 <strong>Tools:</strong> <span class="pill">SystemVerilog</span> <span class="pill">FPGA</span> <span class="pill">Questa</span> <span class="pill">Quartus</span></p>
 </div>
 <section id="overview" class="level2">
 <h2 class="anchored" data-anchor-id="overview">Overview</h2>
-<p>This project had two parts: a RISC-V-style multi-cycle processor with an instruction set architecture (ISA) that I defined, and a digital keyboard synthesizer running on an FPGA.</p>
+<p>This project had two parts: a multi-cycle RISC-V processor written in SystemVerilog and simulated until it passed the course testbench, and a digital keyboard synthesizer running on an FPGA.</p>
 </section>
 <section id="the-processor" class="level2">
 <h2 class="anchored" data-anchor-id="the-processor">The Processor</h2>
-<p>In a multi-cycle design, each instruction takes several clock cycles, and a finite state machine (FSM) sequences the shared datapath through those steps.</p>
+<p>In a multi-cycle design, each instruction takes several clock cycles, and a finite state machine (FSM) sequences one shared datapath through those steps. Compared with a single-cycle processor, this lets the design reuse one ALU and one unified memory for everything, at the cost of a more involved controller.</p>
+<p>My processor runs a subset of the RISC-V instruction set:</p>
 <ul>
-<li>Defined a custom ISA.</li>
-<li>Designed the datapath components: the ALU, registers, and memory.</li>
-<li>Implemented the FSM that controls multi-cycle instruction execution.</li>
+<li><strong>Memory:</strong> <code>lw</code>, <code>sw</code></li>
+<li><strong>Register arithmetic:</strong> <code>add</code>, <code>sub</code>, <code>and</code>, <code>or</code>, <code>slt</code></li>
+<li><strong>Immediate arithmetic:</strong> <code>addi</code></li>
+<li><strong>Control flow:</strong> <code>beq</code>, <code>jal</code></li>
 </ul>
-<div class="img-placeholder">
-<p>Image coming soon: datapath and FSM diagram</p>
+<section id="hierarchy" class="level3">
+<h3 class="anchored" data-anchor-id="hierarchy">Hierarchy</h3>
+<p>The design is hierarchical, with a separate module for each block. The top module holds the processor and a single unified instruction/data memory, and the processor holds the datapath and the controller. For testing, the top module also brings out <code>WriteData</code>, <code>Adr</code>, and <code>MemWrite</code>, which are otherwise internal wires between the processor and memory.</p>
+<div id="fig-hierarchy" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-hierarchy-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="images/riscv-block-diagram.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;1: Block hierarchy: the riscv processor (controller and datapath) connected to one unified instruction/data memory, with every signal between blocks labeled."><img src="images/riscv-block-diagram.png" class="img-fluid figure-img" style="width:75.0%"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-hierarchy-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Block hierarchy: the <code>riscv</code> processor (controller and datapath) connected to one unified instruction/data memory, with every signal between blocks labeled.
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="the-controller-fsm" class="level3">
+<h3 class="anchored" data-anchor-id="the-controller-fsm">The Controller FSM</h3>
+<p>The controller is a main FSM plus an ALU decoder and an immediate decoder. The FSM walks through these states, and the instruction’s opcode decides which path it takes after Decode:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 22%">
+<col style="width: 51%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>State</th>
+<th>Name</th>
+<th>What happens</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>S0</td>
+<td>Fetch</td>
+<td>Read the instruction from memory into the instruction register, and compute PC + 4</td>
+</tr>
+<tr class="even">
+<td>S1</td>
+<td>Decode</td>
+<td>Read the registers, and precompute the branch target (old PC + immediate)</td>
+</tr>
+<tr class="odd">
+<td>S2</td>
+<td>MemAdr</td>
+<td>Compute the load/store address (register + immediate)</td>
+</tr>
+<tr class="even">
+<td>S3</td>
+<td>MemRead</td>
+<td>Read the data word from memory</td>
+</tr>
+<tr class="odd">
+<td>S4</td>
+<td>MemWB</td>
+<td>Write the loaded data into the register file</td>
+</tr>
+<tr class="even">
+<td>S5</td>
+<td>MemWrite</td>
+<td>Write the store data to memory</td>
+</tr>
+<tr class="odd">
+<td>S6</td>
+<td>ExecuteR</td>
+<td>Run the ALU on two registers</td>
+</tr>
+<tr class="even">
+<td>S7</td>
+<td>ALUWB</td>
+<td>Write the ALU result into the register file</td>
+</tr>
+<tr class="odd">
+<td>S8</td>
+<td>ExecuteI</td>
+<td>Run the ALU on a register and an immediate</td>
+</tr>
+<tr class="even">
+<td>S9</td>
+<td>JAL</td>
+<td>Compute the jump target and update the PC</td>
+</tr>
+<tr class="odd">
+<td>S10</td>
+<td>BEQ</td>
+<td>Compare the registers and update the PC if they match</td>
+</tr>
+</tbody>
+</table>
+<p>That works out to 5 cycles for <code>lw</code>, 4 for <code>sw</code>, <code>add</code>-style R-type, <code>addi</code>, and <code>jal</code>, and 3 for <code>beq</code>.</p>
+</section>
+</section>
+<section id="verification" class="level2">
+<h2 class="anchored" data-anchor-id="verification">Verification</h2>
+<p>Before running anything, I predicted what the processor should do on every cycle of the first few instructions (the PC, the state, the ALU result, and the value on the Result bus) and then compared that against the simulated waveforms in Questa. When a signal first disagreed with the prediction, I worked backward from it to the module with good inputs and bad outputs. Working from the first discrepancy backward keeps debugging systematic instead of a guessing game.</p>
+<p>The final design passes the course testbench. The waveform below shows the control and datapath signals as the program runs, and the last value is written to the expected address.</p>
+<div id="fig-wave" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-wave-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="images/riscv-wave.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;2: Questa waveforms for clk, reset, WriteData, Adr, MemWrite, ReadData, PC, ALUResult, ALUSrcA, ALUSrcB, the FSM state, and Instr. The circled value is the final write the testbench checks."><img src="images/riscv-wave.png" class="img-fluid figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-wave-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Questa waveforms for <code>clk</code>, <code>reset</code>, <code>WriteData</code>, <code>Adr</code>, <code>MemWrite</code>, <code>ReadData</code>, <code>PC</code>, <code>ALUResult</code>, <code>ALUSrcA</code>, <code>ALUSrcB</code>, the FSM state, and <code>Instr</code>. The circled value is the final write the testbench checks.
+</figcaption>
+</figure>
 </div>
 </section>
 <section id="the-fpga-keyboard-synthesizer" class="level2">
@@ -320,7 +437,7 @@ ul.task-list li input[type="checkbox"] {
 <div class="grid">
 <div class="g-col-12 g-col-md-6">
 <div class="img-placeholder">
-<p>Image coming soon: simulation waveforms</p>
+<p>Image coming soon: synthesizer waveform</p>
 </div>
 </div>
 <div class="g-col-12 g-col-md-6">
@@ -505,6 +622,47 @@ ul.task-list li input[type="checkbox"] {
     document.documentElement.style.overflow = '';
     if (lastFocus && lastFocus.focus) lastFocus.focus();
   }
+})();
+</script>
+<!-- Mobile bottom tab bar: always-visible navigation on phones and small tablets.
+     Hidden on desktop (>= 992px), where the regular navbar is used.
+     Links are built relative to the site root by reading the path of a site_libs script. -->
+<nav id="mobile-tabbar" aria-label="Main sections">
+  <a href="index.html" data-section="home"><i class="bi bi-house-door"></i><span>Home</span></a>
+  <a href="Projects/index.html" data-section="Projects"><i class="bi bi-briefcase"></i><span>Projects</span></a>
+  <a href="Art/index.html" data-section="Art"><i class="bi bi-brush"></i><span>Art</span></a>
+  <a href="labs/index.html" data-section="labs"><i class="bi bi-rocket-takeoff"></i><span>Labs</span></a>
+</nav>
+<script>
+(function () {
+  var bar = document.getElementById("mobile-tabbar");
+  if (!bar) return;
+  // Work out the path prefix back to the site root (e.g. "", "../", "../../").
+  var s = document.querySelector('script[src*="site_libs/"]');
+  var prefix = "";
+  if (s) {
+    var src = s.getAttribute("src");
+    prefix = src.slice(0, src.indexOf("site_libs/"));
+  }
+  // Figure out which section we are in from the first folder after the site root.
+  var path = decodeURIComponent(location.pathname);
+  var depth = (prefix.match(/\.\.\//g) || []).length;
+  var parts = path.split("/").filter(Boolean);
+  var section = "home";
+  if (depth > 0 && parts.length >= depth + 1) {
+    section = parts[parts.length - 1 - depth];
+  }
+  var links = bar.querySelectorAll("a");
+  for (var i = 0; i < links.length; i++) {
+    var a = links[i];
+    a.setAttribute("href", prefix + a.getAttribute("href"));
+    if (a.getAttribute("data-section") === section) {
+      a.classList.add("active");
+      a.setAttribute("aria-current", "page");
+    }
+  }
+  // Keep the page content clear of the bar.
+  document.body.classList.add("has-mobile-tabbar");
 })();
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
@@ -926,6 +1084,38 @@ ul.task-list li input[type="checkbox"] {
 </div>
   </div>
 </footer>
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
 
 
 

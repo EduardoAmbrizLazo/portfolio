@@ -47,7 +47,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-0d160f1e9578a5fb1854bf9644f4e79c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-2ca4257ca38fdd789a25acd2d1b6d69e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -134,8 +134,12 @@ ul.task-list li input[type="checkbox"] {
  <span class="dropdown-text">AUV Telemetry System</span></a>
   </li>  
         <li>
+    <a class="dropdown-item" href="../Projects/nosecone.html">
+ <span class="dropdown-text">Nose Cone Drag (CFD)</span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="../Projects/hammer.html">
- <span class="dropdown-text">Hammer Project</span></a>
+ <span class="dropdown-text">Machined Hammer</span></a>
   </li>  
     </ul>
   </li>
@@ -517,6 +521,47 @@ and put the file in Projects/images/ -->
     document.documentElement.style.overflow = '';
     if (lastFocus && lastFocus.focus) lastFocus.focus();
   }
+})();
+</script>
+<!-- Mobile bottom tab bar: always-visible navigation on phones and small tablets.
+     Hidden on desktop (>= 992px), where the regular navbar is used.
+     Links are built relative to the site root by reading the path of a site_libs script. -->
+<nav id="mobile-tabbar" aria-label="Main sections">
+  <a href="index.html" data-section="home"><i class="bi bi-house-door"></i><span>Home</span></a>
+  <a href="Projects/index.html" data-section="Projects"><i class="bi bi-briefcase"></i><span>Projects</span></a>
+  <a href="Art/index.html" data-section="Art"><i class="bi bi-brush"></i><span>Art</span></a>
+  <a href="labs/index.html" data-section="labs"><i class="bi bi-rocket-takeoff"></i><span>Labs</span></a>
+</nav>
+<script>
+(function () {
+  var bar = document.getElementById("mobile-tabbar");
+  if (!bar) return;
+  // Work out the path prefix back to the site root (e.g. "", "../", "../../").
+  var s = document.querySelector('script[src*="site_libs/"]');
+  var prefix = "";
+  if (s) {
+    var src = s.getAttribute("src");
+    prefix = src.slice(0, src.indexOf("site_libs/"));
+  }
+  // Figure out which section we are in from the first folder after the site root.
+  var path = decodeURIComponent(location.pathname);
+  var depth = (prefix.match(/\.\.\//g) || []).length;
+  var parts = path.split("/").filter(Boolean);
+  var section = "home";
+  if (depth > 0 && parts.length >= depth + 1) {
+    section = parts[parts.length - 1 - depth];
+  }
+  var links = bar.querySelectorAll("a");
+  for (var i = 0; i < links.length; i++) {
+    var a = links[i];
+    a.setAttribute("href", prefix + a.getAttribute("href"));
+    if (a.getAttribute("data-section") === section) {
+      a.classList.add("active");
+      a.setAttribute("aria-current", "page");
+    }
+  }
+  // Keep the page content clear of the bar.
+  document.body.classList.add("has-mobile-tabbar");
 })();
 </script>
 <script id="quarto-html-after-body" type="application/javascript">

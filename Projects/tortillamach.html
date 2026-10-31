@@ -47,7 +47,10 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-0d160f1e9578a5fb1854bf9644f4e79c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-2ca4257ca38fdd789a25acd2d1b6d69e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -134,8 +137,12 @@ ul.task-list li input[type="checkbox"] {
  <span class="dropdown-text">AUV Telemetry System</span></a>
   </li>  
         <li>
+    <a class="dropdown-item" href="../Projects/nosecone.html">
+ <span class="dropdown-text">Nose Cone Drag (CFD)</span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="../Projects/hammer.html">
- <span class="dropdown-text">Hammer Project</span></a>
+ <span class="dropdown-text">Machined Hammer</span></a>
   </li>  
     </ul>
   </li>
@@ -237,8 +244,10 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#how-it-works" id="toc-how-it-works" class="nav-link" data-scroll-target="#how-it-works">How It Works</a></li>
   <li><a href="#what-i-built" id="toc-what-i-built" class="nav-link" data-scroll-target="#what-i-built">What I Built</a></li>
   <li><a href="#design-process" id="toc-design-process" class="nav-link" data-scroll-target="#design-process">Design Process</a></li>
+  <li><a href="#skills-used" id="toc-skills-used" class="nav-link" data-scroll-target="#skills-used">Skills Used</a></li>
   <li><a href="#gallery" id="toc-gallery" class="nav-link" data-scroll-target="#gallery">Gallery</a></li>
   </ul>
 </nav>
@@ -290,30 +299,57 @@ ul.task-list li input[type="checkbox"] {
 
 <div class="project-meta">
 <p><strong>Timeline:</strong> January – May 2026<br>
+<strong>Role:</strong> Design, analysis, fabrication, and assembly<br>
 <strong>Tools:</strong> <span class="pill">SolidWorks</span> <span class="pill">Waterjet cutting</span> <span class="pill">Mechanism design</span> <span class="pill">DC worm gear motor</span></p>
 </div>
 <section id="overview" class="level2">
 <h2 class="anchored" data-anchor-id="overview">Overview</h2>
-<p>I designed, analyzed, and fabricated an automated mechanical production system for making tortillas. The machine is driven by a DC worm gear motor that powers a waterjet-cut gear train, which in turn runs a set of integrated roller assemblies and a custom conveyor route for handling and processing dough.</p>
-<div class="img-placeholder">
-<p>Image coming soon: full machine render or photo</p>
+<p>I designed, analyzed, and fabricated an automated mechanical production system for making tortillas. A single DC worm gear motor powers a waterjet-cut gear train, and that gear train runs a set of integrated roller assemblies and a custom conveyor route that carries dough through the machine.</p>
+<p>The goal was a machine where the dough goes in one end and moves through the processing steps on its own, with one motor driving every moving part through the gear train.</p>
+<div id="fig-assembly" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-assembly-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="images/tortilla-assembly.jpg" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;1: The full machine assembly in SolidWorks: the gear train on the side of the frame drives the roller assembly."><img src="images/tortilla-assembly.jpg" class="img-fluid figure-img"></a>
 </div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-assembly-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: The full machine assembly in SolidWorks: the gear train on the side of the frame drives the roller assembly.
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="how-it-works" class="level2">
+<h2 class="anchored" data-anchor-id="how-it-works">How It Works</h2>
+<p>The machine is one mechanical chain from motor to dough:</p>
+<ol type="1">
+<li><strong>Motor.</strong> A DC worm gear motor supplies the input. A worm drive gives a large speed reduction and high torque in a compact package, which suits rollers that need to turn slowly and steadily.</li>
+<li><strong>Gear train.</strong> Waterjet-cut gears pass that motion from the motor to each roller shaft, so every roller turns in a fixed relationship with the others.</li>
+<li><strong>Roller assemblies.</strong> Integrated rollers grip and mechanically process the dough as it passes through.</li>
+<li><strong>Conveyor route.</strong> A custom conveyor path moves the dough from stage to stage without hand-feeding.</li>
+</ol>
 </section>
 <section id="what-i-built" class="level2">
 <h2 class="anchored" data-anchor-id="what-i-built">What I Built</h2>
 <ul>
-<li><strong>Drive system:</strong> a DC worm gear motor feeding a gear train that I designed and cut on the waterjet.</li>
-<li><strong>Roller assemblies:</strong> integrated rollers that handle and mechanically process the dough.</li>
-<li><strong>Conveyor routing:</strong> a custom conveyor path that moves dough through the machine automatically.</li>
+<li><strong>Drive system:</strong> the worm gear motor and a gear train that I designed and cut on the waterjet.</li>
+<li><strong>Roller assemblies:</strong> integrated rollers that handle and process the dough.</li>
+<li><strong>Conveyor routing:</strong> a custom path that moves dough through the machine automatically.</li>
 <li><strong>Analysis and fabrication:</strong> the mechanism was analyzed in the design phase, then fabricated and assembled as a working prototype.</li>
 </ul>
 </section>
 <section id="design-process" class="level2">
 <h2 class="anchored" data-anchor-id="design-process">Design Process</h2>
-<p>Everything started in SolidWorks, where I modeled the gear train, roller assemblies, and conveyor path together so the whole mechanism could be checked for fit and motion before cutting any material. Flat parts such as the gears were then cut on the waterjet.</p>
-<div class="img-placeholder">
-<p>Image coming soon: CAD model or exploded view</p>
-</div>
+<p>Everything started in SolidWorks. I modeled the gear train, roller assemblies, and conveyor path together as one assembly, so I could check fit and motion for the whole mechanism before cutting any material. Flat parts such as the gears then went to the waterjet, which cuts accurate profiles quickly from sheet stock.</p>
+<p>Because the gears, rollers, and conveyor all depend on each other, a change in one place (a gear’s pitch diameter, say) shows up everywhere else. Modeling them together in one assembly is what kept those changes manageable.</p>
+<!-- TODO (optional, add real numbers when you have them):
+- gear ratio / motor speed and torque
+- roller diameter and gap
+- materials (sheet stock, shaft, conveyor belt)
+- what you'd change in a second version
+Photos to add: the waterjet-cut gears, the finished machine running, a close-up of the rollers. -->
+</section>
+<section id="skills-used" class="level2">
+<h2 class="anchored" data-anchor-id="skills-used">Skills Used</h2>
+<p><span class="pill">SolidWorks assembly modeling</span> <span class="pill">Gear train design</span> <span class="pill">Waterjet cutting</span> <span class="pill">Mechanism analysis</span> <span class="pill">Prototype assembly</span></p>
 </section>
 <section id="gallery" class="level2">
 <h2 class="anchored" data-anchor-id="gallery">Gallery</h2>
@@ -505,6 +541,47 @@ ul.task-list li input[type="checkbox"] {
     document.documentElement.style.overflow = '';
     if (lastFocus && lastFocus.focus) lastFocus.focus();
   }
+})();
+</script>
+<!-- Mobile bottom tab bar: always-visible navigation on phones and small tablets.
+     Hidden on desktop (>= 992px), where the regular navbar is used.
+     Links are built relative to the site root by reading the path of a site_libs script. -->
+<nav id="mobile-tabbar" aria-label="Main sections">
+  <a href="index.html" data-section="home"><i class="bi bi-house-door"></i><span>Home</span></a>
+  <a href="Projects/index.html" data-section="Projects"><i class="bi bi-briefcase"></i><span>Projects</span></a>
+  <a href="Art/index.html" data-section="Art"><i class="bi bi-brush"></i><span>Art</span></a>
+  <a href="labs/index.html" data-section="labs"><i class="bi bi-rocket-takeoff"></i><span>Labs</span></a>
+</nav>
+<script>
+(function () {
+  var bar = document.getElementById("mobile-tabbar");
+  if (!bar) return;
+  // Work out the path prefix back to the site root (e.g. "", "../", "../../").
+  var s = document.querySelector('script[src*="site_libs/"]');
+  var prefix = "";
+  if (s) {
+    var src = s.getAttribute("src");
+    prefix = src.slice(0, src.indexOf("site_libs/"));
+  }
+  // Figure out which section we are in from the first folder after the site root.
+  var path = decodeURIComponent(location.pathname);
+  var depth = (prefix.match(/\.\.\//g) || []).length;
+  var parts = path.split("/").filter(Boolean);
+  var section = "home";
+  if (depth > 0 && parts.length >= depth + 1) {
+    section = parts[parts.length - 1 - depth];
+  }
+  var links = bar.querySelectorAll("a");
+  for (var i = 0; i < links.length; i++) {
+    var a = links[i];
+    a.setAttribute("href", prefix + a.getAttribute("href"));
+    if (a.getAttribute("data-section") === section) {
+      a.classList.add("active");
+      a.setAttribute("aria-current", "page");
+    }
+  }
+  // Keep the page content clear of the bar.
+  document.body.classList.add("has-mobile-tabbar");
 })();
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
@@ -926,6 +1003,38 @@ ul.task-list li input[type="checkbox"] {
 </div>
   </div>
 </footer>
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
 
 
 

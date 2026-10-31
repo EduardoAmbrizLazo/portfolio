@@ -1,15 +1,5 @@
 [
   {
-    "listing": "/Projects/index.html",
-    "items": [
-      "/Projects/hammer.html",
-      "/Projects/glove.html",
-      "/Projects/tortillamach.html",
-      "/Projects/multicycleprocessor.html",
-      "/Projects/auv.html"
-    ]
-  },
-  {
     "listing": "/labs/index.html",
     "items": [
       "/labs/lab1/index.html",
@@ -18,6 +8,17 @@
       "/labs/lab4/lab4.html",
       "/labs/lab5/lab5.html",
       "/labs/lab6/index.html"
+    ]
+  },
+  {
+    "listing": "/Projects/index.html",
+    "items": [
+      "/Projects/glove.html",
+      "/Projects/tortillamach.html",
+      "/Projects/multicycleprocessor.html",
+      "/Projects/nosecone.html",
+      "/Projects/auv.html",
+      "/Projects/hammer.html"
     ]
   }
 ]
